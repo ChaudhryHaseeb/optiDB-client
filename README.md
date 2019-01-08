@@ -1,4 +1,4 @@
-[![Build Status](https://img.shields.io/travis/chaudhryHaseeb/template-java-project/master.svg?style=flat-square)](https://travis-ci.org/chaudhryHaseeb/optidb)
+[![Build Status](https://img.shields.io/travis/ChaudhryHaseeb/optiDB/master.svg?style=flat-square)](https://travis-ci.org/chaudhryHaseeb/optiDB)
 
 
 # OptiDB - Projet Master
