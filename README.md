@@ -14,7 +14,30 @@ Il faut aussi que vous ayez vagrant dans le path
 ```bash
 # Installer l'image avec vagrant
 cd $chemin_vers_la_box
+
 vagrant box add --name nomDeLaBox cheminDeLaBox
 
+git clone https://github.com/ChaudhryHaseeb/optiDB.git
+
 vagrant up
+```
+
+## Autre commandes
+
+```
+# Démarrrer la VM
+vagrant up
+
+# Eteindre la VM
+vagrant halt
+
+# Supprimer la VM
+vagrant destroy
+
+# Se connecter en ssh à la VM
+vagrant ssh
+
+# Supprimer une box
+vagrant box remove nomDeLaBox
+
 ```
