@@ -1,4 +1,5 @@
 [![Build Status](https://img.shields.io/travis/ChaudhryHaseeb/optiDB/master.svg?style=flat-square)](https://travis-ci.org/chaudhryHaseeb/optiDB)
+[![Waffle.io - Columns and their card count](https://badge.waffle.io/ChaudhryHaseeb/optiDB.svg?columns=all)](https://waffle.io/ChaudhryHaseeb/optiDB)
 
 
 # OptiDB - Projet Master
