@@ -1,4 +1,7 @@
-# optiDB - Projet Master
+[![Build Status](https://img.shields.io/travis/chaudhryHaseeb/template-java-project/master.svg?style=flat-square)](https://travis-ci.org/chaudhryHaseeb/optidb)
+
+
+# OptiDB - Projet Master
 
 ## Prérequis
 * Git, gestionnaire de version - [Télécharger git](https://git-scm.com/downloads)
@@ -22,7 +25,7 @@ git clone https://github.com/ChaudhryHaseeb/optiDB.git
 vagrant up
 ```
 
-## Autre commandes
+## Autres commandes
 
 ```
 # Démarrrer la VM
