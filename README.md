@@ -19,9 +19,9 @@ Il faut aussi que vous ayez vagrant dans le path
 # Installer l'image avec vagrant
 cd $chemin_vers_la_box
 
-vagrant box add --name nomDeLaBox cheminDeLaBox
+vagrant box add --name nomDeLaBox ubuntu-16.04.box
 
-git clone https://github.com/ChaudhryHaseeb/optiDB.git
+git clone https://github.com/ChaudhryHaseeb/optiDB-client.git  
 
 vagrant up
 ```
