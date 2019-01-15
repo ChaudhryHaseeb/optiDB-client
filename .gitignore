@@ -43,7 +43,7 @@ instance/
 # Sphinx documentation
 docs/_build/
 
-# PyBuilder
+# MvnBuilder
 target/
 
 # Jupyter Notebook
