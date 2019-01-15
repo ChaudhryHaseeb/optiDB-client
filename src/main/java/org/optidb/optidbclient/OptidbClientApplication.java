@@ -16,11 +16,5 @@ public class OptidbClientApplication
 
 	}
 
-	@RequestMapping(value = "/")
-	public String hello() {
-		return "Hello World";
-	}
-
-
 }
 
