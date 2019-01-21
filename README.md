@@ -1,9 +1,9 @@
 [![Build Status](https://img.shields.io/travis/ChaudhryHaseeb/optiDB-client/master.svg?style=flat-square)](https://travis-ci.org/chaudhryHaseeb/optiDB-client)
 [![Waffle.io - Columns and their card count](https://badge.waffle.io/ChaudhryHaseeb/optiDB-client.svg?columns=all)](https://waffle.io/ChaudhryHaseeb/optiDB-client)
 
-[![SonarCloud Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=optidb%3Aoptidb-client&metric=alert_status)](https://sonarcloud.io/dashboard?id=org.optidb%3Aoptidb-client)
-[![SonarCloud Coverage](https://sonarcloud.io/api/project_badges/measure?project=optidb%3Aoptidb-client&metric=coverage)](https://sonarcloud.io/dashboard?id=org.optidb%3Aoptidb-client)
-[![SonarCloud Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=optidb%3Aoptidb-client&metric=sqale_index)](https://sonarcloud.io/dashboard?id=org.optidb%3Aoptidb-client)
+[![SonarCloud Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=org.optidb%3Aoptidb-client&metric=alert_status)](https://sonarcloud.io/dashboard?id=org.optidb%3Aoptidb-client)
+[![SonarCloud Coverage](https://sonarcloud.io/api/project_badges/measure?project=org.optidb%3Aoptidb-client&metric=coverage)](https://sonarcloud.io/dashboard?id=org.optidb%3Aoptidb-client)
+[![SonarCloud Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=org.optidb%3Aoptidb-client&metric=sqale_index)](https://sonarcloud.io/dashboard?id=org.optidb%3Aoptidb-client)
 
 
 # OptiDB - Projet Master
