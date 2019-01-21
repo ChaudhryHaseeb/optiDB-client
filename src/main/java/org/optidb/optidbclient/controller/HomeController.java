@@ -9,12 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-public class MainController {
+public class HomeController {
 
     @Value("${spring.application.name}")
     String appName;
 
-    @GetMapping("/")
+    @GetMapping("/home")
     public String homePage(Model model) {
         model.addAttribute("appName", appName);
         return "home";
