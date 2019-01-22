@@ -4,6 +4,7 @@
 [![SonarCloud Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=org.optidb%3Aoptidb-client&metric=alert_status)](https://sonarcloud.io/dashboard?id=org.optidb%3Aoptidb-client)
 [![SonarCloud Coverage](https://sonarcloud.io/api/project_badges/measure?project=org.optidb%3Aoptidb-client&metric=coverage)](https://sonarcloud.io/dashboard?id=org.optidb%3Aoptidb-client)
 [![SonarCloud Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=org.optidb%3Aoptidb-client&metric=sqale_index)](https://sonarcloud.io/dashboard?id=org.optidb%3Aoptidb-client)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=org.optidb%3Aoptidb-client&metric=code_smells)](https://sonarcloud.io/dashboard?id=org.optidb%3Aoptidb-client)
 
 
 # OptiDB - Projet Master
