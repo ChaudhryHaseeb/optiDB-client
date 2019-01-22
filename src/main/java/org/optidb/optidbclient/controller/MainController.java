@@ -1,5 +1,6 @@
-package org.optidb.optidbclient;
+package org.optidb.optidbclient.controller;
 
+import org.optidb.optidbclient.model.Platform;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +12,7 @@ import java.util.List;
 public class MainController {
 
     @GetMapping({"/", "/liste"})
-    public String hello(Model model, @RequestParam(value="name", required=false, defaultValue="World") String name) {
+    public String liste(Model model) {
         List<Platform> platforms = new ArrayList<Platform>();
         platforms.add(new Platform("Hadoop"));
         platforms.add(new Platform("Spark"));
