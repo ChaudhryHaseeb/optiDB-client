@@ -2,9 +2,9 @@
 Vagrant.configure("2") do |config|
   config.vm.box = "optiDB"
   config.vm.hostname = "projetMaster"
-  config.ssh.insert_key = false
   config.vm.network "private_network", ip: "192.168.1.97"
   config.vm.network "forwarded_port", guest: 3000, host: 3000, host_ip: "127.0.0.1"
+  config.ssh.insert_key = false
   config.vm.provider "virtualbox" do |vb|
       vb.name = "projetMaster"
       vb.memory = "2048"
