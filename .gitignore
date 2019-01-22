@@ -6,6 +6,10 @@ __pycache__/
 # IDE
 .idea
 .vscode
+.iml
+.project
+.classpath
+.settings
 
 #Vagrant
 .vagrant
