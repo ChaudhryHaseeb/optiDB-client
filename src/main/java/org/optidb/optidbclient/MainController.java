@@ -10,20 +10,14 @@ import java.util.List;
 @Controller
 public class MainController {
 
-    /*@RequestMapping(value = "/", method = RequestMethod.GET)
-    public @ResponseBody
-    List<Platform> listAllPlaform() {
-        List<Platform> platforms = new ArrayList<Platform>();
-        platforms.add(new Platform("Hadoop"));
-        platforms.add(new Platform("Spark"));
-        return platforms;
-    }*/
-
     @GetMapping({"/", "/liste"})
     public String hello(Model model, @RequestParam(value="name", required=false, defaultValue="World") String name) {
         List<Platform> platforms = new ArrayList<Platform>();
         platforms.add(new Platform("Hadoop"));
         platforms.add(new Platform("Spark"));
+        platforms.add(new Platform("Talend"));
+        platforms.add(new Platform("Cassandra"));
+
         model.addAttribute("liste", platforms);
         return "listePlateformes";
     }
