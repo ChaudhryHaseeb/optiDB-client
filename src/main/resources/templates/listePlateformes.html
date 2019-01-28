@@ -2,8 +2,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="'Hello, ' + ${liste} + '!'"></title>
-    <link th:href="@{/main.css}" rel="stylesheet">
+    <title>test</title>
+    <link href="/css/main.css" rel="stylesheet" />
+    <link href="webjars/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" />
 </head>
 <body>
 <table>
@@ -18,6 +19,20 @@
     </tr>
     </tbody>
 </table>
-<script src="/js/main.js"></script>
+
+<form class="form-inline">
+    <div class="form-group">
+        <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+        <div class="input-group">
+            <div class="input-group-addon">$</div>
+            <input type="text" class="form-control" id="exampleInputAmount" placeholder="Amount">
+            <div class="input-group-addon">.00</div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Transfer cash</button>
+</form>
+
+<i class="fa fa-fw fa-file"></i>
+
 </body>
 </html>
