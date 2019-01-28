@@ -12,8 +12,9 @@ import java.util.List;
 public class MainController {
 
     @GetMapping({"/", "/liste"})
-    public String liste(Model model) {
-        List<Platform> platforms = new ArrayList<Platform>();
+    public String liste(Model model)
+    {
+        List<Platform> platforms = new ArrayList<>();
         platforms.add(new Platform("Hadoop"));
         platforms.add(new Platform("Spark"));
         platforms.add(new Platform("Talend"));
