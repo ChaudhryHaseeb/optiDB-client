@@ -1,4 +1,14 @@
 [![Build Status](https://img.shields.io/travis/ChaudhryHaseeb/optiDB-client/master.svg?style=flat-square)](https://travis-ci.org/chaudhryHaseeb/optiDB-client)
+[![License](https://img.shields.io/github/license/ChaudhryHaseeb/optiDB-client.svg?style=flat-square)](LICENSE)
+[![Version](https://img.shields.io/github/tag/ChaudhryHaseeb/optiDB-client.svg?label=version&style=flat-square)](build.gradle)
+
+[![SonarCloud Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=org.optidb%3Aoptidb-client&metric=alert_status)](https://sonarcloud.io/dashboard?id=org.optidb%3Aoptidb-client)
+[![SonarCloud Coverage](https://sonarcloud.io/api/project_badges/measure?project=org.optidb%3Aoptidb-client&metric=coverage)](https://sonarcloud.io/dashboard?id=org.optidb%3Aoptidb-client)
+[![SonarCloud Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=org.optidb%3Aoptidb-client&metric=sqale_index)](https://sonarcloud.io/dashboard?id=org.optidb%3Aoptidb-client)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=org.optidb%3Aoptidb-client&metric=code_smells)](https://sonarcloud.io/dashboard?id=org.optidb%3Aoptidb-client)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=org.optidb%3Aoptidb-client&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=org.optidb%3Aoptidb-client)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=org.optidb%3Aoptidb-client&metric=security_rating)](https://sonarcloud.io/dashboard?id=org.optidb%3Aoptidb-client)
+
 [![Waffle.io - Columns and their card count](https://badge.waffle.io/ChaudhryHaseeb/optiDB-client.svg?columns=all)](https://waffle.io/ChaudhryHaseeb/optiDB-client)
 
 
@@ -19,7 +29,7 @@ Il faut aussi que vous ayez vagrant dans le path
 # Installer l'image avec vagrant
 cd $chemin_vers_la_box
 
-vagrant box add --name nomDeLaBox ubuntu-16.04.box
+vagrant box add --name optiDB ubuntu-16.04.box
 
 git clone https://github.com/ChaudhryHaseeb/optiDB-client.git  
 

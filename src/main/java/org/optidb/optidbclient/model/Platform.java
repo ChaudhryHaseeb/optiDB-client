@@ -1,4 +1,4 @@
-package org.optidb.optidbclient;
+package org.optidb.optidbclient.model;
 
 public class Platform {
     private String name;
