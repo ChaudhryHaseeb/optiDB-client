@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="/fragments/header :: head">
-
+<head>
+    <meta charset="UTF-8">
+    <title th:text="OptiDB"></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script th:src="@{/main.js}"></script>
+    <link th:href="@{/main.css}" rel="stylesheet">
 </head>
-
-<body th:insert="home :: body">
-<div>
-    <h1>Hello world</h1>
-</div>
+<body>
+<span th:text="${mess}"></span>
 <table>
     <thead>
     <tr>
@@ -20,6 +21,6 @@
     </tr>
     </tbody>
 </table>
-<script th:href="@{/main.js}"></script>
+
 </body>
 </html>
