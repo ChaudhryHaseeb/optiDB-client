@@ -1,51 +1,44 @@
 package org.optidb.optidbclient.controller;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.optidb.optidbclient.model.Platform;
-import org.springframework.http.ResponseEntity;
+import org.optidb.optidbclient.model.Resultat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.IOException;
-import java.io.StringWriter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 @Controller
 public class MainController {
 
-    @GetMapping({"/", "/liste"})
+    @GetMapping({"/liste"})
     public String liste(Model model) {
-
-        //model.addAttribute("liste", platforms);
-        model.addAttribute("liste",getMessage());
+        model.addAttribute("liste",this.getAllPlatforms());
         return "listePlateformes";
     }
 
-    @GetMapping({"/home"})
+    @GetMapping({"/", "/home"})
     public String home(Model model) {
         return "home";
     }
 
-    private List<Platform> getMessage()
-    {
+    @GetMapping({"/platform/{id}"})
+    public String platformVersion(Model model, @PathVariable(value="id") final String name){
+        model.addAttribute("platform",this.getResultat(name));
+        return "platform_infos";
+    }
+
+    public List<Platform> getAllPlatforms() {
         List<Platform> liste = new ArrayList<>();
         String URL_LISTE = "http://192.168.33.10:8080/list";
         RestTemplate restTemplate = new RestTemplate();
         String plt = restTemplate.getForObject(URL_LISTE,String.class);
-        //String plt = "[{\"name\":\"mongo\",\"currentVersion\":\"3.4.19\"},{\"name\":\"mysql\",\"currentVersion\":\"8.0.14\"}]";
         try {
             JSONArray root = new JSONArray(plt);
             for(int i=0;i<root.length();i++) {
@@ -53,13 +46,25 @@ public class MainController {
                 Platform obj = new Platform(jsonObj.getString("name"),jsonObj.getString("currentVersion"));
                 liste.add(obj);
             }
-
-            //return root.getJSONObject(1).getString("name");
-            //Platform obj = new Platform(result.getString("name"),result.getString("currentVersion"));
         }
         catch (JSONException e) {
         }
         return liste;
-
     }
+
+    public Resultat getResultat(String name) {
+        String URL_PLATEFORME = "http://192.168.33.10:8080/platform?name="+name;
+        RestTemplate restTemplate = new RestTemplate();
+        String plt = restTemplate.getForObject(URL_PLATEFORME,String.class);
+        Resultat res = null;
+        try {
+            JSONObject obj = new JSONObject(plt);
+            res = new Resultat(obj.getString("platformName"),obj.getInt("tempsCreate"),obj.getInt("tempsInsert"),obj.getInt("tempsDelete"));
+        }
+        catch (JSONException e) {
+
+        }
+        return res;
+    }
+
 }
