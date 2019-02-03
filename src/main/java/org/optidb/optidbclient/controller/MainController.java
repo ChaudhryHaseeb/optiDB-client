@@ -11,7 +11,7 @@ import java.util.List;
 @Controller
 public class MainController {
 
-    @GetMapping({"/", "/liste"})
+    @GetMapping ("/liste")
     public String liste(Model model)
     {
         List<Platform> platforms = new ArrayList<>();
