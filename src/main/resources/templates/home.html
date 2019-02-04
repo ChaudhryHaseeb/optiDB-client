@@ -3,64 +3,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 
-<head th:include="/fragments/header :: head"><link href="/static/css/main.css" rel="stylesheet" /></head>
+<head th:include="/fragments/header :: head"></head>
 
-
-<body th:fragment="body">
+<body>
 <div id="wrapper">
-    <nav class="navbar navbar-default top-navbar" role="navigation">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href=""><strong><i class="icon fa fa-plane"></i> BRILLIANT</strong></a>
-
-            <div id="sideNav" href="">
-                <i class="fa fa-bars icon"></i>
-            </div>
-        </div>
-
-        <ul class="nav navbar-top-links navbar-right">
-            <!-- /.dropdown -->
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-                    <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
-                </a>
-                <ul class="dropdown-menu dropdown-user">
-                    <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                    </li>
-                    <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                    </li>
-                    <li class="divider"></li>
-                    <li><a href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-                    </li>
-                </ul>
-                <!-- /.dropdown-user -->
-            </li>
-            <!-- /.dropdown -->
-        </ul>
-    </nav>
     <!--/. NAV TOP  -->
-    <nav class="navbar-default navbar-side" role="navigation">
-        <div class="sidebar-collapse">
-            <ul class="nav" id="main-menu">
+    <nav th:insert="/fragments/navbar_top :: navbar_top"></nav>
 
-                <li>
-                    <a th:href="@{/home}"><i class="fa fa-dashboard"></i> Accueil</a>
-                </li>
-                <li>
-                    <a th:href="@{/liste}"><i class="fa fa-desktop"></i>Liste des plateformes</a>
-                </li>
-            </ul>
-
-        </div>
-
-    </nav>
     <!-- /. NAV SIDE  -->
+    <nav th:insert="/fragments/navbar_side :: navbar_side"></nav>
 
+    <!-- /. Page block  -->
         <div id="page-wrapper" >
             <div class="header">
                 <h1 class="page-header">
@@ -68,18 +21,11 @@
                 </h1>
             </div>
             <div id="page-inner">
-
-
-                <div class="row" >
-                <p>oui</p>
-                </div>
                 <!-- /. ROW  -->
-
-
-                <footer><p>All right reserved. Template by: <a href="http://webthemez.com">WebThemez.com</a></p>
-
-
-                </footer>
+                <div class="row" >
+                    <p>oui</p>
+                </div>
+                <footer th:insert="/fragments/footer :: footer"></footer>
             </div>
             <!-- /. PAGE INNER  -->
         </div>
