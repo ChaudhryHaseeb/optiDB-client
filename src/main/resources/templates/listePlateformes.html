@@ -27,7 +27,7 @@
                             </thead>
                             <tbody>
                             <tr th:each="plt: ${liste}">
-                                <td th:text="${plt.name}"></td>
+                                <td><a th:text="${plt.name}" th:href="@{|/platform/${plt.getName()}|}"></a></td>
                             </tr>
                             </tbody>
                         </table>
@@ -38,6 +38,7 @@
             </div>
             <!-- /. PAGE WRAPPER  -->
         </div>
+        <script src="/js/dataTable.js"></script>
     </body>
-<script src="/js/dataTable.js"></script>
+
 </html>
