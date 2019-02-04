@@ -2,7 +2,7 @@
 # IDE
 .idea
 .vscode
-/*.iml
+*.iml
 .project
 .classpath
 .settings
