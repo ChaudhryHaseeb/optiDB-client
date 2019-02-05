@@ -1,23 +1,45 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title th:text="OptiDB"></title>
-    <link th:href="@{/main.css}" rel="stylesheet">
-</head>
-<body>
-<table>
-    <thead>
-    <tr>
-        <th >Name</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="plt: ${liste}">
-        <td th:text="${plt.name}"></td>
-    </tr>
-    </tbody>
-</table>
-<script th:href="@{/main.js}"></script>
-</body>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+                xmlns="http://www.w3.org/1999/xhtml">
+<head th:include="/fragments/header :: head"></head>
+    <body>
+        <div id="wrapper">
+            <!--/. NAV TOP  -->
+            <nav th:insert="/fragments/navbar_top :: navbar_top"></nav>
+
+            <!-- /. NAV SIDE  -->
+            <nav th:insert="/fragments/navbar_side :: navbar_side"></nav>
+
+            <!-- /. Page block  -->
+            <div id="page-wrapper" >
+                <div class="header">
+                    <h1 class="page-header">
+                        Liste des plateformes
+                    </h1>
+                </div>
+                <div id="page-inner">
+                    <!-- /. ROW  -->
+                    <div class="row" >
+                        <table class="table table-striped" id="table_id">
+                            <thead>
+                            <tr>
+                                <th >Name</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="plt: ${liste}">
+                                <td><a th:text="${plt.name}" th:href="@{|/platform/${plt.getName()}|}"></a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <footer th:insert="/fragments/footer :: footer"></footer>
+                </div>
+                <!-- /. PAGE INNER  -->
+            </div>
+            <!-- /. PAGE WRAPPER  -->
+        </div>
+        <script src="/js/dataTable.js"></script>
+    </body>
+
 </html>
