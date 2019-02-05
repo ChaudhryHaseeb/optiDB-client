@@ -1,9 +1,5 @@
 package org.optidb.optidbclient.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -11,15 +7,12 @@ import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-//@JsonIgnoreProperties(ignoreUnknown = true)
-//@JsonDeserialize(as = Platform.class)
 public class Platform implements Serializable {
-    //@JsonProperty("name")
     private String name;
-    //@JsonProperty("currentVersion")
     private String currentVersion;
 
-    public Platform(String name) {
+    public Platform(String name)
+    {
         this.name = name;
         this.currentVersion = this.version();
     }
