@@ -1,17 +1,63 @@
 package org.optidb.optidbclient.model;
 
-public class Platform {
-    private String name;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-    public Platform(String name) {
+public class Platform implements Serializable {
+    private String name;
+    private String currentVersion;
+
+    public Platform(String name)
+    {
         this.name = name;
+        this.currentVersion = this.version();
+    }
+
+    public Platform(String name, String curr) {
+        this.name = name;
+        this.currentVersion = curr;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getCurrentVersion() {
+        return currentVersion;
     }
+
+    public String version()
+    {
+        Logger logger = Logger.getLogger("logger");
+        try
+        {
+            // Création de la commande
+            Process process = Runtime.getRuntime().exec("mvn -v");
+            // On récup le résultat
+            BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(process.getInputStream()));
+            String line = reader.readLine();
+            int exitVal = process.waitFor();
+            if (exitVal != 0)
+            {
+                logger.log(Level.INFO,"ERROR : Read version");
+            }
+            return line;
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            return null;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            Thread.currentThread().interrupt();
+            return null;
+        }
+    }
+
+
 }
