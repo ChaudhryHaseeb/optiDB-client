@@ -72,9 +72,13 @@
 
             <div class="row" >
                 <ul>
-                    <li>Temps de création : <span th:text="${platform.getTempsCreate()}"/>  secondes </li>
-                    <li>Temps d'insertion : <span th:text="${platform.getTempsInsert()}"/> secondes </li>
-                    <li>Temps de suppression : <span th:text="${platform.getTempsInsert()}"/> secondes </li>
+                    <li>Temps de création : <span th:text="${platform.getTempsCreate()}"/>  Millisecondes </li>
+                    <li>Temps d'insertion : <span th:text="${platform.getTempsInsert()}"/> Millisecondes </li>
+                    <li>Temps de modification : <span th:text="${platform.getTempsUpdate()}"/> Millisecondes </li>
+                    <li>Temps de selection : <span th:text="${platform.getTempsSelect()}"/> Millisecondes </li>
+                    <li>Temps de suppression : <span th:text="${platform.getTempsDelete()}"/> Millisecondes </li>
+                    <li>Temps de modification de la table : <span th:text="${platform.getTempsAlter()}"/> Millisecondes </li>
+                    <li>Temps de suppression de la table : <span th:text="${platform.getTempsDrop()}"/> Millisecondes </li>
                 </ul>
             </div>
             <!-- /. ROW  -->

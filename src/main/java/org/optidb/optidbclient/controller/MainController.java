@@ -30,7 +30,7 @@ public class MainController {
 
     @GetMapping({"/platform/{id}"})
     public String platformVersion(Model model, @PathVariable(value="id") final String name){
-        model.addAttribute("platform",this.getResultat(name));
+            model.addAttribute("platform",this.getResultat(name));
         return "platform_infos";
     }
 
@@ -52,16 +52,21 @@ public class MainController {
         return liste;
     }
 
-    public Resultat getResultat(String name) {
+    public Resultat getResultat(String name)
+    {
         String URL_PLATEFORME = "http://192.168.33.10:8080/platform?name="+name;
         RestTemplate restTemplate = new RestTemplate();
         String plt = restTemplate.getForObject(URL_PLATEFORME,String.class);
         Resultat res = null;
-        try {
+        try
+        {
             JSONObject obj = new JSONObject(plt);
-            res = new Resultat(obj.getString("platformName"),obj.getInt("tempsCreate"),obj.getInt("tempsInsert"),obj.getInt("tempsDelete"));
+            res = new Resultat(obj.getString("platformName"),obj.getInt("tempsCreate"),obj.getInt("tempsInsert")
+                    ,obj.getInt("tempsDelete"),obj.getInt("tempsAlter"),obj.getInt("tempsDelete"),
+                    obj.getInt("tempsSelect"),obj.getInt("tempsDrop"));
         }
-        catch (JSONException e) {
+        catch (JSONException e)
+        {
 
         }
         return res;
