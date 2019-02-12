@@ -28,9 +28,10 @@ public class MainController {
         return "home";
     }
 
-    @GetMapping({"/platform/{id}"})
-    public String platformVersion(Model model, @PathVariable(value="id") final String name){
-            model.addAttribute("platform",this.getResultat(name));
+    @GetMapping({"/platform/{id}/{col}"})
+    public String platformVersion(Model model, @PathVariable(value="id") final String name,
+                                  @PathVariable(value="col") final int col){
+            model.addAttribute("platform",this.getResultat(name,col));
         return "platform_infos";
     }
 
@@ -52,9 +53,9 @@ public class MainController {
         return liste;
     }
 
-    public Resultat getResultat(String name)
+    public Resultat getResultat(String name, int col)
     {
-        String URL_PLATEFORME = "http://192.168.33.10:8080/platform?name="+name;
+        String URL_PLATEFORME = "http://192.168.33.10:8080/platform?name="+name+"&col="+col;
         RestTemplate restTemplate = new RestTemplate();
         String plt = restTemplate.getForObject(URL_PLATEFORME,String.class);
         Resultat res = null;
@@ -62,8 +63,8 @@ public class MainController {
         {
             JSONObject obj = new JSONObject(plt);
             res = new Resultat(obj.getString("platformName"),obj.getInt("tempsCreate"),obj.getInt("tempsInsert")
-                    ,obj.getInt("tempsDelete"),obj.getInt("tempsAlter"),obj.getInt("tempsDelete"),
-                    obj.getInt("tempsSelect"),obj.getInt("tempsDrop"));
+                    ,obj.getInt("tempsUpdate"),obj.getInt("tempsSelect"),obj.getInt("tempsSelectAll"),
+                    obj.getInt("tempsAlter"),obj.getInt("tempsDelete"),obj.getInt("tempsDrop"));
         }
         catch (JSONException e)
         {
