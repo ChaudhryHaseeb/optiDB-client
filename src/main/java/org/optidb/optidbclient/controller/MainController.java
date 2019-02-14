@@ -30,7 +30,8 @@ public class MainController {
 
     @GetMapping({"/platform/{id}/{col}"})
     public String platformVersion(Model model, @PathVariable(value="id") final String name,
-                                  @PathVariable(value="col") final int col){
+                                  @PathVariable(value="col") final int col)
+    {
             model.addAttribute("platform",this.getResultat(name,col));
         return "platform_infos";
     }

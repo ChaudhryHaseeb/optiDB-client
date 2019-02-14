@@ -71,16 +71,40 @@
 
 
             <div class="row" >
-                <ul>
-                    <li>Temps de création : <span th:text="${platform.getTempsCreate()}"/>  Millisecondes </li>
-                    <li>Temps d'insertion : <span th:text="${platform.getTempsInsert()}"/> Millisecondes </li>
-                    <li>Temps de modification : <span th:text="${platform.getTempsUpdate()}"/> Millisecondes </li>
-                    <li>Temps de selection : <span th:text="${platform.getTempsSelect()}"/> Millisecondes </li>
-                    <li>Temps de suppression : <span th:text="${platform.getTempsDelete()}"/> Millisecondes </li>
-                    <li>Temps de modification de la table : <span th:text="${platform.getTempsAlter()}"/> Millisecondes </li>
-                    <li>Temps de suppression de la table : <span th:text="${platform.getTempsDrop()}"/> Millisecondes </li>
-                    <li>Temps de tous les nupplet de table : <span th:text="${platform.getTempsSelectAll()}"/> Millisecondes </li>
-                </ul>
+                <div class="col-sm-6 col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="card-title">
+                                <div class="title">Reprensation des temps de requête en milliseconde</div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <ul>
+                                <li>Temps de création : <span th:text="${platform.getTempsCreate()}"/>  Millisecondes </li>
+                                <li>Temps d'insertion : <span th:text="${platform.getTempsInsert()}"/> Millisecondes </li>
+                                <li>Temps de modification : <span th:text="${platform.getTempsUpdate()}"/> Millisecondes </li>
+                                <li>Temps de selection : <span th:text="${platform.getTempsSelect()}"/> Millisecondes </li>
+                                <li>Temps de suppression : <span th:text="${platform.getTempsDelete()}"/> Millisecondes </li>
+                                <li>Temps de modification de la table : <span th:text="${platform.getTempsAlter()}"/> Millisecondes </li>
+                                <li>Temps de suppression de la table : <span th:text="${platform.getTempsDrop()}"/> Millisecondes </li>
+                                <li>Temps de tous les nupplet de table : <span th:text="${platform.getTempsSelectAll()}"/> Millisecondes </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-xs-12">
+                    <div class="panel panel-default chartJs">
+                        <div class="panel-heading">
+                            <div class="card-title">
+                                <div class="title">Reprensation des temps de requête en milliseconde</div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <canvas id="pie-chart" class="chart"></canvas>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- /. ROW  -->
 
@@ -93,6 +117,60 @@
     </div>
     <!-- /. PAGE WRAPPER  -->
 </div>
+
+<script src="/js/Chart.min.js"></script>
+<script>
+
+    $(function() {
+        var t = "[[${platform.getTempsCreate()}]]";
+        var ctx, data, myLineChart, options;
+        Chart.defaults.global.responsive = true;
+        ctx = $('#pie-chart').get(0).getContext('2d');
+        options = {
+            showScale: false,
+            scaleShowGridLines: false,
+            scaleGridLineColor: "rgba(0,0,0,.05)",
+            scaleGridLineWidth: 0,
+            scaleShowHorizontalLines: false,
+            scaleShowVerticalLines: false,
+            bezierCurve: false,
+            bezierCurveTension: 0.4,
+            pointDot: false,
+            pointDotRadius: 0,
+            pointDotStrokeWidth: 2,
+            pointHitDetectionRadius: 20,
+            datasetStroke: true,
+            datasetStrokeWidth: 4,
+            datasetFill: true,
+            legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
+        };
+        data = [
+            {
+                value: t,
+                color: "#1a2efa",
+                highlight: "#1b27fa",
+                label: "Create"
+            }, {
+                value: 50,
+                color: "#1ABC9C",
+                highlight: "#1ABC9C",
+                label: "Green"
+            }, {
+                value: 100,
+                color: "#FABE28",
+                highlight: "#FABE28",
+                label: "Yellow"
+            }, {
+                value: 20,
+                color: "#41fa31",
+                highlight: "#32fa1e",
+                label: "xD"
+            }
+        ];
+        myLineChart = new Chart(ctx).Pie(data, options);
+    });
+</script>
+
 
 </body>
 
