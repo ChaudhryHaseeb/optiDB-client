@@ -11,11 +11,15 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Logger;
 
 
 @Controller
 public class MainController {
+
+    private static Logger myLog = Logger.getLogger("WarningLogging");
 
     @GetMapping({"/liste"})
     public String liste(Model model) {
@@ -28,15 +32,20 @@ public class MainController {
         return "home";
     }
 
-    @GetMapping({"/platform/{id}/{col}"})
-    public String platformVersion(Model model, @PathVariable(value="id") final String name,
-                                  @PathVariable(value="col") final int col)
+    @GetMapping({"/platform/{id}/{col}/{line}"})
+    public String platformVersion(Model model,
+                                  @PathVariable(value="id") final String name,
+                                  @PathVariable(value="col") final int nbCol,
+                                  @PathVariable(value="line") final int nbLine)
     {
-            model.addAttribute("platform",this.getResultat(name,col));
+        model.addAttribute("platform",this.getResultat(name,nbCol,nbLine));
+        Resultat r = this.getResultat(name,nbCol,nbLine);
+        System.out.println("TTOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+        System.out.println(r.getNbCol()+" "+r.getNbLine());
         return "platform_infos";
     }
 
-    public List<Platform> getAllPlatforms() {
+    public   List<Platform> getAllPlatforms() {
         List<Platform> liste = new ArrayList<>();
         String URL_LISTE = "http://192.168.33.10:8080/list";
         RestTemplate restTemplate = new RestTemplate();
@@ -49,27 +58,50 @@ public class MainController {
                 liste.add(obj);
             }
         }
-        catch (JSONException e) {
+        catch (JSONException e)
+        {
+            myLog.warning(e.toString());
         }
         return liste;
     }
 
-    public Resultat getResultat(String name, int col)
+    public Resultat getResultat(String name, int nbCol, int nbLine)
     {
-        String URL_PLATEFORME = "http://192.168.33.10:8080/platform?name="+name+"&col="+col;
+        String URL_PLATEFORME = "http://192.168.33.10:8080/platform?name="+name+"&col="+nbCol+"&line="+nbLine;
+        System.out.println(URL_PLATEFORME);
         RestTemplate restTemplate = new RestTemplate();
         String plt = restTemplate.getForObject(URL_PLATEFORME,String.class);
         Resultat res = null;
+        ArrayList listeInsert = new ArrayList();
         try
         {
+            for(int i=0; i<10;i++)
+            {
+                System.out.println(i);
+            }
             JSONObject obj = new JSONObject(plt);
-            res = new Resultat(obj.getString("platformName"),obj.getInt("tempsCreate"),obj.getInt("tempsInsert")
-                    ,obj.getInt("tempsUpdate"),obj.getInt("tempsSelect"),obj.getInt("tempsSelectAll"),
-                    obj.getInt("tempsAlter"),obj.getInt("tempsDelete"),obj.getInt("tempsDrop"));
+            String liste = obj.getString("listeInsert");
+            System.out.println(liste);
+            String s = "" ;
+            for(int i=1;i<liste.length()-1;i++)
+            {
+                s = s+(liste.charAt(i));
+            }
+
+            listeInsert = new ArrayList(Arrays.asList(s.split(",")));
+            for(int i=0; i<listeInsert.size();i++)
+            {
+                System.out.println(listeInsert.get(i));
+            }
+
+            res = new Resultat(obj.getString("platformName"),obj.getInt("nbCol"),obj.getInt("nbLine")
+                    ,obj.getInt("tempsCreate"),listeInsert,obj.getInt("tempsUpdate"),
+                    obj.getInt("tempsSelect"),obj.getInt("tempsSelectAll"),obj.getInt("tempsAlter")
+                    ,obj.getInt("tempsDelete"),obj.getInt("tempsDrop"));
         }
         catch (JSONException e)
         {
-
+            myLog.warning(e.toString());
         }
         return res;
     }
