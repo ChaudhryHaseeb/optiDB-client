@@ -80,6 +80,8 @@
                         </div>
                         <div class="panel-body">
                             <ul>
+                                <li>Nombre de colonnes : <span th:text="${platform.getNbCol()}"/>  Millisecondes </li>
+                                <li>Nombre de lignes : <span th:text="${platform.getNbLine()}"/>  Millisecondes </li>
                                 <li>Temps de création : <span th:text="${platform.getTempsCreate()}"/>  Millisecondes </li>
                                 <li>Temps de modification : <span th:text="${platform.getTempsUpdate()}"/> Millisecondes </li>
                                 <li>Temps de selection : <span th:text="${platform.getTempsSelect()}"/> Millisecondes </li>
@@ -87,6 +89,7 @@
                                 <li>Temps de modification de la table : <span th:text="${platform.getTempsAlter()}"/> Millisecondes </li>
                                 <li>Temps de suppression de la table : <span th:text="${platform.getTempsDrop()}"/> Millisecondes </li>
                                 <li>Temps de tous les nupplet de table : <span th:text="${platform.getTempsSelectAll()}"/> Millisecondes </li>
+                                <li>Liste des temps d'insertion : <span th:text="${platform.getListeInsert()}"/> Millisecondes </li>
                             </ul>
                         </div>
                     </div>
@@ -104,6 +107,21 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="col-sm-6 col-xs-12">
+                    <div class="panel panel-default chartJs">
+                        <div class="panel-heading">
+                            <div class="card-title">
+                                <div class="title">Reprensation des temps de requête en milliseconde</div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <canvas id="line-chart" class="chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
             <!-- /. ROW  -->
 
@@ -121,7 +139,13 @@
 <script>
 
     $(function() {
-        var t = "[[${platform.getTempsCreate()}]]";
+        var create = [[${platform.getTempsCreate()}]];
+        var update = [[${platform.getTempsUpdate()}]];
+        var select = [[${platform.getTempsSelect()}]];
+        var selectAll = [[${platform.getTempsSelectAll()}]];
+        var del = [[${platform.getTempsDelete()}]];
+        var alter = [[${platform.getTempsAlter()}]];
+        var drop = [[${platform.getTempsDrop()}]];
         var ctx, data, myLineChart, options;
         Chart.defaults.global.responsive = true;
         ctx = $('#pie-chart').get(0).getContext('2d');
@@ -145,29 +169,96 @@
         };
         data = [
             {
-                value: t,
-                color: "#1a2efa",
-                highlight: "#1b27fa",
+                value: create,
+                color: "#6175fa",
+                highlight: "#6175fa",
                 label: "Create"
             }, {
-                value: 50,
+                value: update,
                 color: "#1ABC9C",
                 highlight: "#1ABC9C",
-                label: "Green"
+                label: "Update"
             }, {
-                value: 100,
-                color: "#FABE28",
-                highlight: "#FABE28",
-                label: "Yellow"
+                value: select,
+                color: "#faf651",
+                highlight: "#faf651",
+                label: "Select"
             }, {
-                value: 20,
-                color: "#41fa31",
-                highlight: "#32fa1e",
-                label: "xD"
+                value: selectAll,
+                color: "#faaee9",
+                highlight: "#faaee9",
+                label: "SelectAll"
+            }, {
+                value: del,
+                color: "#fa605d",
+                highlight: "#fa605d",
+                label: "Delete"
+            }, {
+                value: alter,
+                color: "#2642fa",
+                highlight: "#2642fa",
+                label: "Alter"
+            }, {
+                value: drop,
+                color: "#a41ffa",
+                highlight: "#a41ffa",
+                label: "Drop"
             }
         ];
         myLineChart = new Chart(ctx).Pie(data, options);
     });
+
+
+
+
+    $(function()
+    {
+        var nbLine = [[${platform.getNbLine()}]];
+        var listeInsert = [[${platform.getListeInsert()}]];
+        var tab = [];
+        for(var i=1;i<=10;i++)
+        {
+            tab.push(parseInt((nbLine*(10/100))*i));
+        }
+
+        var ctx, data, myLineChart, options;
+        Chart.defaults.global.responsive = true;
+        ctx = $('#line-chart').get(0).getContext('2d');
+        options = {
+            scaleShowGridLines: true,
+            scaleGridLineColor: "rgba(0,0,0,.05)",
+            scaleGridLineWidth: 1,
+            scaleShowHorizontalLines: true,
+            scaleShowVerticalLines: true,
+            bezierCurve: false,
+            bezierCurveTension: 0.4,
+            pointDot: true,
+            pointDotRadius: 4,
+            pointDotStrokeWidth: 1,
+            pointHitDetectionRadius: 20,
+            datasetStroke: true,
+            datasetStrokeWidth: 2,
+            datasetFill: true,
+            legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
+        };
+        data = {
+            labels: tab,
+            datasets: [
+                {
+                    label: "My First dataset",
+                    fillColor: "rgba(26, 188, 156,0.2)",
+                    strokeColor: "#1ABC9C",
+                    pointColor: "#1ABC9C",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "#1ABC9C",
+                    data: listeInsert
+                }
+            ]
+        };
+        myLineChart = new Chart(ctx).Line(data, options);
+    });
+
 </script>
 
 

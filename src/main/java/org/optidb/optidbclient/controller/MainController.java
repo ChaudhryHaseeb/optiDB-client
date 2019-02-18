@@ -39,9 +39,6 @@ public class MainController {
                                   @PathVariable(value="line") final int nbLine)
     {
         model.addAttribute("platform",this.getResultat(name,nbCol,nbLine));
-        Resultat r = this.getResultat(name,nbCol,nbLine);
-        System.out.println("TTOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
-        System.out.println(r.getNbCol()+" "+r.getNbLine());
         return "platform_infos";
     }
 
@@ -68,17 +65,12 @@ public class MainController {
     public Resultat getResultat(String name, int nbCol, int nbLine)
     {
         String URL_PLATEFORME = "http://192.168.33.10:8080/platform?name="+name+"&col="+nbCol+"&line="+nbLine;
-        System.out.println(URL_PLATEFORME);
         RestTemplate restTemplate = new RestTemplate();
         String plt = restTemplate.getForObject(URL_PLATEFORME,String.class);
         Resultat res = null;
-        ArrayList listeInsert = new ArrayList();
+        ArrayList listeInsert;
         try
         {
-            for(int i=0; i<10;i++)
-            {
-                System.out.println(i);
-            }
             JSONObject obj = new JSONObject(plt);
             String liste = obj.getString("listeInsert");
             System.out.println(liste);
@@ -87,13 +79,7 @@ public class MainController {
             {
                 s = s+(liste.charAt(i));
             }
-
             listeInsert = new ArrayList(Arrays.asList(s.split(",")));
-            for(int i=0; i<listeInsert.size();i++)
-            {
-                System.out.println(listeInsert.get(i));
-            }
-
             res = new Resultat(obj.getString("platformName"),obj.getInt("nbCol"),obj.getInt("nbLine")
                     ,obj.getInt("tempsCreate"),listeInsert,obj.getInt("tempsUpdate"),
                     obj.getInt("tempsSelect"),obj.getInt("tempsSelectAll"),obj.getInt("tempsAlter")
