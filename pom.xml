@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>org.optidb</groupId>
 	<artifactId>optidb-client</artifactId>
-	<version>0.0.1</version>
+	<version>0.1</version>
 	<name>optidb-client</name>
 	<description>Client for optiDB</description>
 
@@ -19,16 +19,6 @@
 	</properties>
 
 	<dependencies>
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-			<version>2.7.4</version>
-		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-core</artifactId>
-			<version>2.7.4</version>
-		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>

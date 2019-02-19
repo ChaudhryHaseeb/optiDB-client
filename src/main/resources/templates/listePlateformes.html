@@ -23,12 +23,18 @@
                         <table class="table table-striped" id="table_id">
                             <thead>
                             <tr>
-                                <th >Name</th>
+                                <th >Nom</th>
+                                <th >Nombre de colonnes</th>
+                                <th >Nombre de lignes</th>
+                                <th >Envoyer</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr th:each="plt: ${liste}">
-                                <td><a th:text="${plt.name}" th:href="@{|/platform/${plt.getName()}|}"></a></td>
+                                <td th:text="${plt.name}"></td>
+                                <td><input type="text" name="nbCol" th:id="${plt.name+'nbCol'}"></td>
+                                <td><input type="text" name="nbLines" th:id="${plt.name+'nbLines'}"></td>
+                                <td><input th:id="${plt.name}" type="button" value="Envoyer" onclick="envoyer(this)"/></td>
                             </tr>
                             </tbody>
                         </table>
@@ -40,6 +46,17 @@
             <!-- /. PAGE WRAPPER  -->
         </div>
         <script src="/js/dataTable.js"></script>
+    <script>
+        function envoyer(ele)
+        {
+            var db = ele.id;
+            var col = db+"nbCol";
+            var lines = db+"nbLines";
+            var nbCol = $('#'+col+'').val();
+            var nbLines = $('#'+lines+'').val();
+            window.location.href = "http://localhost:8080/platform/"+db+"/"+nbCol+"/"+nbLines;
+        }
+    </script>
     </body>
 
 </html>
