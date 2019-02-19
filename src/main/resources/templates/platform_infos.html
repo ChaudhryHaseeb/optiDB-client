@@ -71,11 +71,31 @@
 
 
             <div class="row" >
+
                 <div class="col-sm-6 col-xs-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <div class="card-title">
-                                <div class="title">Reprensation des temps de requête en milliseconde</div>
+                                <div class="title">Info Système</div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <p>
+                                Systeme d'exploitation: Ubuntu 16.04.1<br/>
+                                OSType: linux<br/>
+                                Architecture: x86_64<br/>
+                                CPUs: 1<br/>
+                                Ram: 1.953 GiB<br/>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="card-title">
+                                <div class="title">Representation des temps de requête en milliseconde</div>
                             </div>
                         </div>
                         <div class="panel-body">
@@ -99,7 +119,7 @@
                     <div class="panel panel-default chartJs">
                         <div class="panel-heading">
                             <div class="card-title">
-                                <div class="title">Reprensation des temps de requête en milliseconde</div>
+                                <div class="title">Répartition du temps total de l'execution</div>
                             </div>
                         </div>
                         <div class="panel-body">
@@ -112,7 +132,7 @@
                     <div class="panel panel-default chartJs">
                         <div class="panel-heading">
                             <div class="card-title">
-                                <div class="title">Reprensation des temps de requête en milliseconde</div>
+                                <div class="title">Temps d'insertion en milliseconde en fonction du nombre de ligne</div>
                             </div>
                         </div>
                         <div class="panel-body">
@@ -170,23 +190,23 @@
         data = [
             {
                 value: create,
-                color: "#6175fa",
-                highlight: "#6175fa",
+                color: "#3fe143",
+                highlight: "#3fe143",
                 label: "Create"
             }, {
                 value: update,
-                color: "#1ABC9C",
-                highlight: "#1ABC9C",
+                color: "#faf651",
+                highlight: "#faf651",
                 label: "Update"
             }, {
                 value: select,
-                color: "#faf651",
-                highlight: "#faf651",
+                color: "#6175fa",
+                highlight: "#6175fa",
                 label: "Select"
             }, {
                 value: selectAll,
-                color: "#faaee9",
-                highlight: "#faaee9",
+                color: "#26dcf9",
+                highlight: "#26dcf9",
                 label: "SelectAll"
             }, {
                 value: del,
@@ -195,13 +215,13 @@
                 label: "Delete"
             }, {
                 value: alter,
-                color: "#2642fa",
-                highlight: "#2642fa",
+                color: "#ffb138",
+                highlight: "#ffb138",
                 label: "Alter"
             }, {
                 value: drop,
-                color: "#a41ffa",
-                highlight: "#a41ffa",
+                color: "#fa7abe",
+                highlight: "#fa7abe",
                 label: "Drop"
             }
         ];
@@ -247,11 +267,11 @@
                 {
                     label: "My First dataset",
                     fillColor: "rgba(26, 188, 156,0.2)",
-                    strokeColor: "#1ABC9C",
-                    pointColor: "#1ABC9C",
+                    strokeColor: "#228dbc",
+                    pointColor: "#228dbc",
                     pointStrokeColor: "#fff",
                     pointHighlightFill: "#fff",
-                    pointHighlightStroke: "#1ABC9C",
+                    pointHighlightStroke: "#228dbc",
                     data: listeInsert
                 }
             ]

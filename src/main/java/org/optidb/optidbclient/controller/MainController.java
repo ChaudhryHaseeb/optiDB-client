@@ -73,7 +73,6 @@ public class MainController {
         {
             JSONObject obj = new JSONObject(plt);
             String liste = obj.getString("listeInsert");
-            System.out.println(liste);
             String s = "" ;
             for(int i=1;i<liste.length()-1;i++)
             {
