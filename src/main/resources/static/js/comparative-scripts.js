@@ -1,5 +1,11 @@
 var objets = [];
 
+function deleteComparaison() {
+    objets.splice(0,objets.length);
+    $("#collee").empty();
+    $("#collee").css("display","none");
+}
+
 function deleteFromComparaison(objet) {
     objets.forEach(function(element, index) {
         if(element.plateforme == objet) {
@@ -10,48 +16,48 @@ function deleteFromComparaison(objet) {
     });
     console.log(objets);
     if(objets.length == 2) {
-        $('#collee').append("<div class='col-md-3 col-sm-3 comparaisonPlt'><div><button class='btn btn-danger' data-toggle='modal' data-target='#myModal' onclick='comparerDeuxPlateformes()' >Comparer</button></div></div>");
+        $('#collee').append("<div class='col-md-3 col-sm-3 comparaisonPlt'><div><button class='btn btn-danger' data-toggle='modal' data-target='#myModal' onclick='comparerDeuxPlateformes()' >Comparer</button><button class='btn btn-danger' onclick='deleteComparaison()' style='margin-left: 20px;'>Supprimer</button></div></div>");
     }
     else {
         $('#comparaisonPlt').remove();
     }
+    if(objets.length == 0) $("#collee").css("display","none");
 }
 
 function comparate(objet) {
-    var presence = false;
-    var cpt;
-    for(cpt=0;cpt<objets.length;cpt++) {
-        if(objets[cpt].plateforme == objet) presence=true;
-    }
-    if(!presence) {
-        //if(objets)
-        $.getJSON('http://localhost:8080/js/listeComparaison.json', function(data) {
-            $.each(data, function(i, v) {
-                console.log(objets);
-                if (v.plateforme == objet && !objets.includes(v)) {
-                    var bloc = '<div class="col-md-3 col-sm-3 '+v.plateforme+'"><div>'+v.plateforme+'<button href="#" onclick="deleteFromComparaison(\''+v.plateforme+'\')" class="tn btn-danger">Supprimer</button></div></div>';
+        var presence = false;
+        var cpt;
+        for(cpt=0;cpt<objets.length;cpt++) {
+            if(objets[cpt].plateforme == objet) presence=true;
+        }
+        if(!presence) {
+            $.getJSON('http://localhost:8080/js/listeComparaison.json', function(data) {
+                $.each(data, function(i, v) {
+                    console.log(objets);
+                    if (v.plateforme == objet) {
+                        var bloc = '<div class="col-md-3 col-sm-3 '+v.plateforme+'"><div>'+v.plateforme+'<button href="#" onclick="deleteFromComparaison(\''+v.plateforme+'\')" class="tn btn-danger">X</button></div></div>';
 
-                    if(objets[0]==null) {
-                        objets[0] = v;
-                        $('#collee').append(bloc);
-                        return;
+                        if(objets[0]==null) {
+                            objets[0] = v;
+                            $('#collee').append(bloc);
+                            return;
+                        }
+                        if(objets[1] == null) {
+                            objets[1] = v; $('#collee').append(bloc);
+                            return;
+                        }
                     }
-                    if(objets[1] == null) {
-                        objets[1] = v; $('#collee').append(bloc);
-                        return;
-                    }
+                });
+                if(objets.length == 2) {
+                    $('#collee').append("<div class='col-md-3 col-sm-3 comparaisonPlt'><div><button class='btn btn-danger' data-toggle='modal' data-target='#myModal' onclick='comparerDeuxPlateformes()' >Comparer</button><button class='btn btn-danger' onclick='deleteComparaison()' style='margin-left: 20px;'>Supprimer</button></div></div>");
+                }
+                else {
+                    $('#comparaisonPlt').remove();
                 }
             });
-            if(objets.length == 2) {
-                $('#collee').append("<div class='col-md-3 col-sm-3 comparaisonPlt'><div><button class='btn btn-danger' data-toggle='modal' data-target='#myModal' onclick='comparerDeuxPlateformes()' >Comparer</button></div></div>");
-            }
-            else {
-                $('#comparaisonPlt').remove();
-            }
-        });
-    }
-    console.log(objets.plateforme);
-
+        }
+        $("#collee").css("display", "block");
+    //console.log(objets.plateforme);
 }
 
 function comparerDeuxPlateformes() {
