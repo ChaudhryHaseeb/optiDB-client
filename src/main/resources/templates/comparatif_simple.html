@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="/fragments/header :: head"></head>
+
+<body>
+<div id="wrapper">
+    <!--/. NAV TOP  -->
+    <nav th:insert="/fragments/navbar_top :: navbar_top"></nav>
+
+    <!-- /. NAV SIDE  -->
+    <nav th:insert="/fragments/navbar_side :: navbar_side"></nav>
+
+    <!-- /. Page block  -->
+    <div id="page-wrapper" >
+        <div class="header">
+            <h1 class="page-header">
+                Comparatif simple
+            </h1>
+        </div>
+        <div id="page-inner">
+            <div class="row" >
+                <div class="col-md-4 col-sm-4" th:each="plt: ${liste}">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <span th:text="${plt.getName()}"/>
+                        </div>
+                        <div class="panel-body listsimple">
+                            <div  class="logoComparatif"><img th:src="${plt.getLogo()}"/></div>
+                            <p class="descriptionComparatif" th:text="${plt.getDescription()}"></p>
+                            <div class="infoSupComparatif">
+                            <p>Type de modèle : <span th:text="${plt.getTypeModele()}"/><br/>
+                                Version installée : <span th:text="${plt.getCurrentVersion()}"/></p>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <a href="${plt.getSite()}" class="btn btn-info">Site éditeur</a>
+                            <a th:href="@{|/platform/${plt.getName().toLowerCase()}|}" class="btn btn-primary">Tests</a>
+                            <button th:attr="onclick=|comparate('${plt.getName()}')|"  class="btn btn-default" >Comparer</button >
+                            <div class="modal fade bd-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title" id="myModalLabel">Comparatif</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="container-fluid listePltChoisies">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                            <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="collee" >
+
+
+            </div>
+            <!-- /. ROW  -->
+            <div class="row"  >
+                <footer th:insert="/fragments/footer :: footer"></footer>
+            </div>
+
+        </div>
+        <!-- /. PAGE INNER  -->
+    </div>
+    <!-- /. PAGE WRAPPER  -->
+</div>
+
+</body>

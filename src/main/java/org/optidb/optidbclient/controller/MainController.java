@@ -28,6 +28,28 @@ public class MainController {
         return "home";
     }
 
+    @GetMapping({"/simple"})
+    public String simple(Model model) {
+        List<Platform> liste = new ArrayList<>();
+        String URL_LISTE = "http://localhost:8080/js/listeComparaison.json";
+        RestTemplate restTemplate = new RestTemplate();
+        String plt = restTemplate.getForObject(URL_LISTE,String.class);
+        try {
+            JSONArray root = new JSONArray(plt);
+            for(int i=0;i<root.length();i++) {
+                JSONObject jsonObj = root.getJSONObject(i);
+                Platform obj = new Platform(jsonObj.getString("plateforme"),jsonObj.getString("version"),jsonObj.getString("description"), jsonObj.getString("logo"),jsonObj.getString("type"),jsonObj.getString("requetage"),jsonObj.getString("site"));
+                liste.add(obj);
+            }
+        }
+        catch (JSONException e) {
+        }
+
+        model.addAttribute("liste",liste);
+        model.addAttribute("listePlateformes",plt);
+        return "comparatif_simple";
+    }
+
     @GetMapping({"/platform/{id}"})
     public String platformVersion(Model model, @PathVariable(value="id") final String name){
         model.addAttribute("platform",this.getResultat(name));

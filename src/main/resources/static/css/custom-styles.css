@@ -668,5 +668,61 @@ font-size: 19px;
   margin: 14px;
 }
 }
+/*Ajouts*/
+.listsimple {
+    text-align: center;
+}
+.listsimple img {
+    max-width: 100px;
+}
+.listsimple p {
+    font-size: 12px;
+    text-align: left;
+}
+/*.row {
+    display: table;
+}
+.row>div {
+    display: table-cell;
+}*/
+.logoComparatif {
+    height: 70px;
+}
 
+.descriptionComparatif {
+    /*height: 200px;*/
+}
 
+.infoSupComparatif {
+    height: 150px;
+}
+#collee {
+    width: 100%;
+    left: 0;
+    margin-left: auto;
+    /* position: absolute; */
+    /*margin-left: -30px;*/
+    background-color: rgba(243,106,90,0.4);
+    height: 50px;
+    /* height: 100px; */
+    position: fixed;
+    bottom: 0;
+    float: bottom;
+}
+#collee > div {
+    background-color: transparent;
+    height: 50px;
+    margin-top: 10px;
+}
+.rowTitre {
+    height:40px;
+}
+.rowLogo {
+    height:60px;
+}
+.rowType {
+    height: 50px;
+}
+.rowRequete {
+    height:60px;
+}
