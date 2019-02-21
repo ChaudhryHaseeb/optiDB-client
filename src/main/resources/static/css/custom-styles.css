@@ -727,3 +727,7 @@ font-size: 19px;
 .rowRequete {
     height:60px;
 }
+#logoDescriptif {
+    height: 100px;
+    width: auto;
+}

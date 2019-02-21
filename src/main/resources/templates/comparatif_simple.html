@@ -39,6 +39,7 @@
                             <a href="${plt.getSite()}" class="btn btn-info">Site éditeur</a>
                             <a th:href="@{|/platform/${plt.getName().toLowerCase()}|}" class="btn btn-primary">Tests</a>
                             <button th:attr="onclick=|comparate('${plt.getName()}')|"  class="btn btn-default" >Comparer</button >
+                            <a th:href="@{|/infos/${plt.getName().toLowerCase()}|}" class="btn btn-primary">+</a>
                             <div class="modal fade bd-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-lg">
                                     <div class="modal-content">

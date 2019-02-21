@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="/fragments/header :: head"></head>
+
+<body>
+<div id="wrapper">
+    <!--/. NAV TOP  -->
+    <nav th:insert="/fragments/navbar_top :: navbar_top"></nav>
+
+    <!-- /. NAV SIDE  -->
+    <nav th:insert="/fragments/navbar_side :: navbar_side"></nav>
+
+    <!-- /. Page block  -->
+    <div id="page-wrapper" >
+            <div class="row" style="padding-top:50px;padding-left:50px;">
+                <div class="col-md-4 col-sm-4">
+                    <img id="logoDescriptif" th:src="${platform.getLogo()}"/>
+                </div>
+                <div class="col-md-8 col-sm-8">
+                    <h1>Description de <span th:text="${platform.getName()}"/></h1>
+                </div>
+            </div>
+
+
+        <div id="page-inner">
+            <div class="row">
+                <div class="row">Type :<br/>
+                    <span th:text="${platform.getTypeModele()}"/>
+                </div>
+                <div class="row">Langage de requêtage :<br/>
+                    <span th:text="${platform.getRequetage()}"/>
+                </div>
+                <div class="row">Description :<br/>
+                    <span th:text="${platform.getDescription()}"/>
+                </div>
+            </div>
+            <!-- /. ROW  -->
+            <div class="row"  >
+                <footer th:insert="/fragments/footer :: footer"></footer>
+            </div>
+
+        </div>
+        <!-- /. PAGE INNER  -->
+    </div>
+    <!-- /. PAGE WRAPPER  -->
+</div>
+
+</body>
