@@ -61,18 +61,11 @@ function comparate(objet) {
 
 function comparerDeuxPlateformes() {
     $('.listePltChoisies').empty();
-    /*var entete = '<div class="col-sm-4"><div class="row rowTitre">Plateforme</div><div class="row rowLogo">Photo</div>' +
-        '<div class="row rowType">Type</div><div class="row rowRequete">Langage de requêtage</div></div>';
-    $('.listePltChoisies').append(entete);*/
     var content = '<table class="table"><tbody>';
     content = content +'<tr><td scope="row" class="text-center align-middle">Plateforme</td>';
     objets.forEach(function(element) {
         content = content + '<td class="text-center"><h2>'+element.name+'</h2><br/><img style="width:100px; height:auto;" src="'+element.logo+'"/></td>';
     });
-    /*content = content + '</tr><tr><td scope="row" class="text-center"></td>';
-    objets.forEach(function(element) {
-        content = content + '<td class="text-center"><img style="height:40px; width:auto;" src="'+element.logo+'"/></td>';
-    });*/
     content = content + '</tr><tr><td scope="row" class="text-center">Version</td>';
     objets.forEach(function(element) {
         content = content + '<td class="text-center">'+element.version+'</td>';
@@ -99,47 +92,5 @@ function comparerDeuxPlateformes() {
     });
     content=content+'</tbody></table>';
     $('.listePltChoisies').append(content);
-    /*var properties = Object.getOwnPropertyNames(objets[0]);
-    for(var i = 0;i<properties.length;i++) {
-        var propriete = properties[i].toString();
-        content=content+'<tr><td>';
-        var nomColonne = '';
-        switch (propriete) {
-            case 'name': nomColonne = 'Nom'; break;
-            case 'version': nomColonne = 'Version'; break;
-            case 'description': nomColonne = 'Description'; break;
-            case 'typeModel': nomColonne = 'Nom du modèle'; break;
-            case 'website': nomColonne = 'Site'; break;
-            case 'developer': nomColonne = 'Développeur'; break;
-            case 'initialRelease': nomColonne = 'Date de sortie'; break;
-            case 'license': nomColonne = 'Licence'; break;
-            case 'requetage': nomColonne = 'Langage de requêtage'; break;
-        }
-        content=content+'</td>';
-        objets.forEach(function(element) {
-            console.log(element);
-            console.log(element.name);
-            content=content+'<td>';
-            if(propriete == name) { content = content + '<h2>'+element.propriete+'</h2>'; }
-            else {
-                console.log(propriete);
-                content = content + element.propriete;
-            }
-            content=content+'</td>';
-        });
-        //console.log(properties[i]);
-        content=content+'</tr>';
-    }*/
 
-/*var con ='<tr> <td>Closed</td> <td>Open</td> <td>Open</td> <td>Closed</td> <td>Closed</td> </tr>';
-    content=content+'</table>';
-    objets.forEach(function(element) {
-        var content = '<div class="col-sm-4">';
-        content=content+'<div class="row rowTitre"><h2>'+element.name+'</h2></div>';
-        content=content+'<div  class="row rowLogo logoComparatif"><img style="height:40px; width:auto;" src="'+element.logo+'"/></div>';
-        content=content+'<div  class="row rowType">'+element.type+'</div>';
-        content=content+'<div  class="row rowRequete">'+element.name+'</div>';
-        content=content+'</div>';
-        $('.listePltChoisies').append(content);
-    });*/
 }

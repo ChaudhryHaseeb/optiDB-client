@@ -679,12 +679,7 @@ font-size: 19px;
     font-size: 12px;
     text-align: left;
 }
-/*.row {
-    display: table;
-}
-.row>div {
-    display: table-cell;
-}*/
+
 .logoComparatif {
     height: 90px;
 }
@@ -698,11 +693,8 @@ font-size: 19px;
     width: 100%;
     left: 0;
     margin-left: auto;
-    /* position: absolute; */
-    /*margin-left: -30px;*/
     background-color: rgba(243,106,90,0.8);
     height: 50px;
-    /* height: 100px; */
     position: fixed;
     bottom: 0;
     float: bottom;
