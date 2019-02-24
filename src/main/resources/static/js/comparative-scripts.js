@@ -8,9 +8,9 @@ function deleteComparaison() {
 
 function deleteFromComparaison(objet) {
     objets.forEach(function(element, index) {
-        if(element.plateforme == objet) {
+        if(element.name == objet) {
             objets.splice(index,1);
-            $('.'+element.plateforme).remove();
+            $('.'+element.name).remove();
             $('.comparaisonPlt').remove();
         }
     });
@@ -28,14 +28,15 @@ function comparate(objet) {
         var presence = false;
         var cpt;
         for(cpt=0;cpt<objets.length;cpt++) {
-            if(objets[cpt].plateforme == objet) presence=true;
+            if(objets[cpt].name == objet) presence=true;
         }
         if(!presence) {
             $.getJSON('http://localhost:8080/js/listeComparaison.json', function(data) {
+                console.log(data);
                 $.each(data, function(i, v) {
                     console.log(objets);
-                    if (v.plateforme == objet) {
-                        var bloc = '<div class="col-md-3 col-sm-3 '+v.plateforme+'"><div>'+v.plateforme+'<button href="#" onclick="deleteFromComparaison(\''+v.plateforme+'\')" class="tn btn-danger">X</button></div></div>';
+                    if (v.name == objet) {
+                        var bloc = '<div class="col-md-3 col-sm-3 '+v.name+'"><div>'+v.name+'<button href="#" onclick="deleteFromComparaison(\''+v.name+'\')" class="tn btn-danger">X</button></div></div>';
 
                         if(objets[0]==null) {
                             objets[0] = v;
@@ -68,10 +69,10 @@ function comparerDeuxPlateformes() {
     $('.listePltChoisies').append(entete);
     objets.forEach(function(element) {
         var content = '<div class="col-sm-4">';
-        content=content+'<div class="row rowTitre"><h2>'+element.plateforme+'</h2></div>';
+        content=content+'<div class="row rowTitre"><h2>'+element.name+'</h2></div>';
         content=content+'<div  class="row rowLogo logoComparatif"><img style="height:40px; width:auto;" src="'+element.logo+'"/></div>';
         content=content+'<div  class="row rowType">'+element.type+'</div>';
-        content=content+'<div  class="row rowRequete">'+element.requetage+'</div>';
+        content=content+'<div  class="row rowRequete">'+element.name+'</div>';
         content=content+'</div>';
         $('.listePltChoisies').append(content);
     });

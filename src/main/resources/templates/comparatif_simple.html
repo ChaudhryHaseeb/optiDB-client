@@ -25,21 +25,22 @@
                 <div class="col-md-4 col-sm-4" th:each="plt: ${liste}">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                            <span th:text="${plt.getName()}"/>
+                            <a th:href="@{|/infos/${plt.getName().toLowerCase()}|}"><span class="platformName" th:text="${plt.getName()}"/></a>
                         </div>
                         <div class="panel-body listsimple">
                             <div  class="logoComparatif"><img th:src="${plt.getLogo()}"/></div>
-                            <p class="descriptionComparatif" th:text="${plt.getDescription()}"></p>
+                            <div class="descriptionComparatif"><p th:text="${plt.getDescription()}"></p></div>
                             <div class="infoSupComparatif">
-                            <p>Type de modèle : <span th:text="${plt.getTypeModele()}"/><br/>
+                            <p>Type de modèle : <span th:text="${plt.getTypeModel()}"/><br/>
                                 Version installée : <span th:text="${plt.getCurrentVersion()}"/></p>
                             </div>
                         </div>
                         <div class="panel-footer">
-                            <a href="${plt.getSite()}" class="btn btn-info">Site éditeur</a>
-                            <a th:href="@{|/platform/${plt.getName().toLowerCase()}|}" class="btn btn-primary">Tests</a>
-                            <button th:attr="onclick=|comparate('${plt.getName()}')|"  class="btn btn-default" >Comparer</button >
-                            <a th:href="@{|/infos/${plt.getName().toLowerCase()}|}" class="btn btn-primary">+</a>
+                            <a href="${plt.getSite()}" class="btn btn-info btn-sm">Site éditeur</a>
+                            <!--<a th:href="@{|/platform/${plt.getName().toLowerCase()}|}" class="btn btn-primary btn-sm">Tests</a>-->
+                            <a th:href="@{|/liste|}" class="btn btn-warning btn-sm">Tests</a>
+                            <button th:attr="onclick=|comparate('${plt.getName()}')|"  class="btn btn-default btn-sm" >Comparer</button >
+                            <a th:href="@{|/infos/${plt.getName().toLowerCase()}|}" class="btn btn-primary btn-sm">+</a>
                             <div class="modal fade bd-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-lg">
                                     <div class="modal-content">

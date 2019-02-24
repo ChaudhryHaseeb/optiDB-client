@@ -38,7 +38,10 @@ public class MainController {
             JSONArray root = new JSONArray(plt);
             for(int i=0;i<root.length();i++) {
                 JSONObject jsonObj = root.getJSONObject(i);
-                Platform obj = new Platform(jsonObj.getString("plateforme"),jsonObj.getString("version"),jsonObj.getString("description"), jsonObj.getString("logo"),jsonObj.getString("type"),jsonObj.getString("requetage"),jsonObj.getString("site"));
+                Platform obj = new Platform(jsonObj.getString("name"),jsonObj.getString("version"),jsonObj.getString("description"),
+                        jsonObj.getString("typeModel"),jsonObj.getString("logo"), jsonObj.getString("website"),
+                        jsonObj.getString("developer"),jsonObj.getString("initialRelease"),jsonObj.getString("license"),
+                        jsonObj.getString("requetage"));
                 liste.add(obj);
             }
         }
@@ -67,7 +70,10 @@ public class MainController {
             JSONArray root = new JSONArray(plt);
             for(int i=0;i<root.length();i++) {
                 JSONObject jsonObj = root.getJSONObject(i);
-                Platform obj = new Platform(jsonObj.getString("plateforme"),jsonObj.getString("version"),jsonObj.getString("description"), jsonObj.getString("logo"),jsonObj.getString("type"),jsonObj.getString("requetage"),jsonObj.getString("site"));
+                Platform obj = new Platform(jsonObj.getString("name"),jsonObj.getString("version"),jsonObj.getString("description"),
+                        jsonObj.getString("typeModel"),jsonObj.getString("logo"), jsonObj.getString("website"),
+                        jsonObj.getString("developer"),jsonObj.getString("initialRelease"),jsonObj.getString("license"),
+                        jsonObj.getString("requetage"));
                 liste.add(obj);
             }
             platforme = getPlateformeDescriptif(liste,name);

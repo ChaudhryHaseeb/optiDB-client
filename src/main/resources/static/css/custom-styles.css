@@ -686,11 +686,12 @@ font-size: 19px;
     display: table-cell;
 }*/
 .logoComparatif {
-    height: 70px;
+    height: 90px;
 }
 
 .descriptionComparatif {
-    /*height: 200px;*/
+    height: 200px;
+    overflow: hidden;
 }
 
 .infoSupComparatif {
@@ -730,4 +731,8 @@ font-size: 19px;
 #logoDescriptif {
     height: 100px;
     width: auto;
+}
+
+.platformName {
+    color: white;
 }

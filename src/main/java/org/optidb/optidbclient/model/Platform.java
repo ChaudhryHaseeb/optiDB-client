@@ -11,27 +11,13 @@ public class Platform implements Serializable {
     private String name;
     private String currentVersion;
     private String description;
+    private String typeModel;
     private String logo;
-    private String typeModele;
+    private String website;
+    private String developer;
+    private String initialRelease;
+    private String license;
     private String requetage;
-    private String site;
-
-    public Platform(String name, String description, String logo, String typeModele, String site) {
-        this.name = name;
-        this.description = description;
-        this.logo = logo;
-        this.typeModele = typeModele;
-        this.site = site;
-
-    }
-
-    public String getRequetage() {
-        return requetage;
-    }
-
-    public void setRequetage(String requetage) {
-        this.requetage = requetage;
-    }
 
     public Platform(String name) {
         this.name = name;
@@ -43,18 +29,29 @@ public class Platform implements Serializable {
         this.currentVersion = curr;
     }
 
-    public Platform(String name, String currentVersion, String description, String logo, String typeModele, String requetage, String site) {
+    public Platform(String name, String currentVersion, String description, String typeModel, String logo, String website, String developer, String initialRelease, String license, String requetage) {
         this.name = name;
         this.currentVersion = currentVersion;
         this.description = description;
+        this.typeModel = typeModel;
         this.logo = logo;
-        this.typeModele = typeModele;
+        this.website = website;
+        this.developer = developer;
+        this.initialRelease = initialRelease;
+        this.license = license;
         this.requetage = requetage;
-        this.site = site;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getCurrentVersion() {
+        return currentVersion;
     }
 
     public void setCurrentVersion(String currentVersion) {
@@ -62,17 +59,25 @@ public class Platform implements Serializable {
     }
 
     public String getDescription() {
+        return description;
+    }
+
+    public String getShortDescription() {
         int longueur = description.length();
         if(longueur > 180) longueur = 180;
         return description.substring(0,longueur)+"...";
-
-        //return description.substring(0,description.indexOf(" ",longueur))+"...";
-        //return description.indexOf(mots[nbmots])+" mots";
-        //return description.substring(0,description.indexOf(mots[nbmots]))+"...";
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getTypeModel() {
+        return typeModel;
+    }
+
+    public void setTypeModel(String typeModel) {
+        this.typeModel = typeModel;
     }
 
     public String getLogo() {
@@ -83,28 +88,44 @@ public class Platform implements Serializable {
         this.logo = logo;
     }
 
-    public String getTypeModele() {
-        return typeModele;
+    public String getWebsite() {
+        return website;
     }
 
-    public void setTypeModele(String typeModele) {
-        this.typeModele = typeModele;
+    public void setWebsite(String website) {
+        this.website = website;
     }
 
-    public String getSite() {
-        return site;
+    public String getDeveloper() {
+        return developer;
     }
 
-    public void setSite(String site) {
-        this.site = site;
+    public void setDeveloper(String developer) {
+        this.developer = developer;
     }
 
-    public String getName() {
-        return name;
+    public String getInitialRelease() {
+        return initialRelease;
     }
 
-    public String getCurrentVersion() {
-        return currentVersion;
+    public void setInitialRelease(String initialRelease) {
+        this.initialRelease = initialRelease;
+    }
+
+    public String getLicense() {
+        return license;
+    }
+
+    public void setLicense(String license) {
+        this.license = license;
+    }
+
+    public String getRequetage() {
+        return requetage;
+    }
+
+    public void setRequetage(String requetage) {
+        this.requetage = requetage;
     }
 
     public String version()
@@ -135,6 +156,4 @@ public class Platform implements Serializable {
             return null;
         }
     }
-
-
 }

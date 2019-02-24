@@ -27,14 +27,89 @@
 
         <div id="page-inner">
             <div class="row">
-                <div class="row">Type :<br/>
-                    <span th:text="${platform.getTypeModele()}"/>
+
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Description
+                        </div>
+
+                        <div class="panel-body">
+                            <span th:text="${platform.getDescription()}"/>
+                        </div>
+                    </div>
                 </div>
-                <div class="row">Langage de requêtage :<br/>
-                    <span th:text="${platform.getRequetage()}"/>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Type de modèle utilisé
+                        </div>
+
+                        <div class="panel-body">
+                            <span th:text="${platform.getTypeModel()}"/>
+                        </div>
+                    </div>
                 </div>
-                <div class="row">Description :<br/>
-                    <span th:text="${platform.getDescription()}"/>
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Langage de requêtage
+                        </div>
+
+                        <div class="panel-body">
+                            <span th:text="${platform.getRequetage()}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Développeur
+                        </div>
+
+                        <div class="panel-body">
+                            <span th:text="${platform.getDeveloper()}"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Licence
+                        </div>
+
+                        <div class="panel-body">
+                            <span th:text="${platform.getLicense()}"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Année de sortie
+                        </div>
+
+                        <div class="panel-body">
+                            <span th:text="${platform.getInitialRelease()}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Site
+                        </div>
+
+                        <div class="panel-body">
+                            <a th:href="${platform.getWebsite()}"><span th:text="${platform.getWebsite()}"/></a>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- /. ROW  -->
