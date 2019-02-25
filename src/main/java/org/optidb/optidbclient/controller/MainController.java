@@ -31,14 +31,14 @@ public class MainController {
     @GetMapping({"/simple"})
     public String simple(Model model) {
         List<Platform> liste = new ArrayList<>();
-        String URL_LISTE = "http://localhost:8080/js/listeComparaison.json";
+        String URL_LISTE = "http://192.168.33.10:8080/list";
         RestTemplate restTemplate = new RestTemplate();
         String plt = restTemplate.getForObject(URL_LISTE,String.class);
         try {
             JSONArray root = new JSONArray(plt);
             for(int i=0;i<root.length();i++) {
                 JSONObject jsonObj = root.getJSONObject(i);
-                Platform obj = new Platform(jsonObj.getString("name"),jsonObj.getString("version"),jsonObj.getString("description"),
+                Platform obj = new Platform(jsonObj.getString("name"),jsonObj.getString("currentVersion"),jsonObj.getString("description"),
                         jsonObj.getString("typeModel"),jsonObj.getString("logo"), jsonObj.getString("website"),
                         jsonObj.getString("developer"),jsonObj.getString("initialRelease"),jsonObj.getString("license"),
                         jsonObj.getString("requetage"));
@@ -63,14 +63,14 @@ public class MainController {
     public String infos(Model model, @PathVariable(value="id") final String name){
         Platform platforme = null;
         List<Platform> liste = new ArrayList<>();
-        String URL_LISTE = "http://localhost:8080/js/listeComparaison.json";
+        String URL_LISTE = "http://192.168.33.10:8080/list";
         RestTemplate restTemplate = new RestTemplate();
         String plt = restTemplate.getForObject(URL_LISTE,String.class);
         try {
             JSONArray root = new JSONArray(plt);
             for(int i=0;i<root.length();i++) {
                 JSONObject jsonObj = root.getJSONObject(i);
-                Platform obj = new Platform(jsonObj.getString("name"),jsonObj.getString("version"),jsonObj.getString("description"),
+                Platform obj = new Platform(jsonObj.getString("name"),jsonObj.getString("currentVersion"),jsonObj.getString("description"),
                         jsonObj.getString("typeModel"),jsonObj.getString("logo"), jsonObj.getString("website"),
                         jsonObj.getString("developer"),jsonObj.getString("initialRelease"),jsonObj.getString("license"),
                         jsonObj.getString("requetage"));
