@@ -22,7 +22,8 @@ public class MainController {
     private static Logger myLog = Logger.getLogger("WarningLogging");
 
     @GetMapping({"/liste"})
-    public String liste(Model model) {
+    public String liste(Model model)
+    {
         model.addAttribute("liste",this.getAllPlatforms());
         return "listePlateformes";
     }
@@ -31,6 +32,7 @@ public class MainController {
     public String home(Model model) {
         return "home";
     }
+
 
     @GetMapping({"/platform/{id}/{col}/{line}"})
     public String platformVersion(Model model,
@@ -42,7 +44,39 @@ public class MainController {
         return "platform_infos";
     }
 
-    public   List<Platform> getAllPlatforms() {
+    @GetMapping({"/historique/{name}"})
+    public String platformVersion(Model model, @PathVariable(value="name") final String name)
+    {
+        model.addAttribute("platform",this.getResultat(name));
+        return "platform_infos";
+    }
+
+
+    @GetMapping("/historique")
+    public String historique(Model model)
+    {
+        List<Object> liste = new ArrayList<>();
+        String histo_liste = "http://192.168.33.10:8080/media";
+        RestTemplate restTemplate = new RestTemplate();
+        String plt = restTemplate.getForObject(histo_liste,String.class);
+
+        try
+        {
+            JSONArray json  = new JSONArray(plt);
+            for(int i=0;i<json.length();i++)
+            {
+                liste.add(json.get(i));
+            }
+        }
+        catch (JSONException e)
+        {
+            myLog.warning(e.toString());
+        }
+        model.addAttribute("liste",liste);
+        return "historique";
+    }
+
+    private   List<Platform> getAllPlatforms() {
         List<Platform> liste = new ArrayList<>();
         String URL_LISTE = "http://192.168.33.10:8080/list";
         RestTemplate restTemplate = new RestTemplate();
@@ -62,11 +96,22 @@ public class MainController {
         return liste;
     }
 
-    public Resultat getResultat(String name, int nbCol, int nbLine)
+    private Resultat getResultat(String name)
+    {
+        String URL_PLATEFORME = "http://192.168.33.10:8080/historique?name="+name;
+        return this.readJson(URL_PLATEFORME);
+    }
+
+    private Resultat getResultat(String name, int nbCol, int nbLine)
     {
         String URL_PLATEFORME = "http://192.168.33.10:8080/platform?name="+name+"&col="+nbCol+"&line="+nbLine;
+        return this.readJson(URL_PLATEFORME);
+    }
+
+    private Resultat readJson(String url)
+    {
         RestTemplate restTemplate = new RestTemplate();
-        String plt = restTemplate.getForObject(URL_PLATEFORME,String.class);
+        String plt = restTemplate.getForObject(url,String.class);
         Resultat res = null;
         ArrayList listeInsert;
         try
@@ -89,5 +134,6 @@ public class MainController {
             myLog.warning(e.toString());
         }
         return res;
+
     }
 }
