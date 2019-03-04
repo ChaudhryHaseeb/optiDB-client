@@ -47,8 +47,29 @@ public class MainController {
     @GetMapping({"/historique/{name}"})
     public String platformVersion(Model model, @PathVariable(value="name") final String name)
     {
-        model.addAttribute("platform",this.getResultat(name));
-        return "platform_infos";
+    @GetMapping({"/simple"})
+    public String simple(Model model) {
+        List<Platform> liste = new ArrayList<>();
+        String URL_LISTE = "http://192.168.33.10:8080/list";
+        RestTemplate restTemplate = new RestTemplate();
+        String plt = restTemplate.getForObject(URL_LISTE,String.class);
+        try {
+            JSONArray root = new JSONArray(plt);
+            for(int i=0;i<root.length();i++) {
+                JSONObject jsonObj = root.getJSONObject(i);
+                Platform obj = new Platform(jsonObj.getString("name"),jsonObj.getString("currentVersion"),jsonObj.getString("description"),
+                        jsonObj.getString("typeModel"),jsonObj.getString("logo"), jsonObj.getString("website"),
+                        jsonObj.getString("developer"),jsonObj.getString("initialRelease"),jsonObj.getString("license"),
+                        jsonObj.getString("requetage"));
+                liste.add(obj);
+            }
+        }
+        catch (JSONException e) {
+        }
+
+        model.addAttribute("liste",liste);
+        model.addAttribute("listePlateformes",plt);
+        return "comparatif_simple";
     }
 
 
@@ -77,6 +98,43 @@ public class MainController {
     }
 
     private   List<Platform> getAllPlatforms() {
+    @GetMapping({"/infos/{id}"})
+    public String infos(Model model, @PathVariable(value="id") final String name){
+        Platform platforme = null;
+        List<Platform> liste = new ArrayList<>();
+        String URL_LISTE = "http://192.168.33.10:8080/list";
+        RestTemplate restTemplate = new RestTemplate();
+        String plt = restTemplate.getForObject(URL_LISTE,String.class);
+        try {
+            JSONArray root = new JSONArray(plt);
+            for(int i=0;i<root.length();i++) {
+                JSONObject jsonObj = root.getJSONObject(i);
+                Platform obj = new Platform(jsonObj.getString("name"),jsonObj.getString("currentVersion"),jsonObj.getString("description"),
+                        jsonObj.getString("typeModel"),jsonObj.getString("logo"), jsonObj.getString("website"),
+                        jsonObj.getString("developer"),jsonObj.getString("initialRelease"),jsonObj.getString("license"),
+                        jsonObj.getString("requetage"));
+                liste.add(obj);
+            }
+            platforme = getPlateformeDescriptif(liste,name);
+        }
+        catch (JSONException e) {
+        }
+        model.addAttribute("platform",platforme);
+        return "platform_descriptif";
+    }
+
+    public Platform getPlateformeDescriptif(List<Platform> liste, String name) {
+        Platform plateforme = null;
+        int i=0; boolean trouve=false;
+        while(i<liste.size() && !trouve) {
+            Platform it = liste.get(i);
+            if(it.getName().toLowerCase().equals(name)) trouve=true;
+        }
+        if(trouve) plateforme = liste.get(i);
+        return plateforme;
+    }
+
+    public List<Platform> getAllPlatforms() {
         List<Platform> liste = new ArrayList<>();
         String URL_LISTE = "http://192.168.33.10:8080/list";
         RestTemplate restTemplate = new RestTemplate();
