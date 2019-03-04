@@ -47,6 +47,10 @@ public class MainController {
     @GetMapping({"/historique/{name}"})
     public String platformVersion(Model model, @PathVariable(value="name") final String name)
     {
+        model.addAttribute("platform",this.getResultat(name));
+        return "platform_infos";
+    }
+
     @GetMapping({"/simple"})
     public String simple(Model model) {
         List<Platform> liste = new ArrayList<>();
@@ -97,7 +101,6 @@ public class MainController {
         return "historique";
     }
 
-    private   List<Platform> getAllPlatforms() {
     @GetMapping({"/infos/{id}"})
     public String infos(Model model, @PathVariable(value="id") final String name){
         Platform platforme = null;
