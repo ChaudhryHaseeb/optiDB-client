@@ -23,6 +23,7 @@ public class MainController {
     private String urlListe = "http://192.168.33.10:8080/list";
     private String varListePlateformes = "listePlateformes";
     private String varPlatform = "platform";
+    private String currentVersion = "currentVersion";
 
     @GetMapping({"/liste"})
     public String liste(Model model)
@@ -69,7 +70,7 @@ public class MainController {
             JSONArray root = new JSONArray(plt);
             for(int i=0;i<root.length();i++) {
                 JSONObject jsonObj = root.getJSONObject(i);
-                Platform obj = new Platform.PlatformBuilder(jsonObj.getString("name"),jsonObj.getString("currentVersion"))
+                Platform obj = new Platform.PlatformBuilder(jsonObj.getString("name"),jsonObj.getString(currentVersion))
                         .description(jsonObj.getString("description")).typeModel(jsonObj.getString("typeModel"))
                         .logo(jsonObj.getString("logo")).website(jsonObj.getString("website"))
                         .developer(jsonObj.getString("developer")).initialRelease(jsonObj.getString("initialRelease"))
@@ -120,7 +121,7 @@ public class MainController {
             JSONArray root = new JSONArray(plt);
             for(int i=0;i<root.length();i++) {
                 JSONObject jsonObj = root.getJSONObject(i);
-                Platform obj = new Platform.PlatformBuilder(jsonObj.getString("name"),jsonObj.getString("currentVersion"))
+                Platform obj = new Platform.PlatformBuilder(jsonObj.getString("name"),jsonObj.getString(currentVersion))
                         .description(jsonObj.getString("description")).typeModel(jsonObj.getString("typeModel"))
                         .logo(jsonObj.getString("logo")).website(jsonObj.getString("website"))
                         .developer(jsonObj.getString("developer")).initialRelease(jsonObj.getString("initialRelease"))
@@ -156,7 +157,7 @@ public class MainController {
             JSONArray root = new JSONArray(plt);
             for(int i=0;i<root.length();i++) {
                 JSONObject jsonObj = root.getJSONObject(i);
-                Platform obj = new Platform(jsonObj.getString("name"),jsonObj.getString("currentVersion"));
+                Platform obj = new Platform(jsonObj.getString("name"),jsonObj.getString(currentVersion));
                 liste.add(obj);
             }
         }
