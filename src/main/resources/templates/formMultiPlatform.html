@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head th:include="/fragments/header :: head"></head>
+<body>
+<div id="wrapper">
+    <!--/. NAV TOP  -->
+    <nav th:insert="/fragments/navbar_top :: navbar_top"></nav>
+
+    <!-- /. NAV SIDE  -->
+    <nav th:insert="/fragments/navbar_side :: navbar_side"></nav>
+
+    <!-- /. Page block  -->
+    <div id="page-wrapper" >
+        <div class="header">
+            <h1 class="page-header">
+                Test avec comparaison
+            </h1>
+        </div>
+        <div id="page-inner">
+            <!-- /. ROW  -->
+            <div class="row" >
+                <form class="form-horizontal" action="#">
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="nbCol">Nombre colonnes:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="nbCol" size="15px" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="nbLine">Nombre ligne:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="nbLine" size="15px" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                    <div class="custom-control custom-radio">
+                        <input type="radio" class="custom-control-input" id="defaultUnchecke" name="defaultExampleRadios">
+                        <label class="custom-control-label" for="defaultUnchecked">Avec clé primaire</label>
+                        <input type="radio" class="custom-control-input" id="defaultUnchecked" name="defaultExampleRadios">
+                        <label class="custom-control-label" for="defaultUnchecked">Avec clé primaire</label>
+                    </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <div class="checkbox">
+                                <label><input id="checkMysql" type="checkbox"> Mysql</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <div class="checkbox">
+                                <label><input id="checkMariaDB" type="checkbox"> MariaDB</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <div class="checkbox">
+                                <label><input id="checkPostgreSql" type="checkbox"> PostgreSql</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-default">Tester</button>
+                        </div>
+                    </div>
+
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

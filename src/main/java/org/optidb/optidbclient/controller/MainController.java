@@ -34,6 +34,12 @@ public class MainController {
     }
 
 
+    @GetMapping("/formMultiPlatform")
+    public String formMultiPlatform(Model model) {
+        return "formMultiPlatform";
+    }
+
+
     @GetMapping({"/platform/{id}/{col}/{line}"})
     public String platformVersion(Model model,
                                   @PathVariable(value="id") final String name,
