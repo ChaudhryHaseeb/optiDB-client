@@ -127,6 +127,7 @@ public class MainController {
             platforme = getPlateformeDescriptif(liste,name);
         }
         catch (JSONException e) {
+            myLog.warning(e.toString());
         }
         model.addAttribute("platform",platforme);
         return "platform_descriptif";
