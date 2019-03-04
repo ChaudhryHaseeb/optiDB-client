@@ -60,9 +60,9 @@ public class MainController {
     @GetMapping({"/simple"})
     public String simple(Model model) {
         List<Platform> liste = new ArrayList<>();
-        String URL_LISTE = "http://192.168.33.10:8080/list";
+        String urlListe = "http://192.168.33.10:8080/list";
         RestTemplate restTemplate = new RestTemplate();
-        String plt = restTemplate.getForObject(URL_LISTE,String.class);
+        String plt = restTemplate.getForObject(urlListe,String.class);
         try {
             JSONArray root = new JSONArray(plt);
             for(int i=0;i<root.length();i++) {
@@ -87,9 +87,9 @@ public class MainController {
     public String historique(Model model)
     {
         List<Object> liste = new ArrayList<>();
-        String histo_liste = "http://192.168.33.10:8080/media";
+        String histoListe = "http://192.168.33.10:8080/media";
         RestTemplate restTemplate = new RestTemplate();
-        String plt = restTemplate.getForObject(histo_liste,String.class);
+        String plt = restTemplate.getForObject(histoListe,String.class);
 
         try
         {
@@ -111,9 +111,9 @@ public class MainController {
     public String infos(Model model, @PathVariable(value="id") final String name){
         Platform platforme = null;
         List<Platform> liste = new ArrayList<>();
-        String URL_LISTE = "http://192.168.33.10:8080/list";
+        String urlListe = "http://192.168.33.10:8080/list";
         RestTemplate restTemplate = new RestTemplate();
-        String plt = restTemplate.getForObject(URL_LISTE,String.class);
+        String plt = restTemplate.getForObject(urlListe,String.class);
         try {
             JSONArray root = new JSONArray(plt);
             for(int i=0;i<root.length();i++) {
@@ -145,9 +145,9 @@ public class MainController {
 
     public List<Platform> getAllPlatforms() {
         List<Platform> liste = new ArrayList<>();
-        String URL_LISTE = "http://192.168.33.10:8080/list";
+        String urlListe = "http://192.168.33.10:8080/list";
         RestTemplate restTemplate = new RestTemplate();
-        String plt = restTemplate.getForObject(URL_LISTE,String.class);
+        String plt = restTemplate.getForObject(urlListe,String.class);
         try {
             JSONArray root = new JSONArray(plt);
             for(int i=0;i<root.length();i++) {
@@ -165,14 +165,14 @@ public class MainController {
 
     private Resultat getResultat(String name)
     {
-        String URL_PLATEFORME = "http://192.168.33.10:8080/historique?name="+name;
-        return this.readJson(URL_PLATEFORME);
+        String urlPlateforme = "http://192.168.33.10:8080/historique?name="+name;
+        return this.readJson(urlPlateforme);
     }
 
     private Resultat getResultat(String name, int nbCol, int nbLine)
     {
-        String URL_PLATEFORME = "http://192.168.33.10:8080/platform?name="+name+"&col="+nbCol+"&line="+nbLine;
-        return this.readJson(URL_PLATEFORME);
+        String urlPlateforme = "http://192.168.33.10:8080/platform?name="+name+"&col="+nbCol+"&line="+nbLine;
+        return this.readJson(urlPlateforme);
     }
 
     private Resultat readJson(String url)
