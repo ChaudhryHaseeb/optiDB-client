@@ -25,7 +25,7 @@ public class MainController {
     @GetMapping({"/liste"})
     public String liste(Model model)
     {
-        model.addAttribute("liste",this.getAllPlatforms());
+        model.addAttribute("listePlateformes",this.getAllPlatforms());
         return "listePlateformes";
     }
 
@@ -104,7 +104,7 @@ public class MainController {
         {
             myLog.warning(e.toString());
         }
-        model.addAttribute("liste",liste);
+        model.addAttribute("listeHistorique",liste);
         return "historique";
     }
 
@@ -134,10 +134,11 @@ public class MainController {
 
     public Platform getPlateformeDescriptif(List<Platform> liste, String name) {
         Platform plateforme = null;
-        int i=0; boolean trouve=false;
+        int i=0;
+        boolean trouve=false;
         while(i<liste.size() && !trouve) {
             Platform it = liste.get(i);
-            if(it.getName().toLowerCase().equals(name)) trouve=true;
+            if(it.getName().equalsIgnoreCase(name)) trouve=true;
         }
         if(trouve) plateforme = liste.get(i);
         return plateforme;

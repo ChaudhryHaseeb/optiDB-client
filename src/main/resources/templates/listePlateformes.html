@@ -30,7 +30,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="plt: ${liste}">
+                            <tr th:each="plt: ${listePlateformes}">
                                 <td th:text="${plt.name}"></td>
                                 <td><input type="text" name="nbCol" th:id="${plt.name+'nbCol'}"></td>
                                 <td><input type="text" name="nbLines" th:id="${plt.name+'nbLines'}"></td>
