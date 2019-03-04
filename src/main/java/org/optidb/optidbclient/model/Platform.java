@@ -29,17 +29,17 @@ public class Platform implements Serializable {
         this.currentVersion = curr;
     }
 
-    public Platform(String name, String currentVersion, String description, String typeModel, String logo, String website, String developer, String initialRelease, String license, String requetage) {
-        this.name = name;
-        this.currentVersion = currentVersion;
-        this.description = description;
-        this.typeModel = typeModel;
-        this.logo = logo;
-        this.website = website;
-        this.developer = developer;
-        this.initialRelease = initialRelease;
-        this.license = license;
-        this.requetage = requetage;
+    public Platform(PlatformBuilder builder) {
+        this.name = builder.name;
+        this.currentVersion = builder.currentVersion;
+        this.description = builder.description;
+        this.typeModel = builder.typeModel;
+        this.logo = builder.logo;
+        this.website = builder.website;
+        this.developer = builder.developer;
+        this.initialRelease = builder.initialRelease;
+        this.license = builder.license;
+        this.requetage = builder.requetage;
     }
 
     public String getName() {
@@ -126,6 +126,70 @@ public class Platform implements Serializable {
 
     public void setRequetage(String requetage) {
         this.requetage = requetage;
+    }
+
+    public static class PlatformBuilder {
+        private final String name;
+        private final String currentVersion;
+        private String description;
+        private String typeModel;
+        private String logo;
+        private String website;
+        private String developer;
+        private String initialRelease;
+        private String license;
+        private String requetage;
+
+        public PlatformBuilder(String name, String currentVersion) {
+            this.name = name;
+            this.currentVersion = currentVersion;
+        }
+
+        public PlatformBuilder description(String desc) {
+            this.description = desc;
+            return this;
+        }
+
+        public PlatformBuilder typeModel(String typeModel) {
+            this.typeModel = typeModel;
+            return this;
+        }
+
+        public PlatformBuilder logo(String logo) {
+            this.logo = logo;
+            return this;
+        }
+
+        public PlatformBuilder website(String website) {
+            this.website = website;
+            return this;
+        }
+
+        public PlatformBuilder developer(String developer) {
+            this.developer = developer;
+            return this;
+        }
+
+        public PlatformBuilder initialRelease(String initialRelease) {
+            this.initialRelease = initialRelease;
+            return this;
+        }
+
+        public PlatformBuilder license(String license) {
+            this.license = license;
+            return this;
+        }
+
+        public PlatformBuilder requetage(String requetage) {
+            this.requetage = requetage;
+            return this;
+        }
+
+
+        public Platform build() {
+            return new Platform(this);
+        }
+
     }
 
     public String version()

@@ -69,10 +69,11 @@ public class MainController {
             JSONArray root = new JSONArray(plt);
             for(int i=0;i<root.length();i++) {
                 JSONObject jsonObj = root.getJSONObject(i);
-                Platform obj = new Platform(jsonObj.getString("name"),jsonObj.getString("currentVersion"),jsonObj.getString("description"),
-                        jsonObj.getString("typeModel"),jsonObj.getString("logo"), jsonObj.getString("website"),
-                        jsonObj.getString("developer"),jsonObj.getString("initialRelease"),jsonObj.getString("license"),
-                        jsonObj.getString("requetage"));
+                Platform obj = new Platform.PlatformBuilder(jsonObj.getString("name"),jsonObj.getString("currentVersion"))
+                        .description(jsonObj.getString("description")).typeModel(jsonObj.getString("typeModel"))
+                        .logo(jsonObj.getString("logo")).website(jsonObj.getString("website"))
+                        .developer(jsonObj.getString("developer")).initialRelease(jsonObj.getString("initialRelease"))
+                        .license(jsonObj.getString("license")).requetage(jsonObj.getString("requetage")).build();
                 liste.add(obj);
             }
         }
@@ -119,10 +120,11 @@ public class MainController {
             JSONArray root = new JSONArray(plt);
             for(int i=0;i<root.length();i++) {
                 JSONObject jsonObj = root.getJSONObject(i);
-                Platform obj = new Platform(jsonObj.getString("name"),jsonObj.getString("currentVersion"),jsonObj.getString("description"),
-                        jsonObj.getString("typeModel"),jsonObj.getString("logo"), jsonObj.getString("website"),
-                        jsonObj.getString("developer"),jsonObj.getString("initialRelease"),jsonObj.getString("license"),
-                        jsonObj.getString("requetage"));
+                Platform obj = new Platform.PlatformBuilder(jsonObj.getString("name"),jsonObj.getString("currentVersion"))
+                        .description(jsonObj.getString("description")).typeModel(jsonObj.getString("typeModel"))
+                        .logo(jsonObj.getString("logo")).website(jsonObj.getString("website"))
+                        .developer(jsonObj.getString("developer")).initialRelease(jsonObj.getString("initialRelease"))
+                        .license(jsonObj.getString("license")).requetage(jsonObj.getString("requetage")).build();
                 liste.add(obj);
             }
             platforme = getPlateformeDescriptif(liste,name);
