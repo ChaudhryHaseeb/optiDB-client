@@ -20,6 +20,7 @@ import java.util.logging.Logger;
 public class MainController {
 
     private static Logger myLog = Logger.getLogger("WarningLogging");
+    private String urlListe = "http://192.168.33.10:8080/list";
 
     @GetMapping({"/liste"})
     public String liste(Model model)
@@ -60,7 +61,6 @@ public class MainController {
     @GetMapping({"/simple"})
     public String simple(Model model) {
         List<Platform> liste = new ArrayList<>();
-        String urlListe = "http://192.168.33.10:8080/list";
         RestTemplate restTemplate = new RestTemplate();
         String plt = restTemplate.getForObject(urlListe,String.class);
         try {
@@ -75,6 +75,7 @@ public class MainController {
             }
         }
         catch (JSONException e) {
+            myLog.warning(e.toString());
         }
 
         model.addAttribute("liste",liste);
@@ -111,7 +112,6 @@ public class MainController {
     public String infos(Model model, @PathVariable(value="id") final String name){
         Platform platforme = null;
         List<Platform> liste = new ArrayList<>();
-        String urlListe = "http://192.168.33.10:8080/list";
         RestTemplate restTemplate = new RestTemplate();
         String plt = restTemplate.getForObject(urlListe,String.class);
         try {
@@ -145,7 +145,6 @@ public class MainController {
 
     public List<Platform> getAllPlatforms() {
         List<Platform> liste = new ArrayList<>();
-        String urlListe = "http://192.168.33.10:8080/list";
         RestTemplate restTemplate = new RestTemplate();
         String plt = restTemplate.getForObject(urlListe,String.class);
         try {
