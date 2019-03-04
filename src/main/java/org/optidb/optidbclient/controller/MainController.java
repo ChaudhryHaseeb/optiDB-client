@@ -21,12 +21,14 @@ public class MainController {
 
     private static Logger myLog = Logger.getLogger("WarningLogging");
     private String urlListe = "http://192.168.33.10:8080/list";
+    private String varListePlateformes = "listePlateformes";
+    private String varPlatform = "platform";
 
     @GetMapping({"/liste"})
     public String liste(Model model)
     {
-        model.addAttribute("listePlateformes",this.getAllPlatforms());
-        return "listePlateformes";
+        model.addAttribute(varListePlateformes,this.getAllPlatforms());
+        return varListePlateformes;
     }
 
     @GetMapping({"/", "/home"})
@@ -47,14 +49,14 @@ public class MainController {
                                   @PathVariable(value="col") final int nbCol,
                                   @PathVariable(value="line") final int nbLine)
     {
-        model.addAttribute("platform",this.getResultat(name,nbCol,nbLine));
+        model.addAttribute(varPlatform,this.getResultat(name,nbCol,nbLine));
         return "platform_infos";
     }
 
     @GetMapping({"/historique/{name}"})
     public String platformVersion(Model model, @PathVariable(value="name") final String name)
     {
-        model.addAttribute("platform",this.getResultat(name));
+        model.addAttribute(varPlatform,this.getResultat(name));
         return "platform_infos";
     }
 
@@ -79,7 +81,6 @@ public class MainController {
         }
 
         model.addAttribute("liste",liste);
-        model.addAttribute("listePlateformes",plt);
         return "comparatif_simple";
     }
 
