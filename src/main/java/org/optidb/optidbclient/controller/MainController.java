@@ -135,7 +135,6 @@ public class MainController {
 
 
     @GetMapping({"/compare/{db1}/{db2}/{col}/{line}/{cle}"})
-    @ResponseBody
     public String comparePlatforme(Model model,
                                   @PathVariable(value="db1") final String db1,
                                   @PathVariable(value="db2") final String db2,
@@ -144,7 +143,7 @@ public class MainController {
                                   @PathVariable(value="cle") final int cle)
     {
         this.getResultatCompare(db1,db2,col,line,cle);
-        return "platform_infos";
+        return "platform_comparaison";
     }
 
 
