@@ -40,13 +40,14 @@ public class MainController {
     }
 
 
-    @GetMapping({"/platform/{id}/{col}/{line}"})
+    @GetMapping({"/platform/{id}/{col}/{line}/{cle}"})
     public String platformVersion(Model model,
                                   @PathVariable(value="id") final String name,
                                   @PathVariable(value="col") final int nbCol,
-                                  @PathVariable(value="line") final int nbLine)
+                                  @PathVariable(value="line") final int nbLine,
+                                  @PathVariable(value="cle") final int cle)
     {
-        model.addAttribute("platform",this.getResultat(name,nbCol,nbLine));
+        model.addAttribute("platform",this.getResultat(name,nbCol,nbLine,cle));
         return "platform_infos";
     }
 
@@ -132,6 +133,21 @@ public class MainController {
         return "platform_descriptif";
     }
 
+
+    @GetMapping({"/compare/{db1}/{db2}/{col}/{line}/{cle}"})
+    @ResponseBody
+    public String comparePlatforme(Model model,
+                                  @PathVariable(value="db1") final String db1,
+                                  @PathVariable(value="db2") final String db2,
+                                  @PathVariable(value="col") final int col,
+                                  @PathVariable(value="line") final int line,
+                                  @PathVariable(value="cle") final int cle)
+    {
+        this.getResultatCompare(db1,db2,col,line,cle);
+        return "platform_infos";
+    }
+
+
     public Platform getPlateformeDescriptif(List<Platform> liste, String name) {
         Platform plateforme = null;
         int i=0; boolean trouve=false;
@@ -169,10 +185,28 @@ public class MainController {
         return this.readJson(URL_PLATEFORME);
     }
 
-    private Resultat getResultat(String name, int nbCol, int nbLine)
+    private Resultat getResultat(String name, int nbCol, int nbLine, int cle)
     {
-        String URL_PLATEFORME = "http://192.168.33.10:8080/platform?name="+name+"&col="+nbCol+"&line="+nbLine;
+        String URL_PLATEFORME = "http://192.168.33.10:8080/platform?name="+name+"&col="+nbCol+"&line="+nbLine+"&cle="+cle;
         return this.readJson(URL_PLATEFORME);
+    }
+
+    private void getResultatCompare(String bd1, String bd2, int nbCol, int nbLine, int cle)
+    {
+        String URL_PLATEFORME = "http://192.168.33.10:8080/compare?bda="+bd1+"&bdb="+bd2+"&col="+nbCol+"&line="+nbLine+"&cle="+cle;
+        System.out.println(URL_PLATEFORME);
+        RestTemplate restTemplate = new RestTemplate();
+        String plt = restTemplate.getForObject(URL_PLATEFORME,String.class);
+        try
+        {
+            JSONObject obj = new JSONObject(plt);
+            System.out.println(obj);
+            System.out.println(obj.getString("listeInsert"));
+        }
+        catch (JSONException e)
+        {
+            myLog.warning(e.toString());
+        }
     }
 
     private Resultat readJson(String url)

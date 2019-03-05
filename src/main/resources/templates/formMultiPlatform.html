@@ -20,7 +20,6 @@
         <div id="page-inner">
             <!-- /. ROW  -->
             <div class="row" >
-                <form class="form-horizontal" action="#">
 
                     <div class="form-group">
                         <label class="control-label col-sm-2" for="nbCol">Nombre colonnes:</label>
@@ -38,18 +37,21 @@
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
                     <div class="custom-control custom-radio">
-                        <input type="radio" class="custom-control-input" id="defaultUnchecke" name="defaultExampleRadios">
-                        <label class="custom-control-label" for="defaultUnchecked">Avec clé primaire</label>
-                        <input type="radio" class="custom-control-input" id="defaultUnchecked" name="defaultExampleRadios">
-                        <label class="custom-control-label" for="defaultUnchecked">Avec clé primaire</label>
+
+                        <input type="radio" class="custom-control-input" value="1" id="prim1" name="prim" checked >
+                        <label class="custom-control-label" for="prim1">Avec clé primaire</label>
+
+                        <input type="radio" class="custom-control-input" value="0" id="prim0" name="prim">
+                        <label class="custom-control-label" for="prim0">Sans clé primaire</label>
+
                     </div>
                         </div>
                     </div>
-
+                    <div id="checkboxes">
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
                             <div class="checkbox">
-                                <label><input id="checkMysql" type="checkbox"> Mysql</label>
+                                <label><input name="mysql" id="mysql" type="checkbox"> Mysql</label>
                             </div>
                         </div>
                     </div>
@@ -57,7 +59,7 @@
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
                             <div class="checkbox">
-                                <label><input id="checkMariaDB" type="checkbox"> MariaDB</label>
+                                <label><input name="mariadb" id="mariadb" type="checkbox"> MariaDB</label>
                             </div>
                         </div>
                     </div>
@@ -65,23 +67,52 @@
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
                             <div class="checkbox">
-                                <label><input id="checkPostgreSql" type="checkbox"> PostgreSql</label>
+                                <label><input name="postgres" id="postgres" type="checkbox"> PostgreSql</label>
                             </div>
                         </div>
                     </div>
-
+                    </div>
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" class="btn btn-default">Tester</button>
+                            <button class="btn btn-default" onclick="checkData()">Click me</button>
                         </div>
                     </div>
-
-                </form>
-
 
             </div>
         </div>
     </div>
 </div>
+<script>
+    function checkData()
+    {
+        var selected = [];
+        var nbCol = $('#nbCol').val();
+        var nbLine = $('#nbLine').val();
+        var cle = $('input[name=prim]:checked').val();
+        $('#checkboxes input:checked').each(function() {
+            selected.push($(this).attr('name'));
+        });
+
+        if( nbCol.length === 0 || nbLine.length === 0  ) {
+            alert('Vous devez remplir les champ');
+            console.log('Vous devez remplir les champ');
+        }
+        else if (selected.length !== 2)
+        {
+            alert("Erreur vous ne pouvez cocher que 2 cases");
+            console.log("Erreur vous ne pouvez cocher que 2 cases");
+        }
+            else
+            {
+                var bd1 = selected[0];
+                var bd2 = selected[1];
+                window.location.href = "http://localhost:8080/compare/"+bd1+"/"+bd2+"/"+nbCol+"/"+nbLine+"/"+cle;
+            }
+
+    }
+</script>
+
+
+
 </body>
 </html>
