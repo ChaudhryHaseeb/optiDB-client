@@ -133,6 +133,46 @@ public class MainController {
         return "platform_descriptif";
     }
 
+    private List<Resultat> getResultatCompare(String bd1, String bd2, int nbCol, int nbLine, int cle)
+    {
+        List<Resultat> listeRes = new ArrayList<>();
+        String URL_PLATEFORME = "http://192.168.33.10:8080/compare?bda="+bd1+"&bdb="+bd2+"&col="+nbCol+"&line="+nbLine+"&cle="+cle;
+        System.out.println(URL_PLATEFORME);
+        RestTemplate restTemplate = new RestTemplate();
+        //String plt = restTemplate.getForObject(URL_PLATEFORME,String.class);
+        ArrayList listeInsert;
+        Resultat res = null;
+        String plt = "{\"listResu\":[{\"platformName\":\"mysql\",\"nbCol\":13,\"nbLine\":12,\"tempsCreate\":27,\"listeInsert\":[6,5,4,3,3,3,2,3,2,3,2,3],\"tempsUpdate\":4,\"tempsAlter\":13,\"tempsDelete\":1,\"tempsSelectAll\":10,\"tempsSelect\":31,\"tempsDrop\":14},{\"platformName\":\"mariadb\",\"nbCol\":13,\"nbLine\":12,\"tempsCreate\":9,\"listeInsert\":[5,3,2,0,2,3,2,3,1,3,0,2],\"tempsUpdate\":2,\"tempsAlter\":5,\"tempsDelete\":1,\"tempsSelectAll\":2,\"tempsSelect\":2,\"tempsDrop\":7}]}";
+        try
+        {
+            JSONObject root = new JSONObject(plt);
+            JSONArray listeResu = root.getJSONArray("listResu");
+
+            for(int j=0;j<listeResu.length();j++) {
+                JSONObject obj = listeResu.getJSONObject(j);
+                String liste = obj.getString("listeInsert");
+                String s = "" ;
+                for(int i=1;i<liste.length()-1;i++)
+                {
+                    s = s+(liste.charAt(i));
+                }
+                listeInsert = new ArrayList(Arrays.asList(s.split(",")));
+                res = new Resultat(obj.getString("platformName"),obj.getInt("nbCol"),obj.getInt("nbLine")
+                        ,obj.getInt("tempsCreate"),listeInsert,obj.getInt("tempsUpdate"),
+                        obj.getInt("tempsSelect"),obj.getInt("tempsSelectAll"),obj.getInt("tempsAlter")
+                        ,obj.getInt("tempsDelete"),obj.getInt("tempsDrop"));
+                listeRes.add(res);
+            }
+            return listeRes;
+
+        }
+        catch (JSONException e)
+        {
+            myLog.warning(e.toString());
+        }
+        return null;
+    }
+
 
     @GetMapping({"/compare/{db1}/{db2}/{col}/{line}/{cle}"})
     public String comparePlatforme(Model model,
@@ -188,24 +228,6 @@ public class MainController {
     {
         String URL_PLATEFORME = "http://192.168.33.10:8080/platform?name="+name+"&col="+nbCol+"&line="+nbLine+"&cle="+cle;
         return this.readJson(URL_PLATEFORME);
-    }
-
-    private void getResultatCompare(String bd1, String bd2, int nbCol, int nbLine, int cle)
-    {
-        String URL_PLATEFORME = "http://192.168.33.10:8080/compare?bda="+bd1+"&bdb="+bd2+"&col="+nbCol+"&line="+nbLine+"&cle="+cle;
-        System.out.println(URL_PLATEFORME);
-        RestTemplate restTemplate = new RestTemplate();
-        String plt = restTemplate.getForObject(URL_PLATEFORME,String.class);
-        try
-        {
-            JSONObject obj = new JSONObject(plt);
-            System.out.println(obj);
-            System.out.println(obj.getString("listeInsert"));
-        }
-        catch (JSONException e)
-        {
-            myLog.warning(e.toString());
-        }
     }
 
     private Resultat readJson(String url)
