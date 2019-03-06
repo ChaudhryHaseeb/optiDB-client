@@ -144,8 +144,8 @@ public class MainController {
     private List<Resultat> getResultatCompare(String bd1, String bd2, int nbCol, int nbLine, int cle)
     {
         List<Resultat> listeRes = new ArrayList<>();
-        String URL_PLATEFORME = "http://192.168.33.10:8080/compare?bda="+bd1+"&bdb="+bd2+"&col="+nbCol+"&line="+nbLine+"&cle="+cle;
-        System.out.println(URL_PLATEFORME);
+        String url = "http://192.168.33.10:8080/compare?bda="+bd1+"&bdb="+bd2+"&col="+nbCol+"&line="+nbLine+"&cle="+cle;
+        System.out.println(url);
         RestTemplate restTemplate = new RestTemplate();
         //String plt = restTemplate.getForObject(URL_PLATEFORME,String.class);
         ArrayList listeInsert;
@@ -190,8 +190,12 @@ public class MainController {
                                   @PathVariable(value="line") final int line,
                                   @PathVariable(value="cle") final int cle)
     {
-        System.out.println(this.getResultatCompare(db1,db2,col,line,cle));
-        return "platform_infos";
+        List<Resultat> listeRes = this.getResultatCompare(db1,db2,col,line,cle);
+        Resultat r1 = listeRes.get(0);
+        Resultat r2 = listeRes.get(1);
+        model.addAttribute("res1",r1);
+        model.addAttribute("res2",r2);
+        return "platform_comparaison";
     }
 
 
