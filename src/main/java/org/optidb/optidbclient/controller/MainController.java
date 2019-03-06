@@ -58,6 +58,14 @@ public class MainController {
         return "platform_infos";
     }
 
+    @GetMapping({"/historique/{name1}/{name2}"})
+    public String platformVersion(Model model, @PathVariable(value="name1") final String name1, @PathVariable(value="name2") final String name2)
+    {
+        model.addAttribute("platform1",this.getResultat(name1));
+        model.addAttribute("platform2",this.getResultat(name2));
+        return "platform_compare_infos";
+    }
+
     @GetMapping({"/simple"})
     public String simple(Model model) {
         List<Platform> liste = new ArrayList<>();
