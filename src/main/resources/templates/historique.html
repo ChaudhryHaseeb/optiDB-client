@@ -19,6 +19,7 @@
                     <div class="col-sm-12 col-xs-12">
                         <div class="panel panel-default">
                             <div class="panel-body">
+                                <h3>Cochez deux historiques afin de pouvoir les comparer</h3>
                                 <form action="#" th:action="@{/compareHistorique}"  method="post" id="formCompareHisto">
                                     <div class="form-group">
                                         <div class="checkbox col-sm-offset-2 col-sm-10" th:each="plt: ${liste}">
@@ -28,7 +29,7 @@
                                             </div>
                                         </div>
                                         <div class="col-sm-offset-2 col-sm-10">
-                                            <p><input class="btn btn-default" type="submit" value="Submit" id="validCompareHist" style="display: none;" disabled /> <input class="btn btn-default" type="reset" value="Reset" /></p>
+                                            <p><input class="btn btn-default" type="submit" value="Comparer" id="validCompareHist" style="display: none;" disabled /> <input class="btn btn-default" type="reset" value="Reset" /></p>
                                         </div>
                                     </div>
                                 </form>
