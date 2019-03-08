@@ -94,3 +94,89 @@ function comparerDeuxPlateformes() {
     $('.listePltChoisies').append(content);
 
 }
+
+$( document ).ready(function() {
+    $( "input:checked" ).prop('checked',false);
+});
+
+function choixPlt() {
+    /*var xhr = new XMLHttpRequest();
+    xhr.open("GET", "http://192.168.33.10:8080/media", true);
+    xhr.onload = function () {
+        console.log(xhr.responseText);
+    };
+    xhr.send();*/
+    /*$.get("http://192.168.33.10:8080/media").done(function (data) {
+        console.log(data);
+    });*/
+    /*$.getJSON('http://192.168.33.10:8080/media', function(data) {
+            console.log(data[0]);
+        /*if(objets.length == 2) {
+            $('#collee').append("<div class='col-md-3 col-sm-3 comparaisonPlt'><div><button class='btn btn-danger' data-toggle='modal' data-target='#myModal' onclick='comparerDeuxPlateformes()' >Comparer</button><button class='btn btn-danger' onclick='deleteComparaison()' style='margin-left: 20px;'>Supprimer</button></div></div>");
+        }
+        else {
+            $('#comparaisonPlt').remove();
+        }*/
+    //});
+    console.log($( "input:checked" ).length);
+    /*var i = 0;
+    var nbbox = $(".checkbox3").length;
+    for(var it=0;it<nbbox;i++) {
+        if($('#'+i).is(":checked")) {
+            i++;
+        }
+    }*/
+    if($( "input:checked" ).length== 2)
+    {
+        $('#validCompareHist').prop('disabled', false);
+        $('#validCompareHist').css("display","initial");
+    }
+    else
+    {
+        $('#validCompareHist').prop('disabled', true);
+        $('#validCompareHist').css("display","none");
+    }
+    /*while(true) {
+        i = i+1;
+        if(typeof $('#'+3).val() === undefined) break;
+    }
+    console.log(i);*/
+    /*while($('#'+i).val()!="") {
+        i = i +1;
+        if($('#'+i).val()=="") {
+            return;
+        }
+    }/*
+    console.log(i);
+    /*console.log($('.checkbox-2').is(':checked'));
+    console.log($('input[type=checkbox]').val());*/
+}
+/*$('.checkbox-2').on('change',function(){
+
+    if($('input:checkbox').is(':checked').length>= 2)
+    {
+        $('#validCompareHist').prop('disabled', true);
+    }
+    else
+    {
+        $('#validCompareHist').prop('disabled', false);
+    }
+    //$("#validCompareHist").hide() // try to hide google navigation bar
+});*/
+/*$(function(){
+    $("#validCompareHist").hide() // try to hide google navigation bar
+});*/
+
+/*$('#formCompareHisto').bind('keydown', function(event) {
+    // IE
+    if(event.keyCode == 13) {
+        event.returnValue = false;
+        event.cancelBubble = true;
+    }
+    // DOM
+    if(event.which == 13) {
+        event.preventDefault();
+        event.stopPropagation();
+    }
+});*/
+

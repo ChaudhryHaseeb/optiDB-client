@@ -7,8 +7,10 @@ import org.optidb.optidbclient.model.Platform;
 import org.optidb.optidbclient.model.Resultat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -64,6 +66,21 @@ public class MainController {
         model.addAttribute("platform1",this.getResultat(name1));
         model.addAttribute("platform2",this.getResultat(name2));
         return "platform_compare_infos";
+    }
+
+    @PostMapping(value = "/compareHistorique")
+    public ModelAndView compareHisto(@RequestParam(required=false,name="compareHisto")String[] checkboxValue) {
+        if (checkboxValue == null) {
+            //throw new NullPointerException("Null");
+            return new ModelAndView("redirect:/historique");
+        }
+        else {
+            if(checkboxValue.length == 2) {
+                return new ModelAndView("redirect:/historique/"+checkboxValue[0]+"/"+checkboxValue[1]);
+            }
+            return new ModelAndView("redirect:/historique");
+        }
+
     }
 
     @GetMapping({"/simple"})

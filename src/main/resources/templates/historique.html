@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns="http://www.w3.org/1999/xhtml">
+      xmlns="http://www.w3.org/1999/xhtml" xmlns:form="http://www.w3.org/1999/xhtml">
 <head th:include="/fragments/header :: head"></head>
 <body>
     <div id="wrapper">
@@ -15,26 +15,26 @@
                 </h1>
             </div>
             <div id="page-inner">
-
-
                 <div class="row" >
-
-                    <div class="col-sm-6 col-xs-12">
+                    <div class="col-sm-12 col-xs-12">
                         <div class="panel panel-default">
                             <div class="panel-body">
-                                <ul>
-                                    <li th:each="plt: ${liste}">
-                                        <a th:text="${plt}" th:href="@{|/historique/${plt}|}"></a>
-                                        <a th:text="${plt}" th:href="@{|/historique/${plt}/mysql2019_03_05_08_44_38.json|}"></a>
-                                    </li>
-                                </ul>
+                                <form action="#" th:action="@{/compareHistorique}"  method="post" id="formCompareHisto">
+                                    <div class="form-group">
+                                        <div class="checkbox col-sm-offset-2 col-sm-10" th:each="plt: ${liste}">
+                                            <div class="checkbox3 checkbox-round">
+                                                <input type="checkbox" name="compareHisto" th:value="@{|${plt}|}" th:onchange="choixPlt()" />
+                                                <a th:text="${plt}" th:href="@{|/historique/${plt}|}"></a>
+                                            </div>
+                                        </div>
+                                            <p><input class="btn btn-default" type="submit" value="Submit" id="validCompareHist" style="display: none;" disabled /> <input class="btn btn-default" type="reset" value="Reset" /></p>
+                                    </div>
+                                </form>
                             </div>
-                        </div>
                     </div>
+                <footer th:insert="/fragments/footer :: footer"></footer>
                 </div>
-            <footer th:insert="/fragments/footer :: footer"></footer>
+            </div>
         </div>
-        </div>
-    </div>
-</body>
-</html>
+    </body>
+    </html>
