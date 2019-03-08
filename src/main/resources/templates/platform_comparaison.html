@@ -26,7 +26,7 @@
 
             <div class="row" >
 
-                <div class="col-sm-6 col-xs-12">
+                <div class="col-sm-12 col-xs-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <div class="card-title">
@@ -49,21 +49,49 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <div class="card-title">
-                                <div class="title">Representation des temps de requête en milliseconde</div>
+                                <div class="title">Representation des temps de requête en milliseconde pour <span th:text="${res1.getPlatformName()}"/> </div>
                             </div>
                         </div>
                         <div class="panel-body">
                             <ul>
-                                <li>Nombre de colonnes : 3  Millisecondes </li>
-                                <li>Nombre de lignes : 4  Millisecondes </li>
-                                <li>Temps de création : 6  Millisecondes </li>
-                                <li>Temps de modification : 5 Millisecondes </li>
-                                <li>Temps de selection : 2 Millisecondes </li>
-                                <li>Temps de suppression : 4 Millisecondes </li>
-                                <li>Temps de modification de la table : 4 Millisecondes </li>
-                                <li>Temps de suppression de la table : 1 Millisecondes </li>
-                                <li>Temps de tous les nupplet de table : 6 Millisecondes </li>
-                                <li>Liste des temps d'insertion : 4 Millisecondes </li>
+                                <b>Vos paramètres : </b>
+                                <li>Nombre de colonnes : <span th:text="${res1.getNbCol()}"/> </li>
+                                <li>Nombre de lignes : <span th:text="${res1.getNbLine()}"/></li><br/>
+                                <b>Vos résultats :</b>
+                                <li>Temps de création : <span th:text="${res1.getTempsCreate()}"/>  Millisecondes </li>
+                                <li>Temps de modification : <span th:text="${res1.getTempsUpdate()}"/> Millisecondes </li>
+                                <li>Temps de selection : <span th:text="${res1.getTempsSelect()}"/> Millisecondes </li>
+                                <li>Temps de suppression : <span th:text="${res1.getTempsDelete()}"/> Millisecondes </li>
+                                <li>Temps de modification de la table : <span th:text="${res1.getTempsAlter()}"/> Millisecondes </li>
+                                <li>Temps de suppression de la table : <span th:text="${res1.getTempsDrop()}"/> Millisecondes </li>
+                                <li>Temps de tous les nupplet de table : <span th:text="${res1.getTempsSelectAll()}"/> Millisecondes </li>
+                                <li>Liste des temps d'insertion : <span th:text="${res1.getListeInsert()}"/> Millisecondes </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="card-title">
+                                <div class="title">Representation des temps de requête en milliseconde pour <span th:text="${res2.getPlatformName()}"/> </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <ul>
+                                <b>Vos paramètres : </b>
+                                <li>Nombre de colonnes : <span th:text="${res2.getNbCol()}"/> </li>
+                                <li>Nombre de lignes : <span th:text="${res2.getNbLine()}"/></li><br/>
+                                <b>Vos résultats :</b>
+                                <li>Temps de création : <span th:text="${res2.getTempsCreate()}"/>  Millisecondes </li>
+                                <li>Temps de modification : <span th:text="${res2.getTempsUpdate()}"/> Millisecondes </li>
+                                <li>Temps de selection : <span th:text="${res2.getTempsSelect()}"/> Millisecondes </li>
+                                <li>Temps de suppression : <span th:text="${res2.getTempsDelete()}"/> Millisecondes </li>
+                                <li>Temps de modification de la table : <span th:text="${res2.getTempsAlter()}"/> Millisecondes </li>
+                                <li>Temps de suppression de la table : <span th:text="${res2.getTempsDrop()}"/> Millisecondes </li>
+                                <li>Temps de tous les nupplet de table : <span th:text="${res2.getTempsSelectAll()}"/> Millisecondes </li>
+                                <li>Liste des temps d'insertion : <span th:text="${res2.getListeInsert()}"/> Millisecondes </li>
                             </ul>
                         </div>
                     </div>
@@ -73,7 +101,7 @@
                     <div class="panel panel-default chartJs">
                         <div class="panel-heading">
                             <div class="card-title">
-                                <div class="title">Répartition du temps total de l'execution mariaDB</div>
+                                <div class="title">Répartition du temps total de l'execution pour <span th:text="${res1.getPlatformName()}"/></div>
                             </div>
                         </div>
                         <div class="panel-body">
@@ -86,7 +114,7 @@
                     <div class="panel panel-default chartJs">
                         <div class="panel-heading">
                             <div class="card-title">
-                                <div class="title">Répartition du temps total de l'execution mysql</div>
+                                <div class="title">Répartition du temps total de l'execution pour <span th:text="${res2.getPlatformName()}"/></div>
                             </div>
                         </div>
                         <div class="panel-body">
@@ -99,7 +127,7 @@
                     <div class="panel panel-default chartJs">
                         <div class="panel-heading">
                             <div class="card-title">
-                                <div class="title">Temps d'insertion en milliseconde en fonction du nombre de ligne</div>
+                                <div class="title">Temps d'insertion en milliseconde en fonction du nombre de ligne pour <span th:text="${res1.getPlatformName()}"/> et <span th:text="${res2.getPlatformName()}"/> </div>
                             </div>
                         </div>
                         <div class="panel-body">
@@ -107,7 +135,6 @@
                         </div>
                     </div>
                 </div>
-
 
             </div>
             <!-- /. ROW  -->
@@ -126,16 +153,17 @@
 <script>
 
     $(function() {
-        var create = 10;
-        var update = 10;
-        var select = 12;
-        var selectAll = 10;
-        var del = 11;
-        var alter = 30;
-        var drop = 14;
+        var create = [[${res1.getTempsCreate()}]];
+        var update = [[${res1.getTempsUpdate()}]];
+        var select = [[${res1.getTempsSelect()}]];
+        var selectAll = [[${res1.getTempsSelectAll()}]];
+        var del = [[${res1.getTempsDelete()}]];
+        var alter = [[${res1.getTempsAlter()}]];
+        var drop = [[${res1.getTempsDrop()}]];
         var ctx, data, myLineChart, options;
         Chart.defaults.global.responsive = true;
         ctx = $('#pie-chart').get(0).getContext('2d');
+
         options = {
             showScale: false,
             scaleShowGridLines: false,
@@ -194,20 +222,20 @@
         ];
         myLineChart = new Chart(ctx).Pie(data, options);
     });
-
 
 
     $(function() {
-        var create = 10;
-        var update = 11;
-        var select = 9;
-        var selectAll = 10;
-        var del = 23;
-        var alter = 30;
-        var drop = 16;
+        var create = [[${res2.getTempsCreate()}]];
+        var update = [[${res2.getTempsUpdate()}]];
+        var select = [[${res2.getTempsSelect()}]];
+        var selectAll = [[${res2.getTempsSelectAll()}]];
+        var del = [[${res2.getTempsDelete()}]];
+        var alter = [[${res2.getTempsAlter()}]];
+        var drop = [[${res2.getTempsDrop()}]];
         var ctx, data, myLineChart, options;
         Chart.defaults.global.responsive = true;
         ctx = $('#pie-chart2').get(0).getContext('2d');
+
         options = {
             showScale: false,
             scaleShowGridLines: false,
@@ -266,7 +294,6 @@
         ];
         myLineChart = new Chart(ctx).Pie(data, options);
     });
-
 
 
 
@@ -275,9 +302,9 @@
 
     $(function()
     {
-        var nbLine = 19;
-        var listeInsert = ["1","4","6","6","6","3","7","9","12","18"];
-        var listeInsert2 = ["1","2","7","9","12","6","2","14","3","5"];
+        var nbLine = [[${res1.getNbLine()}]];
+        var listeInsert = [[${res1.getListeInsert()}]];
+        var listeInsert2 = [[${res2.getListeInsert()}]];
         var tab = [];
         for(var i=1;i<=10;i++)
         {
@@ -320,17 +347,18 @@
                 {
                     label: "My First dataset",
                     fillColor: "rgba(26, 188, 156,0.2)",
-                    strokeColor: "#1abc1b",
-                    pointColor: "#1abc1b",
+                    strokeColor: "#faaee9",
+                    pointColor: "#faaee9",
                     pointStrokeColor: "#fff",
                     pointHighlightFill: "#fff",
-                    pointHighlightStroke: "#1abc1b",
+                    pointHighlightStroke: "#faaee9",
                     data: listeInsert2
                 }
             ]
         };
         myLineChart = new Chart(ctx).Line(data, options);
     });
+
 
 </script>
 

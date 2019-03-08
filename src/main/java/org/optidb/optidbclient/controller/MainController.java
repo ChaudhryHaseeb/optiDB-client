@@ -29,13 +29,15 @@ public class MainController {
     }
 
     @GetMapping({"/", "/home"})
-    public String home(Model model) {
+    public String home(Model model)
+    {
         return "home";
     }
 
 
     @GetMapping("/formMultiPlatform")
-    public String formMultiPlatform(Model model) {
+    public String formMultiPlatform(Model model)
+    {
         return "formMultiPlatform";
     }
 
@@ -83,7 +85,9 @@ public class MainController {
                 liste.add(obj);
             }
         }
-        catch (JSONException e) {
+        catch (JSONException e)
+        {
+            myLog.warning(e.toString());
         }
 
         model.addAttribute("liste",liste);
@@ -135,50 +139,12 @@ public class MainController {
             }
             platforme = getPlateformeDescriptif(liste,name);
         }
-        catch (JSONException e) {
-        }
-        model.addAttribute("platform",platforme);
-        return "platform_descriptif";
-    }
-
-    private List<Resultat> getResultatCompare(String bd1, String bd2, int nbCol, int nbLine, int cle)
-    {
-        List<Resultat> listeRes = new ArrayList<>();
-        String url = "http://192.168.33.10:8080/compare?bda="+bd1+"&bdb="+bd2+"&col="+nbCol+"&line="+nbLine+"&cle="+cle;
-        System.out.println(url);
-        RestTemplate restTemplate = new RestTemplate();
-        //String plt = restTemplate.getForObject(URL_PLATEFORME,String.class);
-        ArrayList listeInsert;
-        Resultat res = null;
-        String plt = "{\"listResu\":[{\"platformName\":\"mysql\",\"nbCol\":13,\"nbLine\":12,\"tempsCreate\":27,\"listeInsert\":[6,5,4,3,3,3,2,3,2,3,2,3],\"tempsUpdate\":4,\"tempsAlter\":13,\"tempsDelete\":1,\"tempsSelectAll\":10,\"tempsSelect\":31,\"tempsDrop\":14},{\"platformName\":\"mariadb\",\"nbCol\":13,\"nbLine\":12,\"tempsCreate\":9,\"listeInsert\":[5,3,2,0,2,3,2,3,1,3,0,2],\"tempsUpdate\":2,\"tempsAlter\":5,\"tempsDelete\":1,\"tempsSelectAll\":2,\"tempsSelect\":2,\"tempsDrop\":7}]}";
-        try
-        {
-            JSONObject root = new JSONObject(plt);
-            JSONArray listeResu = root.getJSONArray("listResu");
-
-            for(int j=0;j<listeResu.length();j++) {
-                JSONObject obj = listeResu.getJSONObject(j);
-                String liste = obj.getString("listeInsert");
-                String s = "" ;
-                for(int i=1;i<liste.length()-1;i++)
-                {
-                    s = s+(liste.charAt(i));
-                }
-                listeInsert = new ArrayList(Arrays.asList(s.split(",")));
-                res = new Resultat(obj.getString("platformName"),obj.getInt("nbCol"),obj.getInt("nbLine")
-                        ,obj.getInt("tempsCreate"),listeInsert,obj.getInt("tempsUpdate"),
-                        obj.getInt("tempsSelect"),obj.getInt("tempsSelectAll"),obj.getInt("tempsAlter")
-                        ,obj.getInt("tempsDelete"),obj.getInt("tempsDrop"));
-                listeRes.add(res);
-            }
-            return listeRes;
-
-        }
         catch (JSONException e)
         {
             myLog.warning(e.toString());
         }
-        return null;
+        model.addAttribute("platform",platforme);
+        return "platform_descriptif";
     }
 
 
@@ -190,34 +156,48 @@ public class MainController {
                                   @PathVariable(value="line") final int line,
                                   @PathVariable(value="cle") final int cle)
     {
-        List<Resultat> listeRes = this.getResultatCompare(db1,db2,col,line,cle);
-        Resultat r1 = listeRes.get(0);
-        Resultat r2 = listeRes.get(1);
+        Resultat r1 = null;
+        Resultat r2 = null;
+        List<Resultat> listeResultat;
+        listeResultat = this.getResultatCompare(db1,db2,col,line,cle);
+        if(listeResultat != null)
+        {
+            r1 = listeResultat.get(0);
+            r2 = listeResultat.get(1);
+        }
+
         model.addAttribute("res1",r1);
         model.addAttribute("res2",r2);
         return "platform_comparaison";
     }
 
 
-    public Platform getPlateformeDescriptif(List<Platform> liste, String name) {
+    private Platform getPlateformeDescriptif(List<Platform> liste, String name) {
         Platform plateforme = null;
-        int i=0; boolean trouve=false;
-        while(i<liste.size() && !trouve) {
+        int i=0;
+        boolean trouve=false;
+        while(i<liste.size() && !trouve)
+        {
             Platform it = liste.get(i);
             if(it.getName().toLowerCase().equals(name)) trouve=true;
         }
-        if(trouve) plateforme = liste.get(i);
+        if(trouve)
+        {
+            plateforme = liste.get(i);
+        }
         return plateforme;
     }
 
-    public List<Platform> getAllPlatforms() {
+    private List<Platform> getAllPlatforms() {
         List<Platform> liste = new ArrayList<>();
         String URL_LISTE = "http://192.168.33.10:8080/list";
         RestTemplate restTemplate = new RestTemplate();
         String plt = restTemplate.getForObject(URL_LISTE,String.class);
-        try {
+        try
+        {
             JSONArray root = new JSONArray(plt);
-            for(int i=0;i<root.length();i++) {
+            for(int i=0;i<root.length();i++)
+            {
                 JSONObject jsonObj = root.getJSONObject(i);
                 Platform obj = new Platform(jsonObj.getString("name"),jsonObj.getString("currentVersion"));
                 liste.add(obj);
@@ -242,6 +222,47 @@ public class MainController {
         return this.readJson(URL_PLATEFORME);
     }
 
+
+    private List<Resultat> getResultatCompare(String bd1, String bd2, int nbCol, int nbLine, int cle)
+    {
+        List<Resultat> listeRes = new ArrayList<>();
+        String url = "http://192.168.33.10:8080/compare?bda="+bd1+"&bdb="+bd2+"&col="+nbCol+"&line="+nbLine+"&cle="+cle;
+        RestTemplate restTemplate = new RestTemplate();
+        String plt = restTemplate.getForObject(url,String.class);
+        ArrayList listeInsert;
+        Resultat res = null;
+        try
+        {
+            JSONObject root = new JSONObject(plt);
+            JSONArray listeResu = root.getJSONArray("listResu");
+
+            for(int j=0;j<listeResu.length();j++)
+            {
+                JSONObject obj = listeResu.getJSONObject(j);
+                String liste = obj.getString("listeInsert");
+                StringBuilder s = new StringBuilder();
+                for(int i=1;i<liste.length()-1;i++)
+                {
+                    s = s.append((liste.charAt(i)));
+                }
+                listeInsert = new ArrayList(Arrays.asList(s.toString().split(",")));
+                res = new Resultat(obj.getString("platformName"),obj.getInt("nbCol"),obj.getInt("nbLine")
+                        ,obj.getInt("tempsCreate"),listeInsert,obj.getInt("tempsUpdate"),
+                        obj.getInt("tempsSelect"),obj.getInt("tempsSelectAll"),obj.getInt("tempsAlter")
+                        ,obj.getInt("tempsDelete"),obj.getInt("tempsDrop"));
+                listeRes.add(res);
+            }
+            return listeRes;
+
+        }
+        catch (JSONException e)
+        {
+            myLog.warning(e.toString());
+        }
+        return null;
+    }
+
+
     private Resultat readJson(String url)
     {
         RestTemplate restTemplate = new RestTemplate();
@@ -252,12 +273,12 @@ public class MainController {
         {
             JSONObject obj = new JSONObject(plt);
             String liste = obj.getString("listeInsert");
-            String s = "" ;
+            StringBuilder s = new StringBuilder();
             for(int i=1;i<liste.length()-1;i++)
             {
-                s = s+(liste.charAt(i));
+                s = s.append(liste.charAt(i));
             }
-            listeInsert = new ArrayList(Arrays.asList(s.split(",")));
+            listeInsert = new ArrayList(Arrays.asList(s.toString().split(",")));
             res = new Resultat(obj.getString("platformName"),obj.getInt("nbCol"),obj.getInt("nbLine")
                     ,obj.getInt("tempsCreate"),listeInsert,obj.getInt("tempsUpdate"),
                     obj.getInt("tempsSelect"),obj.getInt("tempsSelectAll"),obj.getInt("tempsAlter")
