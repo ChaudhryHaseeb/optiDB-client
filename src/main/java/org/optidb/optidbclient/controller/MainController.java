@@ -33,22 +33,25 @@ public class MainController {
     }
 
     @GetMapping({"/", "/home"})
-    public String home(Model model) {
+    public String home(Model model)
+    {
         return "home";
     }
 
 
     @GetMapping("/formMultiPlatform")
-    public String formMultiPlatform(Model model) {
+    public String formMultiPlatform(Model model)
+    {
         return "formMultiPlatform";
     }
 
 
-    @GetMapping({"/platform/{id}/{col}/{line}"})
+    @GetMapping({"/platform/{id}/{col}/{line}/{cle}"})
     public String platformVersion(Model model,
                                   @PathVariable(value="id") final String name,
                                   @PathVariable(value="col") final int nbCol,
-                                  @PathVariable(value="line") final int nbLine)
+                                  @PathVariable(value="line") final int nbLine,
+                                  @PathVariable(value="cle") final int cle)
     {
         model.addAttribute(varPlatform,this.getResultat(name,nbCol,nbLine));
         return "platform_infos";
@@ -59,6 +62,14 @@ public class MainController {
     {
         model.addAttribute(varPlatform,this.getResultat(name));
         return "platform_infos";
+    }
+
+    @GetMapping({"/historique/{name1}/{name2}"})
+    public String platformVersion(Model model, @PathVariable(value="name1") final String name1, @PathVariable(value="name2") final String name2)
+    {
+        model.addAttribute("platform1",this.getResultat(name1));
+        model.addAttribute("platform2",this.getResultat(name2));
+        return "platform_compare_infos";
     }
 
     @GetMapping({"/simple"})
@@ -78,7 +89,8 @@ public class MainController {
                 liste.add(obj);
             }
         }
-        catch (JSONException e) {
+        catch (JSONException e)
+        {
             myLog.warning(e.toString());
         }
 
@@ -130,14 +142,40 @@ public class MainController {
             }
             platforme = getPlateformeDescriptif(liste,name);
         }
-        catch (JSONException e) {
+        catch (JSONException e)
+        {
             myLog.warning(e.toString());
         }
         model.addAttribute("platform",platforme);
         return "platform_descriptif";
     }
 
-    public Platform getPlateformeDescriptif(List<Platform> liste, String name) {
+
+    @GetMapping({"/compare/{db1}/{db2}/{col}/{line}/{cle}"})
+    public String comparePlatforme(Model model,
+                                  @PathVariable(value="db1") final String db1,
+                                  @PathVariable(value="db2") final String db2,
+                                  @PathVariable(value="col") final int col,
+                                  @PathVariable(value="line") final int line,
+                                  @PathVariable(value="cle") final int cle)
+    {
+        Resultat r1 = null;
+        Resultat r2 = null;
+        List<Resultat> listeResultat;
+        listeResultat = this.getResultatCompare(db1,db2,col,line,cle);
+        if(listeResultat != null)
+        {
+            r1 = listeResultat.get(0);
+            r2 = listeResultat.get(1);
+        }
+
+        model.addAttribute("res1",r1);
+        model.addAttribute("res2",r2);
+        return "platform_comparaison";
+    }
+
+
+    private Platform getPlateformeDescriptif(List<Platform> liste, String name) {
         Platform plateforme = null;
         int i=0;
         boolean trouve=false;
@@ -145,17 +183,22 @@ public class MainController {
             Platform it = liste.get(i);
             if(it.getName().equalsIgnoreCase(name)) trouve=true;
         }
-        if(trouve) plateforme = liste.get(i);
+        if(trouve)
+        {
+            plateforme = liste.get(i);
+        }
         return plateforme;
     }
 
-    public List<Platform> getAllPlatforms() {
+    private List<Platform> getAllPlatforms() {
         List<Platform> liste = new ArrayList<>();
         RestTemplate restTemplate = new RestTemplate();
-        String plt = restTemplate.getForObject(urlListe,String.class);
-        try {
+        String plt = restTemplate.getForObject(URL_LISTE,String.class);
+        try
+        {
             JSONArray root = new JSONArray(plt);
-            for(int i=0;i<root.length();i++) {
+            for(int i=0;i<root.length();i++)
+            {
                 JSONObject jsonObj = root.getJSONObject(i);
                 Platform obj = new Platform(jsonObj.getString("name"),jsonObj.getString(currentVersion));
                 liste.add(obj);
@@ -174,11 +217,52 @@ public class MainController {
         return this.readJson(urlPlateforme);
     }
 
-    private Resultat getResultat(String name, int nbCol, int nbLine)
+    private Resultat getResultat(String name, int nbCol, int nbLine, int cle)
     {
         String urlPlateforme = "http://192.168.33.10:8080/platform?name="+name+"&col="+nbCol+"&line="+nbLine;
         return this.readJson(urlPlateforme);
     }
+
+
+    private List<Resultat> getResultatCompare(String bd1, String bd2, int nbCol, int nbLine, int cle)
+    {
+        List<Resultat> listeRes = new ArrayList<>();
+        String url = "http://192.168.33.10:8080/compare?bda="+bd1+"&bdb="+bd2+"&col="+nbCol+"&line="+nbLine+"&cle="+cle;
+        RestTemplate restTemplate = new RestTemplate();
+        String plt = restTemplate.getForObject(url,String.class);
+        ArrayList listeInsert;
+        Resultat res = null;
+        try
+        {
+            JSONObject root = new JSONObject(plt);
+            JSONArray listeResu = root.getJSONArray("listResu");
+
+            for(int j=0;j<listeResu.length();j++)
+            {
+                JSONObject obj = listeResu.getJSONObject(j);
+                String liste = obj.getString("listeInsert");
+                StringBuilder s = new StringBuilder();
+                for(int i=1;i<liste.length()-1;i++)
+                {
+                    s = s.append((liste.charAt(i)));
+                }
+                listeInsert = new ArrayList(Arrays.asList(s.toString().split(",")));
+                res = new Resultat(obj.getString("platformName"),obj.getInt("nbCol"),obj.getInt("nbLine")
+                        ,obj.getInt("tempsCreate"),listeInsert,obj.getInt("tempsUpdate"),
+                        obj.getInt("tempsSelect"),obj.getInt("tempsSelectAll"),obj.getInt("tempsAlter")
+                        ,obj.getInt("tempsDelete"),obj.getInt("tempsDrop"));
+                listeRes.add(res);
+            }
+            return listeRes;
+
+        }
+        catch (JSONException e)
+        {
+            myLog.warning(e.toString());
+        }
+        return null;
+    }
+
 
     private Resultat readJson(String url)
     {
@@ -190,12 +274,12 @@ public class MainController {
         {
             JSONObject obj = new JSONObject(plt);
             String liste = obj.getString("listeInsert");
-            String s = "" ;
+            StringBuilder s = new StringBuilder();
             for(int i=1;i<liste.length()-1;i++)
             {
-                s = s+(liste.charAt(i));
+                s = s.append(liste.charAt(i));
             }
-            listeInsert = new ArrayList(Arrays.asList(s.split(",")));
+            listeInsert = new ArrayList(Arrays.asList(s.toString().split(",")));
             res = new Resultat(obj.getString("platformName"),obj.getInt("nbCol"),obj.getInt("nbLine")
                     ,obj.getInt("tempsCreate"),listeInsert,obj.getInt("tempsUpdate"),
                     obj.getInt("tempsSelect"),obj.getInt("tempsSelectAll"),obj.getInt("tempsAlter")
