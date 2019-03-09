@@ -206,16 +206,16 @@ public class Platform implements Serializable {
             int exitVal = process.waitFor();
             if (exitVal != 0)
             {
-                logger.log(Level.INFO,"ERROR : Read version");
+                logger.log(Level.SEVERE,"ERROR : Read version");
             }
             return line;
         }
         catch (IOException e)
         {
-            e.printStackTrace();
+            logger.log(Level.WARNING,e.toString());
             return null;
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            logger.log(Level.WARNING,e.toString());
             Thread.currentThread().interrupt();
             return null;
         }
