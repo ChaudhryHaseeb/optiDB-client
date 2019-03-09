@@ -12,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -261,7 +262,7 @@ public class MainController {
     private Resultat readJson(String url)
     {
         String resultatJson = getTemplateJson(url);
-        return this.res = collectDateJson(resultatJson);
+        return collectDateJson(resultatJson);
     }
 
 
@@ -343,7 +344,7 @@ public class MainController {
         {
             myLog.warning(e.toString());
         }
-        return null;
+        return Collections.emptyList();
     }
 
 }
