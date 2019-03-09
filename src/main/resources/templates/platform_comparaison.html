@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="/fragments/header :: head"></head>
+
+
+<body>
+<div id="wrapper">
+    <!--/. NAV TOP  -->
+    <nav th:insert="/fragments/navbar_top :: navbar_top"></nav>
+
+    <!-- /. NAV SIDE  -->
+    <nav th:insert="/fragments/navbar_side :: navbar_side"></nav>
+
+    <!-- /. Page block  -->
+    <div id="page-wrapper" >
+        <div class="header">
+            <h1 class="page-header">
+                Statistiques de comparaison <span th:text="${res1.getPlatformName()}"/> et de <span th:text="${res2.getPlatformName()}"/>
+            </h1>
+        </div>
+        <div id="page-inner">
+
+
+            <div class="row" >
+
+                <div class="col-sm-12 col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="card-title">
+                                <div class="title">Info Système</div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <p>
+                                Systeme d'exploitation: Ubuntu 16.04.1<br/>
+                                OSType: linux<br/>
+                                Architecture: x86_64<br/>
+                                CPUs: 1<br/>
+                                Ram: 1.953 GiB<br/>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="card-title">
+                                <div class="title">Representation des temps de requête en milliseconde pour <span th:text="${res1.getPlatformName()}"/> </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <ul>
+                                <b>Vos paramètres : </b>
+                                <li>Nombre de colonnes : <span th:text="${res1.getNbCol()}"/> </li>
+                                <li>Nombre de lignes : <span th:text="${res1.getNbLine()}"/></li><br/>
+                                <b>Vos résultats :</b>
+                                <li>Temps de création : <span th:text="${res1.getTempsCreate()}"/>  Millisecondes </li>
+                                <li>Temps de modification : <span th:text="${res1.getTempsUpdate()}"/> Millisecondes </li>
+                                <li>Temps de selection : <span th:text="${res1.getTempsSelect()}"/> Millisecondes </li>
+                                <li>Temps de suppression : <span th:text="${res1.getTempsDelete()}"/> Millisecondes </li>
+                                <li>Temps de modification de la table : <span th:text="${res1.getTempsAlter()}"/> Millisecondes </li>
+                                <li>Temps de suppression de la table : <span th:text="${res1.getTempsDrop()}"/> Millisecondes </li>
+                                <li>Temps de tous les nupplet de table : <span th:text="${res1.getTempsSelectAll()}"/> Millisecondes </li>
+                                <li>Liste des temps d'insertion : <span th:text="${res1.getListeInsert()}"/> Millisecondes </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="card-title">
+                                <div class="title">Representation des temps de requête en milliseconde pour <span th:text="${res2.getPlatformName()}"/> </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <ul>
+                                <b>Vos paramètres : </b>
+                                <li>Nombre de colonnes : <span th:text="${res2.getNbCol()}"/> </li>
+                                <li>Nombre de lignes : <span th:text="${res2.getNbLine()}"/></li><br/>
+                                <b>Vos résultats :</b>
+                                <li>Temps de création : <span th:text="${res2.getTempsCreate()}"/>  Millisecondes </li>
+                                <li>Temps de modification : <span th:text="${res2.getTempsUpdate()}"/> Millisecondes </li>
+                                <li>Temps de selection : <span th:text="${res2.getTempsSelect()}"/> Millisecondes </li>
+                                <li>Temps de suppression : <span th:text="${res2.getTempsDelete()}"/> Millisecondes </li>
+                                <li>Temps de modification de la table : <span th:text="${res2.getTempsAlter()}"/> Millisecondes </li>
+                                <li>Temps de suppression de la table : <span th:text="${res2.getTempsDrop()}"/> Millisecondes </li>
+                                <li>Temps de tous les nupplet de table : <span th:text="${res2.getTempsSelectAll()}"/> Millisecondes </li>
+                                <li>Liste des temps d'insertion : <span th:text="${res2.getListeInsert()}"/> Millisecondes </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-xs-12">
+                    <div class="panel panel-default chartJs">
+                        <div class="panel-heading">
+                            <div class="card-title">
+                                <div class="title">Répartition du temps total de l'execution pour <span th:text="${res1.getPlatformName()}"/></div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <canvas id="pie-chart" class="chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-xs-12">
+                    <div class="panel panel-default chartJs">
+                        <div class="panel-heading">
+                            <div class="card-title">
+                                <div class="title">Répartition du temps total de l'execution pour <span th:text="${res2.getPlatformName()}"/></div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <canvas id="pie-chart2" class="chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-xs-12">
+                    <div class="panel panel-default chartJs">
+                        <div class="panel-heading">
+                            <div class="card-title">
+                                <div class="title">Temps d'insertion en milliseconde en fonction du nombre de ligne pour <span th:text="${res1.getPlatformName()}"/> et <span th:text="${res2.getPlatformName()}"/> </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <canvas id="line-chart" class="chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /. ROW  -->
+
+
+            <footer><p>All right reserved. Template by: <a href="http://webthemez.com">WebThemez.com</a></p>
+
+            </footer>
+        </div>
+        <!-- /. PAGE INNER  -->
+    </div>
+    <!-- /. PAGE WRAPPER  -->
+</div>
+
+<script src="/js/Chart.min.js"></script>
+<script>
+
+    $(function() {
+        var create = [[${res1.getTempsCreate()}]];
+        var update = [[${res1.getTempsUpdate()}]];
+        var select = [[${res1.getTempsSelect()}]];
+        var selectAll = [[${res1.getTempsSelectAll()}]];
+        var del = [[${res1.getTempsDelete()}]];
+        var alter = [[${res1.getTempsAlter()}]];
+        var drop = [[${res1.getTempsDrop()}]];
+        var ctx, data, myLineChart, options;
+        Chart.defaults.global.responsive = true;
+        ctx = $('#pie-chart').get(0).getContext('2d');
+
+        options = {
+            showScale: false,
+            scaleShowGridLines: false,
+            scaleGridLineColor: "rgba(0,0,0,.05)",
+            scaleGridLineWidth: 0,
+            scaleShowHorizontalLines: false,
+            scaleShowVerticalLines: false,
+            bezierCurve: false,
+            bezierCurveTension: 0.4,
+            pointDot: false,
+            pointDotRadius: 0,
+            pointDotStrokeWidth: 2,
+            pointHitDetectionRadius: 20,
+            datasetStroke: true,
+            datasetStrokeWidth: 4,
+            datasetFill: true,
+            legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
+        };
+        data = [
+            {
+                value: create,
+                color: "#3fe143",
+                highlight: "#3fe143",
+                label: "Create"
+            }, {
+                value: update,
+                color: "#faf651",
+                highlight: "#faf651",
+                label: "Update"
+            }, {
+                value: select,
+                color: "#6175fa",
+                highlight: "#6175fa",
+                label: "Select"
+            }, {
+                value: selectAll,
+                color: "#26dcf9",
+                highlight: "#26dcf9",
+                label: "SelectAll"
+            }, {
+                value: del,
+                color: "#fa605d",
+                highlight: "#fa605d",
+                label: "Delete"
+            }, {
+                value: alter,
+                color: "#ffb138",
+                highlight: "#ffb138",
+                label: "Alter"
+            }, {
+                value: drop,
+                color: "#fa7abe",
+                highlight: "#fa7abe",
+                label: "Drop"
+            }
+        ];
+        myLineChart = new Chart(ctx).Pie(data, options);
+    });
+
+
+    $(function() {
+        var create = [[${res2.getTempsCreate()}]];
+        var update = [[${res2.getTempsUpdate()}]];
+        var select = [[${res2.getTempsSelect()}]];
+        var selectAll = [[${res2.getTempsSelectAll()}]];
+        var del = [[${res2.getTempsDelete()}]];
+        var alter = [[${res2.getTempsAlter()}]];
+        var drop = [[${res2.getTempsDrop()}]];
+        var ctx, data, myLineChart, options;
+        Chart.defaults.global.responsive = true;
+        ctx = $('#pie-chart2').get(0).getContext('2d');
+
+        options = {
+            showScale: false,
+            scaleShowGridLines: false,
+            scaleGridLineColor: "rgba(0,0,0,.05)",
+            scaleGridLineWidth: 0,
+            scaleShowHorizontalLines: false,
+            scaleShowVerticalLines: false,
+            bezierCurve: false,
+            bezierCurveTension: 0.4,
+            pointDot: false,
+            pointDotRadius: 0,
+            pointDotStrokeWidth: 2,
+            pointHitDetectionRadius: 20,
+            datasetStroke: true,
+            datasetStrokeWidth: 4,
+            datasetFill: true,
+            legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
+        };
+        data = [
+            {
+                value: create,
+                color: "#3fe143",
+                highlight: "#3fe143",
+                label: "Create"
+            }, {
+                value: update,
+                color: "#faf651",
+                highlight: "#faf651",
+                label: "Update"
+            }, {
+                value: select,
+                color: "#6175fa",
+                highlight: "#6175fa",
+                label: "Select"
+            }, {
+                value: selectAll,
+                color: "#26dcf9",
+                highlight: "#26dcf9",
+                label: "SelectAll"
+            }, {
+                value: del,
+                color: "#fa605d",
+                highlight: "#fa605d",
+                label: "Delete"
+            }, {
+                value: alter,
+                color: "#ffb138",
+                highlight: "#ffb138",
+                label: "Alter"
+            }, {
+                value: drop,
+                color: "#fa7abe",
+                highlight: "#fa7abe",
+                label: "Drop"
+            }
+        ];
+        myLineChart = new Chart(ctx).Pie(data, options);
+    });
+
+
+
+
+
+
+    $(function()
+    {
+        var nbLine = [[${res1.getNbLine()}]];
+        var listeInsert = [[${res1.getListeInsert()}]];
+        var listeInsert2 = [[${res2.getListeInsert()}]];
+        var tab = [];
+        for(var i=1;i<=10;i++)
+        {
+            tab.push(parseInt((nbLine*(10/100))*i));
+        }
+
+        var ctx, data, myLineChart, options;
+        Chart.defaults.global.responsive = true;
+        ctx = $('#line-chart').get(0).getContext('2d');
+        options = {
+            scaleShowGridLines: true,
+            scaleGridLineColor: "rgba(0,0,0,.05)",
+            scaleGridLineWidth: 1,
+            scaleShowHorizontalLines: true,
+            scaleShowVerticalLines: true,
+            bezierCurve: false,
+            bezierCurveTension: 0.4,
+            pointDot: true,
+            pointDotRadius: 4,
+            pointDotStrokeWidth: 1,
+            pointHitDetectionRadius: 20,
+            datasetStroke: true,
+            datasetStrokeWidth: 2,
+            datasetFill: true,
+            legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
+        };
+        data = {
+            labels: tab,
+            datasets: [
+                {
+                    label: "My First dataset",
+                    fillColor: "rgba(26, 188, 156,0.2)",
+                    strokeColor: "#228dbc",
+                    pointColor: "#228dbc",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "#228dbc",
+                    data: listeInsert
+                },
+                {
+                    label: "My First dataset",
+                    fillColor: "rgba(26, 188, 156,0.2)",
+                    strokeColor: "#faaee9",
+                    pointColor: "#faaee9",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "#faaee9",
+                    data: listeInsert2
+                }
+            ]
+        };
+        myLineChart = new Chart(ctx).Line(data, options);
+    });
+
+
+</script>
+
+
+</body>
+
+</html>
