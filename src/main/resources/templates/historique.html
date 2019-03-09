@@ -23,7 +23,7 @@
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 <ul>
-                                    <li th:each="plt: ${liste}">
+                                    <li th:each="plt: ${listeHistorique}">
                                         <a th:text="${plt}" th:href="@{|/historique/${plt}|}"></a>
                                     </li>
                                 </ul>
