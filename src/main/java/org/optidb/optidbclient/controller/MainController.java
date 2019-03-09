@@ -21,13 +21,15 @@ public class MainController {
 
     private static Logger myLog = Logger.getLogger("WarningLogging");
     private String urlListe = "http://192.168.33.10:8080/list";
-    private String varListePlateformes = "listePlateformes";
     private String varPlatform = "platform";
     private String currentVersion = "currentVersion";
+    private Resultat res = null;
+    private ArrayList listeInsert;
 
     @GetMapping({"/liste"})
     public String liste(Model model)
     {
+        String varListePlateformes = "listePlateformes";
         model.addAttribute(varListePlateformes,this.getAllPlatforms());
         return varListePlateformes;
     }
@@ -53,7 +55,7 @@ public class MainController {
                                   @PathVariable(value="line") final int nbLine,
                                   @PathVariable(value="cle") final int cle)
     {
-        model.addAttribute(varPlatform,this.getResultat(name,nbCol,nbLine));
+        model.addAttribute(varPlatform,this.getResultat(name,nbCol,nbLine,cle));
         return "platform_infos";
     }
 
@@ -193,7 +195,7 @@ public class MainController {
     private List<Platform> getAllPlatforms() {
         List<Platform> liste = new ArrayList<>();
         RestTemplate restTemplate = new RestTemplate();
-        String plt = restTemplate.getForObject(URL_LISTE,String.class);
+        String plt = restTemplate.getForObject(urlListe,String.class);
         try
         {
             JSONArray root = new JSONArray(plt);
@@ -211,47 +213,128 @@ public class MainController {
         return liste;
     }
 
+
+    /**
+     *
+     * @param name nom de la BD
+     * @return le Resultat Json
+     */
     private Resultat getResultat(String name)
     {
         String urlPlateforme = "http://192.168.33.10:8080/historique?name="+name;
         return this.readJson(urlPlateforme);
     }
 
+
+    /**
+     *
+     * @param name nom de la BD
+     * @param nbCol nombre de ligne
+     * @param nbLine nombre de colonne
+     * @param cle si clé primaire 1 ou 0
+     * @return le Resultat Json
+     */
     private Resultat getResultat(String name, int nbCol, int nbLine, int cle)
     {
-        String urlPlateforme = "http://192.168.33.10:8080/platform?name="+name+"&col="+nbCol+"&line="+nbLine;
+        String urlPlateforme = "http://192.168.33.10:8080/platform?name="+name+"&col="+nbCol+"&line="+nbLine+"&cle="+cle;
         return this.readJson(urlPlateforme);
     }
 
 
+    /**
+     * Crée une instance de restTemplate et récupere le json
+     * @param url l'url dans lequel il va chercher le resultat
+     * @return le Json du serveur
+     */
+    private String getTemplateJson(String url)
+    {
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.getForObject(url,String.class);
+    }
+
+
+    /**
+     *
+     * @param url du serveur qui va chercher le json
+     * @return le Resultat du json
+     */
+    private Resultat readJson(String url)
+    {
+        String resultatJson = getTemplateJson(url);
+        return this.res = collectDateJson(resultatJson);
+    }
+
+
+    /**
+     * Récupere la listeInsert de l'api
+     * @param liste la clé du json
+     * @return la liste de valeur qui à pour clé @liste
+     */
+    private ArrayList getListeInsert(String liste)
+    {
+        StringBuilder s = new StringBuilder();
+        for(int i=1;i<liste.length()-1;i++)
+        {
+            s = s.append(liste.charAt(i));
+        }
+        return new ArrayList(Arrays.asList(s.toString().split(",")));
+    }
+
+
+    /**
+     * Lis le fichier json pour un résultat
+     * @param resJson le json en type String
+     * @return le Resultat du json
+     */
+    private Resultat collectDateJson(String resJson)
+    {
+        try
+        {
+            JSONObject obj = new JSONObject(resJson);
+            String liste = obj.getString("listeInsert");
+            this.listeInsert = getListeInsert(liste);
+            this.res = new Resultat(obj.getString("platformName"),obj.getInt("nbCol"),obj.getInt("nbLine")
+                    ,obj.getInt("tempsCreate"),this.listeInsert,obj.getInt("tempsUpdate"),
+                    obj.getInt("tempsSelect"),obj.getInt("tempsSelectAll"),obj.getInt("tempsAlter")
+                    ,obj.getInt("tempsDelete"),obj.getInt("tempsDrop"));
+        }
+        catch (JSONException e)
+        {
+            myLog.warning(e.toString());
+        }
+        return this.res;
+    }
+
+
+    /**
+     *
+     * @param bd1 le nom de la 1er BD
+     * @param bd2 le nom de la 2eme BD
+     * @param nbCol nombre de ligne
+     * @param nbLine nombre de colonne
+     * @param cle si clé primaire 1 ou 0
+     * @return une liste de Resultat du Json
+     */
     private List<Resultat> getResultatCompare(String bd1, String bd2, int nbCol, int nbLine, int cle)
     {
         List<Resultat> listeRes = new ArrayList<>();
         String url = "http://192.168.33.10:8080/compare?bda="+bd1+"&bdb="+bd2+"&col="+nbCol+"&line="+nbLine+"&cle="+cle;
-        RestTemplate restTemplate = new RestTemplate();
-        String plt = restTemplate.getForObject(url,String.class);
-        ArrayList listeInsert;
-        Resultat res = null;
+        String resultatJson = getTemplateJson(url);
         try
         {
-            JSONObject root = new JSONObject(plt);
+            JSONObject root = new JSONObject(resultatJson);
             JSONArray listeResu = root.getJSONArray("listResu");
 
             for(int j=0;j<listeResu.length();j++)
             {
                 JSONObject obj = listeResu.getJSONObject(j);
                 String liste = obj.getString("listeInsert");
-                StringBuilder s = new StringBuilder();
-                for(int i=1;i<liste.length()-1;i++)
-                {
-                    s = s.append((liste.charAt(i)));
-                }
-                listeInsert = new ArrayList(Arrays.asList(s.toString().split(",")));
-                res = new Resultat(obj.getString("platformName"),obj.getInt("nbCol"),obj.getInt("nbLine")
-                        ,obj.getInt("tempsCreate"),listeInsert,obj.getInt("tempsUpdate"),
+                this.listeInsert = getListeInsert(liste);
+                this.res = new Resultat(obj.getString("platformName"),obj.getInt("nbCol"),obj.getInt("nbLine")
+                        ,obj.getInt("tempsCreate"),this.listeInsert,obj.getInt("tempsUpdate"),
                         obj.getInt("tempsSelect"),obj.getInt("tempsSelectAll"),obj.getInt("tempsAlter")
                         ,obj.getInt("tempsDelete"),obj.getInt("tempsDrop"));
-                listeRes.add(res);
+                listeRes.add(this.res);
             }
             return listeRes;
 
@@ -263,33 +346,4 @@ public class MainController {
         return null;
     }
 
-
-    private Resultat readJson(String url)
-    {
-        RestTemplate restTemplate = new RestTemplate();
-        String plt = restTemplate.getForObject(url,String.class);
-        Resultat res = null;
-        ArrayList listeInsert;
-        try
-        {
-            JSONObject obj = new JSONObject(plt);
-            String liste = obj.getString("listeInsert");
-            StringBuilder s = new StringBuilder();
-            for(int i=1;i<liste.length()-1;i++)
-            {
-                s = s.append(liste.charAt(i));
-            }
-            listeInsert = new ArrayList(Arrays.asList(s.toString().split(",")));
-            res = new Resultat(obj.getString("platformName"),obj.getInt("nbCol"),obj.getInt("nbLine")
-                    ,obj.getInt("tempsCreate"),listeInsert,obj.getInt("tempsUpdate"),
-                    obj.getInt("tempsSelect"),obj.getInt("tempsSelectAll"),obj.getInt("tempsAlter")
-                    ,obj.getInt("tempsDelete"),obj.getInt("tempsDrop"));
-        }
-        catch (JSONException e)
-        {
-            myLog.warning(e.toString());
-        }
-        return res;
-
-    }
 }

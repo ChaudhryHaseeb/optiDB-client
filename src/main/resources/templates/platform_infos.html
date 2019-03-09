@@ -54,8 +54,10 @@
                         </div>
                         <div class="panel-body">
                             <ul>
+                                <b>Vos paramètres : </b>
                                 <li>Nombre de colonnes : <span th:text="${platform.getNbCol()}"/> </li>
-                                <li>Nombre de lignes : <span th:text="${platform.getNbLine()}"/></li>
+                                <li>Nombre de lignes : <span th:text="${platform.getNbLine()}"/></li><br/>
+                                <b>Vos résultats :</b>
                                 <li>Temps de création : <span th:text="${platform.getTempsCreate()}"/>  Millisecondes </li>
                                 <li>Temps de modification : <span th:text="${platform.getTempsUpdate()}"/> Millisecondes </li>
                                 <li>Temps de selection : <span th:text="${platform.getTempsSelect()}"/> Millisecondes </li>
