@@ -20,11 +20,14 @@
 * Télécharger la box du serveur - [Télécharger la box](https://github.com/jose-lpa/packer-ubuntu_lts/releases/download/v3.1/ubuntu-16.04.box)
 
 ## Description
-
-OptiDB-Client est la partie graphique du projet. C'est avec cette interface que vous aller interagir avec l'api rest (optiDB-server) et tester trois base de données :
+OptiDB est un projet qui test la performance de trois base de données : 
 * Mysql 
 * MariaDB
-* Postgres
+* Postgres  
+
+En indiquant le nombre de colonnes, de lignes et si la table doit contenir ou non une clé primaire, elle va généré un jeu de donnée dans un docker et retourner le temps d'excution des différentes réquêtes.
+Vous vous trouvez sur OptiDB-Client qui est la partie graphique du projet. C'est avec cette interface que vous aller interagir avec l'api rest (optiDB-server) et tester les base de données.
+
 
 
 # Installer l'image avec vagrant
@@ -55,7 +58,7 @@ cd /vagrant
 mvn clean install
 
 # Executer le projet
-java -jar /target
+java -jar target/optidb-client-1.0-Alpha.jar
 
 # Lancer le serveur
 Executez optiDB-server (voir dépôt optiDB-server)
