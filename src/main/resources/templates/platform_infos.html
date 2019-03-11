@@ -6,61 +6,15 @@
 <head th:include="/fragments/header :: head"></head>
 
 
-<body th:fragment="body">
+<body>
 <div id="wrapper">
-    <nav class="navbar navbar-default top-navbar" role="navigation">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href=""><strong><i class="icon fa fa-plane"></i> OptiDB</strong></a>
-
-            <div id="sideNav" href="">
-                <i class="fa fa-bars icon"></i>
-            </div>
-        </div>
-
-        <ul class="nav navbar-top-links navbar-right">
-            <!-- /.dropdown -->
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-                    <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
-                </a>
-                <ul class="dropdown-menu dropdown-user">
-                    <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                    </li>
-                    <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                    </li>
-                    <li class="divider"></li>
-                    <li><a href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-                    </li>
-                </ul>
-                <!-- /.dropdown-user -->
-            </li>
-            <!-- /.dropdown -->
-        </ul>
-    </nav>
     <!--/. NAV TOP  -->
-    <nav class="navbar-default navbar-side" role="navigation">
-        <div class="sidebar-collapse">
-            <ul class="nav" id="main-menu">
+    <nav th:insert="/fragments/navbar_top :: navbar_top"></nav>
 
-                <li>
-                    <a th:href="@{/home}"><i class="fa fa-dashboard"></i> Accueil</a>
-                </li>
-                <li>
-                    <a th:href="@{/liste}"><i class="fa fa-desktop"></i>Liste des plateformes</a>
-                </li>
-            </ul>
-
-        </div>
-
-    </nav>
     <!-- /. NAV SIDE  -->
+    <nav th:insert="/fragments/navbar_side :: navbar_side"></nav>
 
+    <!-- /. Page block  -->
     <div id="page-wrapper" >
         <div class="header">
             <h1 class="page-header">
@@ -71,11 +25,79 @@
 
 
             <div class="row" >
-                <ul>
-                    <li>Temps de création : <span th:text="${platform.getTempsCreate()}"/>  secondes </li>
-                    <li>Temps d'insertion : <span th:text="${platform.getTempsInsert()}"/> secondes </li>
-                    <li>Temps de suppression : <span th:text="${platform.getTempsInsert()}"/> secondes </li>
-                </ul>
+
+                <div class="col-sm-6 col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="card-title">
+                                <div class="title">Info Système</div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <p>
+                                Systeme d'exploitation: Ubuntu 16.04.1<br/>
+                                OSType: linux<br/>
+                                Architecture: x86_64<br/>
+                                CPUs: 1<br/>
+                                Ram: 1.953 GiB<br/>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="card-title">
+                                <div class="title">Representation des temps de requête en milliseconde</div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <ul>
+                                <b>Vos paramètres : </b>
+                                <li>Nombre de colonnes : <span th:text="${platform.getNbCol()}"/> </li>
+                                <li>Nombre de lignes : <span th:text="${platform.getNbLine()}"/></li><br/>
+                                <b>Vos résultats :</b>
+                                <li>Temps de création : <span th:text="${platform.getTempsCreate()}"/>  Millisecondes </li>
+                                <li>Temps de modification : <span th:text="${platform.getTempsUpdate()}"/> Millisecondes </li>
+                                <li>Temps de selection : <span th:text="${platform.getTempsSelect()}"/> Millisecondes </li>
+                                <li>Temps de suppression : <span th:text="${platform.getTempsDelete()}"/> Millisecondes </li>
+                                <li>Temps de modification de la table : <span th:text="${platform.getTempsAlter()}"/> Millisecondes </li>
+                                <li>Temps de suppression de la table : <span th:text="${platform.getTempsDrop()}"/> Millisecondes </li>
+                                <li>Temps de tous les nupplet de table : <span th:text="${platform.getTempsSelectAll()}"/> Millisecondes </li>
+                                <li>Liste des temps d'insertion : <span th:text="${platform.getListeInsert()}"/> Millisecondes </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-xs-12">
+                    <div class="panel panel-default chartJs">
+                        <div class="panel-heading">
+                            <div class="card-title">
+                                <div class="title">Répartition du temps total de l'execution</div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <canvas id="pie-chart" class="chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-xs-12">
+                    <div class="panel panel-default chartJs">
+                        <div class="panel-heading">
+                            <div class="card-title">
+                                <div class="title">Temps d'insertion en milliseconde en fonction du nombre de ligne</div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <canvas id="line-chart" class="chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
             <!-- /. ROW  -->
 
@@ -88,6 +110,133 @@
     </div>
     <!-- /. PAGE WRAPPER  -->
 </div>
+
+<script src="/js/Chart.min.js"></script>
+<script>
+
+    $(function() {
+        var create = [[${platform.getTempsCreate()}]];
+        var update = [[${platform.getTempsUpdate()}]];
+        var select = [[${platform.getTempsSelect()}]];
+        var selectAll = [[${platform.getTempsSelectAll()}]];
+        var del = [[${platform.getTempsDelete()}]];
+        var alter = [[${platform.getTempsAlter()}]];
+        var drop = [[${platform.getTempsDrop()}]];
+        var ctx, data, myLineChart, options;
+        Chart.defaults.global.responsive = true;
+        ctx = $('#pie-chart').get(0).getContext('2d');
+        options = {
+            showScale: false,
+            scaleShowGridLines: false,
+            scaleGridLineColor: "rgba(0,0,0,.05)",
+            scaleGridLineWidth: 0,
+            scaleShowHorizontalLines: false,
+            scaleShowVerticalLines: false,
+            bezierCurve: false,
+            bezierCurveTension: 0.4,
+            pointDot: false,
+            pointDotRadius: 0,
+            pointDotStrokeWidth: 2,
+            pointHitDetectionRadius: 20,
+            datasetStroke: true,
+            datasetStrokeWidth: 4,
+            datasetFill: true,
+            legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
+        };
+        data = [
+            {
+                value: create,
+                color: "#3fe143",
+                highlight: "#3fe143",
+                label: "Create"
+            }, {
+                value: update,
+                color: "#faf651",
+                highlight: "#faf651",
+                label: "Update"
+            }, {
+                value: select,
+                color: "#6175fa",
+                highlight: "#6175fa",
+                label: "Select"
+            }, {
+                value: selectAll,
+                color: "#26dcf9",
+                highlight: "#26dcf9",
+                label: "SelectAll"
+            }, {
+                value: del,
+                color: "#fa605d",
+                highlight: "#fa605d",
+                label: "Delete"
+            }, {
+                value: alter,
+                color: "#ffb138",
+                highlight: "#ffb138",
+                label: "Alter"
+            }, {
+                value: drop,
+                color: "#fa7abe",
+                highlight: "#fa7abe",
+                label: "Drop"
+            }
+        ];
+        myLineChart = new Chart(ctx).Pie(data, options);
+    });
+
+
+
+
+    $(function()
+    {
+        var nbLine = [[${platform.getNbLine()}]];
+        var listeInsert = [[${platform.getListeInsert()}]];
+        var tab = [];
+        for(var i=1;i<=10;i++)
+        {
+            tab.push(parseInt((nbLine*(10/100))*i));
+        }
+
+        var ctx, data, myLineChart, options;
+        Chart.defaults.global.responsive = true;
+        ctx = $('#line-chart').get(0).getContext('2d');
+        options = {
+            scaleShowGridLines: true,
+            scaleGridLineColor: "rgba(0,0,0,.05)",
+            scaleGridLineWidth: 1,
+            scaleShowHorizontalLines: true,
+            scaleShowVerticalLines: true,
+            bezierCurve: false,
+            bezierCurveTension: 0.4,
+            pointDot: true,
+            pointDotRadius: 4,
+            pointDotStrokeWidth: 1,
+            pointHitDetectionRadius: 20,
+            datasetStroke: true,
+            datasetStrokeWidth: 2,
+            datasetFill: true,
+            legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
+        };
+        data = {
+            labels: tab,
+            datasets: [
+                {
+                    label: "My First dataset",
+                    fillColor: "rgba(26, 188, 156,0.2)",
+                    strokeColor: "#228dbc",
+                    pointColor: "#228dbc",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "#228dbc",
+                    data: listeInsert
+                }
+            ]
+        };
+        myLineChart = new Chart(ctx).Line(data, options);
+    });
+
+</script>
+
 
 </body>
 

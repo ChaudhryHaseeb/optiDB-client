@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="/fragments/header :: head"></head>
+
+<body>
+<div id="wrapper">
+    <!--/. NAV TOP  -->
+    <nav th:insert="/fragments/navbar_top :: navbar_top"></nav>
+
+    <!-- /. NAV SIDE  -->
+    <nav th:insert="/fragments/navbar_side :: navbar_side"></nav>
+
+    <!-- /. Page block  -->
+    <div id="page-wrapper" >
+            <div class="row" style="padding-top:50px;padding-left:50px;">
+                <div class="col-md-4 col-sm-4">
+                    <img id="logoDescriptif" th:src="${platform.getLogo()}"/>
+                </div>
+                <div class="col-md-8 col-sm-8">
+                    <h1>Description de <span th:text="${platform.getName()}"/></h1>
+                </div>
+            </div>
+
+
+        <div id="page-inner">
+            <div class="row">
+
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Description
+                        </div>
+
+                        <div class="panel-body">
+                            <span th:text="${platform.getDescription()}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Type de modèle utilisé
+                        </div>
+
+                        <div class="panel-body">
+                            <span th:text="${platform.getTypeModel()}"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Langage de requêtage
+                        </div>
+
+                        <div class="panel-body">
+                            <span th:text="${platform.getRequetage()}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Développeur
+                        </div>
+
+                        <div class="panel-body">
+                            <span th:text="${platform.getDeveloper()}"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Licence
+                        </div>
+
+                        <div class="panel-body">
+                            <span th:text="${platform.getLicense()}"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Année de sortie
+                        </div>
+
+                        <div class="panel-body">
+                            <span th:text="${platform.getInitialRelease()}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Site
+                        </div>
+
+                        <div class="panel-body">
+                            <a th:href="${platform.getWebsite()}"><span th:text="${platform.getWebsite()}"/></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /. ROW  -->
+            <div class="row"  >
+                <footer th:insert="/fragments/footer :: footer"></footer>
+            </div>
+
+        </div>
+        <!-- /. PAGE INNER  -->
+    </div>
+    <!-- /. PAGE WRAPPER  -->
+</div>
+
+</body>

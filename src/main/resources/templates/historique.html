@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head th:include="/fragments/header :: head"></head>
+<body>
+    <div id="wrapper">
+        <!--/. NAV TOP  -->
+        <nav th:insert="/fragments/navbar_top :: navbar_top"></nav>
+        <!-- /. NAV SIDE  -->
+        <nav th:insert="/fragments/navbar_side :: navbar_side"></nav>
+        <div id="page-wrapper" >
+            <div class="header">
+                <h1 class="page-header">
+                    Historique de vos tests
+                </h1>
+            </div>
+            <div id="page-inner">
+
+
+                <div class="row" >
+
+                    <div class="col-sm-6 col-xs-12">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <ul>
+                                    <li th:each="plt: ${listeHistorique}">
+                                        <a th:text="${plt}" th:href="@{|/historique/${plt}|}"></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <footer th:insert="/fragments/footer :: footer"></footer>
+        </div>
+        </div>
+    </div>
+</body>
+</html>

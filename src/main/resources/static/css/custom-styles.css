@@ -668,5 +668,60 @@ font-size: 19px;
   margin: 14px;
 }
 }
+/*Ajouts*/
+.listsimple {
+    text-align: center;
+}
+.listsimple img {
+    max-width: 100px;
+}
+.listsimple p {
+    font-size: 12px;
+    text-align: left;
+}
 
+.logoComparatif {
+    height: 90px;
+}
 
+.descriptionComparatif {
+    height: 200px;
+    overflow: hidden;
+}
+
+#collee {
+    width: 100%;
+    left: 0;
+    margin-left: auto;
+    background-color: rgba(243,106,90,0.8);
+    height: 50px;
+    position: fixed;
+    bottom: 0;
+    float: bottom;
+    display:none;
+}
+#collee > div {
+    background-color: transparent;
+    height: 50px;
+    margin-top: 10px;
+}
+.rowTitre {
+    height:40px;
+}
+.rowLogo {
+    height:60px;
+}
+.rowType {
+    height: 50px;
+}
+.rowRequete {
+    height:60px;
+}
+#logoDescriptif {
+    height: 100px;
+    width: auto;
+}
+
+.platformName {
+    color: white;
+}
