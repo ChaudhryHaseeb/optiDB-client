@@ -14,17 +14,14 @@
 # OptiDB-Client - Projet Master
 
 ## Prérequis
-* OptiDB-server, la partie serveur du projet - [Télécharger optiDB-server](https://github.com/DaJaime/optiDB-server)
+* OptiDB-server, la partie serveur du projet - [Accéder au dépôt optiDB-server](https://github.com/DaJaime/optiDB-server)
 * Virtualbox, outil de virtualisation - [Télécharger Virtualbox](https://www.virtualbox.org/wiki/Downloads)
 * Vagrant, gestionnaire de machine virtuelle - [Télécharger vagrant](https://www.vagrantup.com/downloads.html)
 * Télécharger la box du serveur - [Télécharger la box](https://github.com/jose-lpa/packer-ubuntu_lts/releases/download/v3.1/ubuntu-16.04.box)
 
 ## Description
 
-OptiDB-Client est la partie graphique du projet. C'est avec cette interface que vous aller interagir avec l'api rest (optiDB-server) et tester trois base de données :
-* Mysql 
-* MariaDB
-* Postgres
+OptiDB-Client est la partie client du projet. C'est avec cette interface que vous aller interagir avec l'api rest (optiDB-server) et tester un ensemble de base de données.
 
 
 # Installer l'image avec vagrant
@@ -32,12 +29,21 @@ OptiDB-Client est la partie graphique du projet. C'est avec cette interface que 
 >Pour pouvoir lancer la machine virtuelle avec vagrant il faut d'abord récupérer l'image de la box (lien dans les prérequis)
 Il faut aussi que vous ayez vagrant dans le path
 
+```bash
+# Ouvrez un terminal et aller dans le répertoire de la box
 1. cd $chemin_vers_la_box
+
+# Ajouter la box dans la liste des box de vagrant
 2. vagrant box add --name optiDB ubuntu-16.04.box
+
+# Cloner ou télécharger le dépôt
 3. Cloner ou télécharger le projet
     - git clone https://github.com/ChaudhryHaseeb/optiDB-client.git 
     - télécharger directement le dépôt en cliquant [ici](https://github.com/ChaudhryHaseeb/optiDB-client/archive/master.zip)
-4. vagrant up
+
+# Executez cette commande dans le répertoire du projet
+4. vagrant up 
+```
 
 # Installer le serveur
 >Pour passer à la prochaine étape, vous devez installer le serveur (lien dans les prérequis)  
@@ -46,22 +52,19 @@ Il faut aussi que vous ayez vagrant dans le path
 
 ```bash
 # Accéder au shell
-vagrant ssh
+5. vagrant ssh
 
 # Accéder au répertoire du projet
-cd /vagrant
+6. cd /vagrant
 
-# Build et installer les dépendances
-mvn clean install
+# Dans un nouvel onglet, Executez le serveur
+7. Executez optiDB-server (voir dépôt optiDB-server)
 
-# Executer le projet
-java -jar /target
-
-# Lancer le serveur
-Executez optiDB-server (voir dépôt optiDB-server)
+# Lancer le client
+8. ./scripts/run.sh
 
 # Accéder au site
-http://localhost:8080/home
+9. http://localhost:8080/home
 ```
 
 
