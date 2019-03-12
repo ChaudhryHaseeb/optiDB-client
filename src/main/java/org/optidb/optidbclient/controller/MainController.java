@@ -59,6 +59,7 @@ public class MainController {
         return "platform_infos";
     }
 
+    //Récupération infos
     @GetMapping({"/infos/{id}"})
     public String infos(Model model, @PathVariable(value="id") final String name){
         Platform platforme = null;
