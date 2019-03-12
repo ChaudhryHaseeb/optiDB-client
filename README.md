@@ -29,21 +29,18 @@ OptiDB-Client est la partie client du projet. C'est avec cette interface que vou
 >Pour pouvoir lancer la machine virtuelle avec vagrant il faut d'abord récupérer l'image de la box (lien dans les prérequis)
 Il faut aussi que vous ayez vagrant dans le path
 
-```bash
-# Ouvrez un terminal et aller dans le répertoire de la box
+
 1. cd $chemin_vers_la_box
 
-# Ajouter la box dans la liste des box de vagrant
 2. vagrant box add --name optiDB ubuntu-16.04.box
 
-# Cloner ou télécharger le dépôt
 3. Cloner ou télécharger le projet
     - git clone https://github.com/ChaudhryHaseeb/optiDB-client.git 
     - télécharger directement le dépôt en cliquant [ici](https://github.com/ChaudhryHaseeb/optiDB-client/archive/master.zip)
 
-# Executez cette commande dans le répertoire du projet
-4. vagrant up 
-```
+4. cd optiDB-client
+
+5. vagrant up 
 
 # Installer le serveur
 >Pour passer à la prochaine étape, vous devez installer le serveur (lien dans les prérequis)  
@@ -52,19 +49,19 @@ Il faut aussi que vous ayez vagrant dans le path
 
 ```bash
 # Accéder au shell
-5. vagrant ssh
+6. vagrant ssh
 
 # Accéder au répertoire du projet
-6. cd /vagrant
+7. cd /vagrant
 
 # Dans un nouvel onglet, Executez le serveur
-7. Executez optiDB-server (voir dépôt optiDB-server)
+8. Executez optiDB-server (voir dépôt optiDB-server)
 
 # Lancer le client
-8. ./scripts/run.sh
+9. ./scripts/run.sh
 
 # Accéder au site
-9. http://localhost:8080/home
+10. http://localhost:8080/home
 ```
 
 
