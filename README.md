@@ -21,13 +21,13 @@
 
 ## Description
 
-OptiDB-Client est la partie client du projet. C'est avec cette interface que vous aller interagir avec l'api rest (optiDB-server) et tester un ensemble de base de données.
+OptiDB-Client est la partie client du projet. C'est avec ce site web que vous allez interagir avec l'API REST (optiDB-server) et tester un ensemble de base de données.
 
 
 # Installer l'image avec vagrant
 
->Pour pouvoir lancer la machine virtuelle avec vagrant il faut d'abord récupérer l'image de la box (lien dans les prérequis)
-Il faut aussi que vous ayez vagrant dans le path
+>Pour pouvoir lancer la machine virtuelle avec vagrant, il faut d'abord récupérer l'image de la box (lien dans les prérequis)
+Il faut aussi que vous ayez vagrant dans le path.
 
 
 1. cd $chemin_vers_la_box
@@ -43,7 +43,7 @@ Il faut aussi que vous ayez vagrant dans le path
 5. vagrant up 
 
 # Installer le serveur
->Pour passer à la prochaine étape, vous devez installer le serveur (lien dans les prérequis)  
+> Pour passer à la prochaine étape, vous devez installer le serveur (lien dans les prérequis).
 
 # Lancer le projet
 
