@@ -22,7 +22,7 @@
                                 <h3>Cochez deux historiques afin de pouvoir les comparer</h3>
                                 <form action="#" th:action="@{/compareHistorique}"  method="post" id="formCompareHisto">
                                     <div class="form-group">
-                                        <div class="checkbox col-sm-offset-2 col-sm-10" th:each="plt: ${liste}">
+                                        <div class="checkbox col-sm-offset-2 col-sm-10" th:each="plt: ${listeHistorique}">
                                             <div class="checkbox3 checkbox-round">
                                                 <input type="checkbox" name="compareHisto" th:value="@{|${plt}|}" th:onchange="choixPlt()" />
                                                 <a th:text="${plt}" th:href="@{|/historique/${plt}|}"></a>
