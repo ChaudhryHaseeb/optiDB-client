@@ -84,7 +84,7 @@ public class MainController {
             JSONArray root = new JSONArray(plt);
             for(int i=0;i<root.length();i++) {
                 JSONObject jsonObj = root.getJSONObject(i);
-                Platform obj = new Platform.PlatformBuilder(jsonObj.getString("name"),jsonObj.getString(currentVersion))
+                Platform obj = new Platform.PlatformBuilder(jsonObj.getString("docker"),jsonObj.getString("name"),jsonObj.getString("currentVersion"))
                         .description(jsonObj.getString("description")).typeModel(jsonObj.getString("typeModel"))
                         .logo(jsonObj.getString("logo")).website(jsonObj.getString("website"))
                         .developer(jsonObj.getString("developer")).initialRelease(jsonObj.getString("initialRelease"))
@@ -136,7 +136,7 @@ public class MainController {
             JSONArray root = new JSONArray(plt);
             for(int i=0;i<root.length();i++) {
                 JSONObject jsonObj = root.getJSONObject(i);
-                Platform obj = new Platform.PlatformBuilder(jsonObj.getString("name"),jsonObj.getString(currentVersion))
+                Platform obj = new Platform.PlatformBuilder(jsonObj.getString("docker"),jsonObj.getString("name"),jsonObj.getString("currentVersion"))
                         .description(jsonObj.getString("description")).typeModel(jsonObj.getString("typeModel"))
                         .logo(jsonObj.getString("logo")).website(jsonObj.getString("website"))
                         .developer(jsonObj.getString("developer")).initialRelease(jsonObj.getString("initialRelease"))
@@ -203,7 +203,7 @@ public class MainController {
             for(int i=0;i<root.length();i++)
             {
                 JSONObject jsonObj = root.getJSONObject(i);
-                Platform obj = new Platform(jsonObj.getString("name"),jsonObj.getString(currentVersion));
+                Platform obj = new Platform(jsonObj.getString("docker"),jsonObj.getString("name"),jsonObj.getString("currentVersion"));
                 liste.add(obj);
             }
         }
