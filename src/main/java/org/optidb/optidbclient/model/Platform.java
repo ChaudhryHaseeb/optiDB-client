@@ -8,6 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Platform implements Serializable {
+    private String docker;
     private String name;
     private String currentVersion;
     private String description;
@@ -19,27 +20,38 @@ public class Platform implements Serializable {
     private String license;
     private String requetage;
 
-    public Platform(String name) {
+    public Platform(String docker, String name) {
+        this.docker = docker;
         this.name = name;
         this.currentVersion = this.version();
     }
 
-    public Platform(String name, String curr) {
+    public Platform(String docker, String name, String curr) {
+        this.docker = docker;
         this.name = name;
         this.currentVersion = curr;
     }
 
-    public Platform(String name, String currentVersion, String description, String typeModel, String logo, String website, String developer, String initialRelease, String license, String requetage) {
-        this.name = name;
-        this.currentVersion = currentVersion;
-        this.description = description;
-        this.typeModel = typeModel;
-        this.logo = logo;
-        this.website = website;
-        this.developer = developer;
-        this.initialRelease = initialRelease;
-        this.license = license;
-        this.requetage = requetage;
+    public Platform(PlatformBuilder builder) {
+        this.docker=builder.docker;
+        this.name = builder.name;
+        this.currentVersion = builder.currentVersion;
+        this.description = builder.description;
+        this.typeModel = builder.typeModel;
+        this.logo = builder.logo;
+        this.website = builder.website;
+        this.developer = builder.developer;
+        this.initialRelease = builder.initialRelease;
+        this.license = builder.license;
+        this.requetage = builder.requetage;
+    }
+
+    public String getDcoker() {
+        return docker;
+    }
+
+    public void setDocker(String docker) {
+        this.docker = docker;
     }
 
     public String getName() {
@@ -128,6 +140,72 @@ public class Platform implements Serializable {
         this.requetage = requetage;
     }
 
+    public static class PlatformBuilder {
+        private final String docker;
+        private final String name;
+        private final String currentVersion;
+        private String description;
+        private String typeModel;
+        private String logo;
+        private String website;
+        private String developer;
+        private String initialRelease;
+        private String license;
+        private String requetage;
+
+        public PlatformBuilder(String docker, String name, String currentVersion) {
+            this.docker = docker;
+            this.name = name;
+            this.currentVersion = currentVersion;
+        }
+
+        public PlatformBuilder description(String desc) {
+            this.description = desc;
+            return this;
+        }
+
+        public PlatformBuilder typeModel(String typeModel) {
+            this.typeModel = typeModel;
+            return this;
+        }
+
+        public PlatformBuilder logo(String logo) {
+            this.logo = logo;
+            return this;
+        }
+
+        public PlatformBuilder website(String website) {
+            this.website = website;
+            return this;
+        }
+
+        public PlatformBuilder developer(String developer) {
+            this.developer = developer;
+            return this;
+        }
+
+        public PlatformBuilder initialRelease(String initialRelease) {
+            this.initialRelease = initialRelease;
+            return this;
+        }
+
+        public PlatformBuilder license(String license) {
+            this.license = license;
+            return this;
+        }
+
+        public PlatformBuilder requetage(String requetage) {
+            this.requetage = requetage;
+            return this;
+        }
+
+
+        public Platform build() {
+            return new Platform(this);
+        }
+
+    }
+
     public String version()
     {
         Logger logger = Logger.getLogger("logger");
@@ -142,16 +220,16 @@ public class Platform implements Serializable {
             int exitVal = process.waitFor();
             if (exitVal != 0)
             {
-                logger.log(Level.INFO,"ERROR : Read version");
+                logger.log(Level.SEVERE,"ERROR : Read version");
             }
             return line;
         }
         catch (IOException e)
         {
-            e.printStackTrace();
+            logger.log(Level.WARNING,e.toString());
             return null;
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            logger.log(Level.WARNING,e.toString());
             Thread.currentThread().interrupt();
             return null;
         }
