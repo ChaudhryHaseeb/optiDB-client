@@ -8,7 +8,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Platform implements Serializable {
-    private String docker;
     private String name;
     private String currentVersion;
     private String description;
@@ -20,20 +19,17 @@ public class Platform implements Serializable {
     private String license;
     private String requetage;
 
-    public Platform(String docker, String name) {
-        this.docker = docker;
+    public Platform(String name) {
         this.name = name;
         this.currentVersion = this.version();
     }
 
-    public Platform(String docker, String name, String curr) {
-        this.docker = docker;
+    public Platform(String name, String curr) {
         this.name = name;
         this.currentVersion = curr;
     }
 
     public Platform(PlatformBuilder builder) {
-        this.docker=builder.docker;
         this.name = builder.name;
         this.currentVersion = builder.currentVersion;
         this.description = builder.description;
@@ -44,14 +40,6 @@ public class Platform implements Serializable {
         this.initialRelease = builder.initialRelease;
         this.license = builder.license;
         this.requetage = builder.requetage;
-    }
-
-    public String getDcoker() {
-        return docker;
-    }
-
-    public void setDocker(String docker) {
-        this.docker = docker;
     }
 
     public String getName() {
@@ -141,7 +129,6 @@ public class Platform implements Serializable {
     }
 
     public static class PlatformBuilder {
-        private final String docker;
         private final String name;
         private final String currentVersion;
         private String description;
@@ -153,8 +140,8 @@ public class Platform implements Serializable {
         private String license;
         private String requetage;
 
-        public PlatformBuilder(String docker, String name, String currentVersion) {
-            this.docker = docker;
+        public PlatformBuilder( String name, String currentVersion) {
+
             this.name = name;
             this.currentVersion = currentVersion;
         }

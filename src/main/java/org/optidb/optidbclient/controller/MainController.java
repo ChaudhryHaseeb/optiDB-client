@@ -84,7 +84,7 @@ public class MainController {
             JSONArray root = new JSONArray(plt);
             for(int i=0;i<root.length();i++) {
                 JSONObject jsonObj = root.getJSONObject(i);
-                Platform obj = new Platform.PlatformBuilder(jsonObj.getString("docker"),jsonObj.getString("name"),jsonObj.getString("currentVersion"))
+                Platform obj = new Platform.PlatformBuilder(jsonObj.getString("name"),jsonObj.getString("currentVersion"))
                         .description(jsonObj.getString("description")).typeModel(jsonObj.getString("typeModel"))
                         .logo(jsonObj.getString("logo")).website(jsonObj.getString("website"))
                         .developer(jsonObj.getString("developer")).initialRelease(jsonObj.getString("initialRelease"))
@@ -136,20 +136,26 @@ public class MainController {
             JSONArray root = new JSONArray(plt);
             for(int i=0;i<root.length();i++) {
                 JSONObject jsonObj = root.getJSONObject(i);
-                Platform obj = new Platform.PlatformBuilder(jsonObj.getString("docker"),jsonObj.getString("name"),jsonObj.getString("currentVersion"))
+                Platform obj = new Platform.PlatformBuilder(jsonObj.getString("name"),jsonObj.getString("currentVersion"))
                         .description(jsonObj.getString("description")).typeModel(jsonObj.getString("typeModel"))
                         .logo(jsonObj.getString("logo")).website(jsonObj.getString("website"))
                         .developer(jsonObj.getString("developer")).initialRelease(jsonObj.getString("initialRelease"))
                         .license(jsonObj.getString("license")).requetage(jsonObj.getString("requetage")).build();
                 liste.add(obj);
             }
-            platforme = getPlateformeDescriptif(liste,name);
+            for (Platform it : liste) {
+                if (it.getName().equalsIgnoreCase(name)) {
+                    platforme = it;
+                    break;
+                }
+            }
         }
         catch (JSONException e)
         {
             myLog.warning(e.toString());
         }
         model.addAttribute("platform",platforme);
+        model.addAttribute("liste",liste);
         return "platform_descriptif";
     }
 
@@ -177,22 +183,6 @@ public class MainController {
         return "platform_comparaison";
     }
 
-
-    private Platform getPlateformeDescriptif(List<Platform> liste, String name) {
-        Platform plateforme = null;
-        int i=0;
-        boolean trouve=false;
-        while(i<liste.size() && !trouve) {
-            Platform it = liste.get(i);
-            if(it.getName().equalsIgnoreCase(name)) trouve=true;
-        }
-        if(trouve)
-        {
-            plateforme = liste.get(i);
-        }
-        return plateforme;
-    }
-
     private List<Platform> getAllPlatforms() {
         List<Platform> liste = new ArrayList<>();
         RestTemplate restTemplate = new RestTemplate();
@@ -203,7 +193,7 @@ public class MainController {
             for(int i=0;i<root.length();i++)
             {
                 JSONObject jsonObj = root.getJSONObject(i);
-                Platform obj = new Platform(jsonObj.getString("docker"),jsonObj.getString("name"),jsonObj.getString("currentVersion"));
+                Platform obj = new Platform(jsonObj.getString("name"),jsonObj.getString("currentVersion"));
                 liste.add(obj);
             }
         }
