@@ -96,3 +96,21 @@ function comparerDeuxPlateformes() {
     $('.listePltChoisies').append(content);
 
 }
+
+$( document ).ready(function() {
+    $( "input:checked" ).prop('checked',false);
+});
+
+function choixPlt() {
+    if($( "input:checked" ).length== 2)
+    {
+        $('#validCompareHist').prop('disabled', false);
+        $('#validCompareHist').css("display","initial");
+    }
+    else
+    {
+        $('#validCompareHist').prop('disabled', true);
+        $('#validCompareHist').css("display","none");
+    }
+}
+
