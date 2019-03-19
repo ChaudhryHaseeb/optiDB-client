@@ -33,7 +33,9 @@ function comparate(objet) {
         if(!presence) {
             $.getJSON('http://localhost:8080/js/listeComparaison.json', function(data) {
                 $.each(data, function(i, v) {
+                    console.log(v.name+"="+objet);
                     if (v.name == objet) {
+
                         var bloc = '<div class="col-md-3 col-sm-3 '+v.name+'"><div>'+v.name+'<button href="#" onclick="deleteFromComparaison(\''+v.name+'\')" class="tn btn-danger">X</button></div></div>';
 
                         if(objets[0]==null) {
@@ -94,3 +96,21 @@ function comparerDeuxPlateformes() {
     $('.listePltChoisies').append(content);
 
 }
+
+$( document ).ready(function() {
+    $( "input:checked" ).prop('checked',false);
+});
+
+function choixPlt() {
+    if($( "input:checked" ).length== 2)
+    {
+        $('#validCompareHist').prop('disabled', false);
+        $('#validCompareHist').css("display","initial");
+    }
+    else
+    {
+        $('#validCompareHist').prop('disabled', true);
+        $('#validCompareHist').css("display","none");
+    }
+}
+

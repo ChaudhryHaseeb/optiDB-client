@@ -12,7 +12,7 @@
     "requetage": "SQL"
   },
   {
-    "name": "PostGreSQL",
+    "name": "Postgres",
     "version": "-",
     "description": "PostgreSQL est un Système de Gestion de Base de Données (SBGD) libre disponible sous licence BSD. Ce système multi-plateforme est largement connu et réputé à travers le monde, notamment pour son comportement stable et pour être très respectueux des normes ANSI SQL. Ce projet libre n’est pas géré par une entreprise mais par une communauté de développeurs.\nLa première version de PostgreSQL date de 1996. A l’origine il s’agit de la base de données Ingres, développé par Michael Stonebraker, qui a été reprogrammé de zéro en 1985 sous le nom Postgres (post-ingres). SQL a été ajouté à Postgres en 1995 sous le nom de projet Postgres95 et le nom à évolué en PostgreSQL en 1996.",
     "typeModel": "Relationnel",
@@ -33,7 +33,7 @@
     "developer": "MariaDB Foundation",
     "initialRelease": 2009,
     "license": "Open Source - GPL v2",
-    "requetage": ""
+    "requetage": "SQL"
   },
   {
     "name": "SQLite",

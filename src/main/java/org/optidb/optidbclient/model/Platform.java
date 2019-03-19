@@ -140,7 +140,8 @@ public class Platform implements Serializable {
         private String license;
         private String requetage;
 
-        public PlatformBuilder(String name, String currentVersion) {
+        public PlatformBuilder( String name, String currentVersion) {
+
             this.name = name;
             this.currentVersion = currentVersion;
         }
