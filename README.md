@@ -23,6 +23,10 @@
 
 OptiDB-Client est la partie client du projet. C'est avec ce site web que vous allez interagir avec l'API REST (optiDB-server) et tester un ensemble de base de données.
 
+En indiquant le nombre de colonnes, de lignes et si la table doit contenir ou non une clé primaire, elle va généré un jeu de donnée dans un docker et retourner le temps d'excution des différentes réquêtes.
+Vous vous trouvez sur OptiDB-Client qui est la partie graphique du projet. C'est avec cette interface que vous aller interagir avec l'api rest (optiDB-server) et tester les base de données.
+
+
 
 # Installer l'image avec vagrant
 
