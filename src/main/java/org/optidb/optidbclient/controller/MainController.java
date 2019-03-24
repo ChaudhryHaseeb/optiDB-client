@@ -278,7 +278,7 @@ public class MainController {
      * @param liste la clé du json
      * @return la liste de valeur qui à pour clé @liste
      */
-    private ArrayList getListeInsert(String liste)
+    public ArrayList getListeInsert(String liste)
     {
         StringBuilder s = new StringBuilder();
         for(int i=1;i<liste.length()-1;i++)
